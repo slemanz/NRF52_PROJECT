@@ -1,9 +1,9 @@
 CC=arm-none-eabi-gcc
 MACH=cortex-m4
+LINKER_SCRIPT=nrf52_ld.ld
 CFLAGS= -c -mcpu=$(MACH) -mthumb -mfloat-abi=soft -std=gnu11 -Wall -O0 
-LDFLAGS =  -mcpu=$(MACH) -mthumb -mfloat-abi=soft --specs=nano.specs -T stm32_ls.ld -Wl,-Map=Build/final.map
+LDFLAGS =  -mcpu=$(MACH) -mthumb -mfloat-abi=soft --specs=nano.specs -T nrf52_ls.ld -Wl,-Map=Build/final.map
 OBJCOPY=arm-none-eabi-objcopy
-LINKER_SCRIPT=stm32_ls.ld
 
 ###########################################
 #				 INCLUDES

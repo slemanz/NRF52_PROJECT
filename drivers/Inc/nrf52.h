@@ -4,7 +4,9 @@
 // this header file describes the microcontroller
 #include <stdint.h>
 #include <stdbool.h>
+
 #define __vo volatile
+#define MMIO32(addr) (*(volatile uint32_t *)(addr))
 
 
 /*******************START: Processor Specific Details *************************/
@@ -420,7 +422,6 @@ typedef struct
  *		SCB
  */
 
-#define MMIO32(addr) (*(volatile uint32_t *)(addr))
 
 
 
