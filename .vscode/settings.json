@@ -1,0 +1,6 @@
+{
+    "files.associations": {
+        "nrf52.h": "c",
+        "driver_gpio.h": "c"
+    }
+}

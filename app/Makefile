@@ -18,35 +18,18 @@ INCLUDES+= -I ../shared/Inc/
 # Source files
 
 OBJS		+= Build/main.o
-OBJS		+= Build/stm32_startup.o
-OBJS		+= Build/gpio.o
-OBJS		+= Build/systick.o
-OBJS		+= Build/system.o
-OBJS		+= Build/timer.o
+OBJS		+= Build/nrf52_startup.o
 OBJS		+= Build/syscalls.o
-OBJS		+= Build/uart.o
-OBJS		+= Build/ring-buffer.o
-OBJS		+= Build/lcd.o
-OBJS		+= Build/buttons.o
 
 all: Build/final.elf
 
 Build/%.o: Src/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o Build/$(*).o Src/$(*).c
 
-Build/%.o: Src/%.S
-	$(CC) $(CFLAGS) $(INCLUDES) -o Build/$(*).o Src/$(*).S
-
-Build/%.o: ../shared/Src/core/%.c
-	$(CC) $(CFLAGS) $(INCLUDES) -o Build/$(*).o ../shared/Src/core/$(*).c
-
-Build/%.o: ../shared/Src/%.c
-	$(CC) $(CFLAGS) $(INCLUDES) -o Build/$(*).o ../shared/Src/$(*).c
-
 Build/%.o: ../drivers/Src/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o Build/$(*).o ../drivers/Src/$(*).c
 
-Build/stm32_startup.o: stm32_startup.c
+Build/nrf52_startup.o: nrf52_startup.c
 	$(CC) $(CFLAGS) -o $@ $^ 
 
 Build/final.elf: $(OBJS)
