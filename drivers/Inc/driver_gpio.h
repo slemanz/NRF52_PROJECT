@@ -22,7 +22,7 @@ typedef struct
 
 typedef struct
 {
-	GPIO_RegDef_t *pGPIOx; /* hold the base address of the GPIO port which the pin belongs */
+	GPIOP_RegDef_t *pGPIOx; /* hold the base address of the GPIO port which the pin belongs */
 	GPIO_PinConfig_t GPIO_PinConfig; /* this holds GPIO pin configuration settings */
 }GPIO_Handle_t;
 
@@ -65,21 +65,21 @@ typedef struct
 /*
  *  Peripheral clock setup
  */
-void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi);
+void GPIO_PeriClockControl(GPIOP_RegDef_t *pGPIOx, uint8_t EnorDi);
 
 
 /*
  * Init and De-init
  */
 void GPIO_Init(GPIO_Handle_t *pGPIOHandle);
-void GPIO_DeInit(GPIO_RegDef_t *pGPIOx);
+void GPIO_DeInit(GPIOP_RegDef_t *pGPIOx);
 
 
 /*
  * Data read and write
  */
-uint8_t  GPIO_ReadFromInputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber);
-void GPIO_WriteToOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t Value);
-void GPIO_ToggleOutputPin(GPIO_RegDef_t *pGPIOx, uint8_t PinNumber);
+uint8_t  GPIO_ReadFromInputPin(GPIOP_RegDef_t *pGPIOx, uint8_t PinNumber);
+void GPIO_WriteToOutputPin(GPIOP_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t Value);
+void GPIO_ToggleOutputPin(GPIOP_RegDef_t *pGPIOx, uint8_t PinNumber);
 
 #endif /* INC_GPIO_H_ */
