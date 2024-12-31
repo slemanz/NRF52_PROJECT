@@ -87,7 +87,7 @@ void GPIO_DeInit(GPIOP_RegDef_t *pGPIOx);
  * Data read and write
  */
 uint8_t  GPIO_ReadFromInputPin(GPIOP_RegDef_t *pGPIOx, uint8_t PinNumber);
-void GPIO_WriteToOutputPin(GPIOP_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t Value);
+void GPIO_WriteToOutputPin(GPIOP_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t value);
 void GPIO_ToggleOutputPin(GPIOP_RegDef_t *pGPIOx, uint8_t PinNumber);
 
 #endif /* INC_GPIO_H_ */
