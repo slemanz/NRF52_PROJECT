@@ -21,6 +21,8 @@ OBJS		+= Build/main.o
 OBJS		+= Build/nrf52_startup.o
 OBJS		+= Build/syscalls.o
 
+OBJS		+= Build/driver_gpio.o
+
 all: Build/final.elf
 
 Build/%.o: Src/%.c

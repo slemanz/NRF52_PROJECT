@@ -3,8 +3,6 @@
 
 #include "nrf52.h"
 
-
-
 /*
  * This is a configuration structure for a GPIO pin
  */
@@ -47,6 +45,22 @@ typedef struct
 #define GPIO_PIN_NO_13		13
 #define GPIO_PIN_NO_14		14
 #define GPIO_PIN_NO_15		15
+#define GPIO_PIN_NO_16		16
+#define GPIO_PIN_NO_17		17
+#define GPIO_PIN_NO_18		18
+#define GPIO_PIN_NO_19		19
+#define GPIO_PIN_NO_20		20
+#define GPIO_PIN_NO_21		21
+#define GPIO_PIN_NO_22		22
+#define GPIO_PIN_NO_23		23
+#define GPIO_PIN_NO_24		24
+#define GPIO_PIN_NO_25		25
+#define GPIO_PIN_NO_26		26
+#define GPIO_PIN_NO_27		27
+#define GPIO_PIN_NO_28		28
+#define GPIO_PIN_NO_29		29
+#define GPIO_PIN_NO_30		30
+#define GPIO_PIN_NO_31		31
 
 
 /*
@@ -61,12 +75,6 @@ typedef struct
  * 								APIs supported by this driver
  * 					for more information check the function definitions
  ********************************************************************************************/
-
-/*
- *  Peripheral clock setup
- */
-void GPIO_PeriClockControl(GPIOP_RegDef_t *pGPIOx, uint8_t EnorDi);
-
 
 /*
  * Init and De-init
