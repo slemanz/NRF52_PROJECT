@@ -80,10 +80,10 @@ typedef struct
  * 	Peripheral definitions 
  */
 
-#define GPIOP0			((GPIOP_RegDef_t*)(GPIOP0_BASEADDR + 0x304))
-#define GPIOP1			((GPIOP_RegDef_t*)(GPIOP1_BASEADDR + 0x304))
-#define GPIOP0_CNF		((GPIOP_CNF_t*)(GPIOP0_BASEADDR + 0x700))
-#define GPIOP1_CNF		((GPIOP_CNF_t*)(GPIOP1_BASEADDR + 0x700))
+#define GPIOP0			((GPIOP_RegDef_t*)(GPIOP0_BASEADDR + 0x504U))
+#define GPIOP1			((GPIOP_RegDef_t*)(GPIOP1_BASEADDR + 0x504U))
+#define GPIOP0_CNF		((GPIOP_CNF_t*)(GPIOP0_BASEADDR + 0x700U))
+#define GPIOP1_CNF		((GPIOP_CNF_t*)(GPIOP1_BASEADDR + 0x700U))
 /*
  * some generic macros
  */
