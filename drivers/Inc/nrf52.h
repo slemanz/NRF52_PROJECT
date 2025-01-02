@@ -49,8 +49,9 @@
  * Base addresses of peripherals
  */
 
-#define GPIOP0_BASEADDR						(0x50000000U)
-#define GPIOP1_BASEADDR						(0x50000300U)
+#define GPIOP0_BASEADDR						(0x50000000UL)
+#define GPIOP1_BASEADDR						(0x50000300UL)
+#define UART_BASEADDR 						(0x40002000UL)
 
 
 #define RCC_BASEADDR						(AHB1PERIPH_BASE + 0x3800U)
@@ -76,6 +77,50 @@ typedef struct
 	__vo uint32_t CNF[32];
 }GPIOP_CNF_t;
 
+typedef struct
+{
+	__vo uint32_t STARTRX;
+	__vo uint32_t STOPRX;
+	__vo uint32_t STARTTX;
+	__vo uint32_t STOPTX;
+	__vo uint32_t RESERVERD[3];
+	__vo uint32_t SUSPEND;
+}UART_TASKS_t;
+
+typedef struct
+{
+	__vo uint32_t CTS;
+	__vo uint32_t NCTS;
+	__vo uint32_t RXDRDY;
+	__vo uint32_t RESERVERD0[4];
+	__vo uint32_t TXDRDY;
+	__vo uint32_t RESERVERD1;
+	__vo uint32_t ERROR;
+	__vo uint32_t RESERVERD2[7];
+	__vo uint32_t RXTO;
+}UART_EVENTS_t;
+
+typedef struct
+{
+	__vo uint32_t SET;
+	__vo uint32_t CLR;
+}UART_INTEN_t;
+
+typedef struct
+{
+	__vo uint32_t ENABLE;
+	__vo uint32_t RESERVERD0;
+	__vo uint32_t PSEL_RTS;
+	__vo uint32_t PSEL_TXD;
+	__vo uint32_t PSEL_CTS;
+	__vo uint32_t PSEL_RXD;
+	__vo uint32_t RXD;
+	__vo uint32_t TXD;
+	__vo uint32_t RESERVERD1;
+	__vo uint32_t BAUDRATE;
+}UART_RegDef_t;
+
+
 /*
  * 	Peripheral definitions 
  */
@@ -84,6 +129,13 @@ typedef struct
 #define GPIOP1			((GPIOP_RegDef_t*)(GPIOP1_BASEADDR + 0x504U))
 #define GPIOP0_CNF		((GPIOP_CNF_t*)(GPIOP0_BASEADDR + 0x700U))
 #define GPIOP1_CNF		((GPIOP_CNF_t*)(GPIOP1_BASEADDR + 0x700U))
+
+
+#define UART_TASKS	 		((UART_TASKS_t*)(UART_BASEADDR + 0x0000U))
+#define UART_EVENTS 		((UART_EVENTS_t*)(UART_BASEADDR + 0x0100U))
+#define UART_INTEN			((UART_INTEN_t*)(UART_BASEADDR + 0x0304U))
+#define UART_CONFIG			(*(__vo uint32_t*)(UART_BASEADDR + 0x056CU))
+#define UART 				((UART_RegDef_t*)(UART_BASEADDR + 0x0500))
 /*
  * some generic macros
  */
