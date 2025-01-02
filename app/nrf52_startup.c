@@ -22,7 +22,7 @@ void __libc_init_array(void);
 
 
 
-/* Functions prototypes of STM32F401 system exceptions and IRQ handlers */
+/* Functions prototypes of NRF52840 system exceptions and IRQ handlers */
 void Reset_Handler(void);
 
 
@@ -35,60 +35,54 @@ void SVC_Handler                    (void) __attribute__ ((weak, alias("Default_
 void DebugMon_Handler               (void) __attribute__ ((weak, alias("Default_Handler")));
 void PendSV_Handler                 (void) __attribute__ ((weak, alias("Default_Handler")));
 void SysTick_Handler                (void) __attribute__ ((weak, alias("Default_Handler")));
-void EXTI16_PVD_IRQHandler          (void) __attribute__ ((weak, alias("Default_Handler")));
-void TAMP_STAMP_IRQHandler        	(void) __attribute__ ((weak, alias("Default_Handler")));
-void EXTI22_RTC_WKUP_IRQHandler   	(void) __attribute__ ((weak, alias("Default_Handler")));
-void FLASH_IRQHandler             	(void) __attribute__ ((weak, alias("Default_Handler")));
-void RCC_IRQHandler               	(void) __attribute__ ((weak, alias("Default_Handler")));
-void EXTI0_IRQHandler             	(void) __attribute__ ((weak, alias("Default_Handler")));
-void EXTI1_IRQHandler             	(void) __attribute__ ((weak, alias("Default_Handler")));
-void EXTI2_IRQHandler             	(void) __attribute__ ((weak, alias("Default_Handler")));
-void EXTI3_IRQHandler             	(void) __attribute__ ((weak, alias("Default_Handler")));
-void EXTI4_IRQHandler             	(void) __attribute__ ((weak, alias("Default_Handler")));
-void DMA1_Stream0_IRQHandler      	(void) __attribute__ ((weak, alias("Default_Handler")));
-void DMA1_Stream1_IRQHandler      	(void) __attribute__ ((weak, alias("Default_Handler")));
-void DMA1_Stream2_IRQHandler      	(void) __attribute__ ((weak, alias("Default_Handler")));
-void DMA1_Stream3_IRQHandler      	(void) __attribute__ ((weak, alias("Default_Handler")));
-void DMA1_Stream4_IRQHandler      	(void) __attribute__ ((weak, alias("Default_Handler")));
-void DMA1_Stream5_IRQHandler      	(void) __attribute__ ((weak, alias("Default_Handler")));
-void DMA1_Stream6_IRQHandler      	(void) __attribute__ ((weak, alias("Default_Handler")));
-void ADC_IRQHandler               	(void) __attribute__ ((weak, alias("Default_Handler")));
-void EXTI9_5_IRQHandler           	(void) __attribute__ ((weak, alias("Default_Handler")));
-void TIM1_BRK_TIM9_IRQHandler     	(void) __attribute__ ((weak, alias("Default_Handler")));
-void TIM1_UP_TIM10_IRQHandler     	(void) __attribute__ ((weak, alias("Default_Handler")));
-void TIM1_TRG_COM_TIM11_IRQHandler	(void) __attribute__ ((weak, alias("Default_Handler")));
-void TIM1_CC_IRQHandler           	(void) __attribute__ ((weak, alias("Default_Handler")));
-void TIM2_IRQHandler              	(void) __attribute__ ((weak, alias("Default_Handler")));
-void TIM3_IRQHandler              	(void) __attribute__ ((weak, alias("Default_Handler")));
-void TIM4_IRQHandler              	(void) __attribute__ ((weak, alias("Default_Handler")));
-void I2C1_EV_IRQHandler           	(void) __attribute__ ((weak, alias("Default_Handler")));
-void I2C1_ER_IRQHandler           	(void) __attribute__ ((weak, alias("Default_Handler")));
-void I2C2_EV_IRQHandler           	(void) __attribute__ ((weak, alias("Default_Handler")));
-void I2C2_ER_IRQHandler           	(void) __attribute__ ((weak, alias("Default_Handler")));
-void SPI1_IRQHandler              	(void) __attribute__ ((weak, alias("Default_Handler")));
-void SPI2_IRQHandler              	(void) __attribute__ ((weak, alias("Default_Handler")));
-void USART1_IRQHandler            	(void) __attribute__ ((weak, alias("Default_Handler")));
-void USART2_IRQHandler            	(void) __attribute__ ((weak, alias("Default_Handler")));
-void EXTI15_10_IRQHandler         	(void) __attribute__ ((weak, alias("Default_Handler")));
-void EXTI17_RTC_Alarm_IRQHandler  	(void) __attribute__ ((weak, alias("Default_Handler")));
-void EXTI18_OTG_FS_WKUP_IRQHandler	(void) __attribute__ ((weak, alias("Default_Handler")));
-void DMA1_Stream7_IRQHandler      	(void) __attribute__ ((weak, alias("Default_Handler")));
-void SDIO_IRQHandler              	(void) __attribute__ ((weak, alias("Default_Handler")));
-void TIM5_IRQHandler              	(void) __attribute__ ((weak, alias("Default_Handler")));
-void SPI3_IRQHandler              	(void) __attribute__ ((weak, alias("Default_Handler")));
-void DMA2_Stream0_IRQHandler      	(void) __attribute__ ((weak, alias("Default_Handler")));
-void DMA2_Stream1_IRQHandler      	(void) __attribute__ ((weak, alias("Default_Handler")));
-void DMA2_Stream2_IRQHandler      	(void) __attribute__ ((weak, alias("Default_Handler")));
-void DMA2_Stream3_IRQHandler      	(void) __attribute__ ((weak, alias("Default_Handler")));
-void DMA2_Stream4_IRQHandler      	(void) __attribute__ ((weak, alias("Default_Handler")));
-void OTG_FS_IRQHandler            	(void) __attribute__ ((weak, alias("Default_Handler")));
-void DMA2_Stream5_IRQHandler      	(void) __attribute__ ((weak, alias("Default_Handler")));
-void DMA2_Stream6_IRQHandler      	(void) __attribute__ ((weak, alias("Default_Handler")));
-void DMA2_Stream7_IRQHandler      	(void) __attribute__ ((weak, alias("Default_Handler")));
-void USART6_IRQHandler            	(void) __attribute__ ((weak, alias("Default_Handler")));
-void I2C3_EV_IRQHandler           	(void) __attribute__ ((weak, alias("Default_Handler")));
-void I2C3_ER_IRQHandler           	(void) __attribute__ ((weak, alias("Default_Handler")));
-void SPI4_IRQHandler              	(void) __attribute__ ((weak, alias("Default_Handler")));
+void ID0_IRQHandler                 (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID1_IRQHandler                 (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID2_IRQHandler                 (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID3_IRQHandler                 (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID4_IRQHandler                 (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID5_IRQHandler                 (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID6_IRQHandler                 (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID7_IRQHandler                 (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID8_IRQHandler                 (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID9_IRQHandler                 (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID10_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID11_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID12_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID13_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID14_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID15_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID16_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID17_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID18_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID19_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID20_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID21_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID22_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID23_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID24_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID25_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID26_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID27_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID28_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID29_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID30_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID31_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID32_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID33_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID34_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID35_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID36_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID37_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID38_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID39_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID40_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID41_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID42_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID43_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID44_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID45_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID46_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
+void ID47_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
 
 uint32_t vectors[] __attribute__((section(".isr_vector"))) = {
     STACK_START,
@@ -107,91 +101,54 @@ uint32_t vectors[] __attribute__((section(".isr_vector"))) = {
     0,
     (uint32_t)PendSV_Handler,
     (uint32_t)SysTick_Handler,
-    0,
-    (uint32_t)EXTI16_PVD_IRQHandler,
-    (uint32_t)TAMP_STAMP_IRQHandler,
-    (uint32_t)EXTI22_RTC_WKUP_IRQHandler,
-    (uint32_t)FLASH_IRQHandler,
-    (uint32_t)RCC_IRQHandler,
-    (uint32_t)EXTI0_IRQHandler,
-    (uint32_t)EXTI1_IRQHandler,
-    (uint32_t)EXTI2_IRQHandler,
-    (uint32_t)EXTI3_IRQHandler,
-    (uint32_t)EXTI4_IRQHandler,
-    (uint32_t)DMA1_Stream0_IRQHandler,
-    (uint32_t)DMA1_Stream1_IRQHandler,
-    (uint32_t)DMA1_Stream2_IRQHandler,
-    (uint32_t)DMA1_Stream3_IRQHandler,
-    (uint32_t)DMA1_Stream4_IRQHandler,
-    (uint32_t)DMA1_Stream5_IRQHandler,
-    (uint32_t)DMA1_Stream6_IRQHandler,
-    (uint32_t)ADC_IRQHandler,
-    0,              			
-    0,              			
-    0,              			
-    0,              			
-    (uint32_t)EXTI9_5_IRQHandler,
-    (uint32_t)TIM1_BRK_TIM9_IRQHandler,
-    (uint32_t)TIM1_UP_TIM10_IRQHandler,
-    (uint32_t)TIM1_TRG_COM_TIM11_IRQHandler,
-    (uint32_t)TIM1_CC_IRQHandler,
-    (uint32_t)TIM2_IRQHandler,
-    (uint32_t)TIM3_IRQHandler,
-    (uint32_t)TIM4_IRQHandler,
-    (uint32_t)I2C1_EV_IRQHandler,
-    (uint32_t)I2C1_ER_IRQHandler,
-    (uint32_t)I2C2_EV_IRQHandler,
-    (uint32_t)I2C2_ER_IRQHandler,
-    (uint32_t)SPI1_IRQHandler,
-    (uint32_t)SPI2_IRQHandler,
-    (uint32_t)USART1_IRQHandler,
-    (uint32_t)USART2_IRQHandler,
-    0,
-    (uint32_t)EXTI15_10_IRQHandler,
-    (uint32_t)EXTI17_RTC_Alarm_IRQHandler,
-    (uint32_t)EXTI18_OTG_FS_WKUP_IRQHandler,
-    0,		
-    0,		
-    0,		
-    0,		
-    (uint32_t)DMA1_Stream7_IRQHandler,
-    0,
-    (uint32_t)SDIO_IRQHandler,
-    (uint32_t)TIM5_IRQHandler,
-    (uint32_t)SPI3_IRQHandler,
-    0,             			
-    0,             			
-    0,             			
-    0,             			
-    (uint32_t)DMA2_Stream0_IRQHandler,
-    (uint32_t)DMA2_Stream1_IRQHandler,
-    (uint32_t)DMA2_Stream2_IRQHandler,
-    (uint32_t)DMA2_Stream3_IRQHandler,
-    (uint32_t)DMA2_Stream4_IRQHandler,
-    0,     			
-    0,     			
-    0,     			
-    0,     			
-    0,     			
-    0,     			
-    (uint32_t)OTG_FS_IRQHandler,
-    (uint32_t)DMA2_Stream5_IRQHandler,
-    (uint32_t)DMA2_Stream6_IRQHandler,
-    (uint32_t)DMA2_Stream7_IRQHandler,
-    (uint32_t)USART6_IRQHandler,
-    (uint32_t)I2C3_EV_IRQHandler,
-    (uint32_t)I2C3_ER_IRQHandler,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    0,
-    (uint32_t)SPI4_IRQHandler              			
+    (uint32_t)ID0_IRQHandler,
+    (uint32_t)ID1_IRQHandler,
+    (uint32_t)ID2_IRQHandler,
+    (uint32_t)ID3_IRQHandler,
+    (uint32_t)ID4_IRQHandler,
+    (uint32_t)ID5_IRQHandler,
+    (uint32_t)ID6_IRQHandler,
+    (uint32_t)ID7_IRQHandler,
+    (uint32_t)ID8_IRQHandler,
+    (uint32_t)ID9_IRQHandler,
+    (uint32_t)ID10_IRQHandler,
+    (uint32_t)ID11_IRQHandler,
+    (uint32_t)ID12_IRQHandler,
+    (uint32_t)ID13_IRQHandler,
+    (uint32_t)ID14_IRQHandler,
+    (uint32_t)ID15_IRQHandler,
+    (uint32_t)ID16_IRQHandler,
+    (uint32_t)ID17_IRQHandler,
+    (uint32_t)ID18_IRQHandler,
+    (uint32_t)ID19_IRQHandler,
+    (uint32_t)ID20_IRQHandler,
+    (uint32_t)ID21_IRQHandler,
+    (uint32_t)ID22_IRQHandler,
+    (uint32_t)ID23_IRQHandler,
+    (uint32_t)ID24_IRQHandler,
+    (uint32_t)ID25_IRQHandler,
+    (uint32_t)ID26_IRQHandler,
+    (uint32_t)ID27_IRQHandler,
+    (uint32_t)ID28_IRQHandler,
+    (uint32_t)ID29_IRQHandler,
+    (uint32_t)ID30_IRQHandler,
+    (uint32_t)ID31_IRQHandler,
+    (uint32_t)ID32_IRQHandler,
+    (uint32_t)ID33_IRQHandler,
+    (uint32_t)ID34_IRQHandler,
+    (uint32_t)ID35_IRQHandler,
+    (uint32_t)ID36_IRQHandler,
+    (uint32_t)ID37_IRQHandler,
+    (uint32_t)ID38_IRQHandler,
+    (uint32_t)ID39_IRQHandler,
+    (uint32_t)ID40_IRQHandler,
+    (uint32_t)ID41_IRQHandler,
+    (uint32_t)ID42_IRQHandler,
+    (uint32_t)ID43_IRQHandler,
+    (uint32_t)ID44_IRQHandler,
+    (uint32_t)ID45_IRQHandler,
+    (uint32_t)ID46_IRQHandler,
+    (uint32_t)ID47_IRQHandler,
 };
 
 void Default_Handler(void)
