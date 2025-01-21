@@ -2,8 +2,6 @@
 #include "nrf52.h"
 #include "system.h"
 
-#define GPIO_P0_BASEADDR        0x50000000U
-
 void setup_gpio(void);
 
 // blue  -> P0.6
@@ -27,20 +25,23 @@ int main(void)
     setup_gpio();
     system_init();
 
+    uint64_t start_time = system_get_ticks();
     uint8_t cnt = 0;
+
     while (1)
     {   
-        GPIO_WriteToOutputPin(GPIOP0, LED_GREEN_PIN, GPIO_PIN_SET);
-        GPIO_WriteToOutputPin(GPIOP0, LED_RED_PIN, GPIO_PIN_SET);
-        GPIO_WriteToOutputPin(GPIOP0, LED_BLUE_PIN, GPIO_PIN_SET);
-
-        if(leds_pin[cnt] != 0)
+        if((system_get_ticks() - start_time) >= 1000)
         {
-            GPIO_WriteToOutputPin(GPIOP0, leds_pin[cnt], GPIO_PIN_RESET);
+            GPIO_WriteToOutputPin(GPIOP0, LED_GREEN_PIN, GPIO_PIN_SET);
+            GPIO_WriteToOutputPin(GPIOP0, LED_RED_PIN, GPIO_PIN_SET);
+            GPIO_WriteToOutputPin(GPIOP0, LED_BLUE_PIN, GPIO_PIN_SET);
+
+            if(leds_pin[cnt] != 0) GPIO_WriteToOutputPin(GPIOP0, leds_pin[cnt], GPIO_PIN_RESET);
+
+            cnt++;
+            cnt &= 0x3;
+            start_time = system_get_ticks();
         }
-        cnt++;
-        cnt &= 0x3;
-        delay_cycles(5000000);
     }
 }
 
