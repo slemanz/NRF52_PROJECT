@@ -1,5 +1,6 @@
 // Author: William Sleman @ 2024/25
 #include "nrf52.h"
+#include "system.h"
 
 #define GPIO_P0_BASEADDR        0x50000000U
 
@@ -24,6 +25,7 @@ void delay_cycles(uint32_t cycles)
 int main(void)
  {
     setup_gpio();
+    system_init();
 
     uint8_t cnt = 0;
     while (1)

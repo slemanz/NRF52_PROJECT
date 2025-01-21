@@ -24,6 +24,8 @@ OBJS		+= Build/syscalls.o
 OBJS		+= Build/driver_gpio.o
 OBJS		+= Build/driver_systick.o
 
+OBJS		+= Build/system.o
+
 all: Build/final.elf
 
 Build/%.o: Src/%.c
@@ -31,6 +33,9 @@ Build/%.o: Src/%.c
 
 Build/%.o: ../drivers/Src/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o Build/$(*).o ../drivers/Src/$(*).c
+
+Build/%.o: ../shared/Src/%.c
+	$(CC) $(CFLAGS) $(INCLUDES) -o Build/$(*).o ../shared/Src/$(*).c
 
 Build/nrf52_startup.o: nrf52_startup.c
 	$(CC) $(CFLAGS) -o $@ $^ 
