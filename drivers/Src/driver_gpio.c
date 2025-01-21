@@ -26,3 +26,8 @@ void GPIO_WriteToOutputPin(GPIOP_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t va
         pGPIOx->OUT &= ~(1 << PinNumber);
     }
 }
+
+void GPIO_ToggleOutputPin(GPIOP_RegDef_t *pGPIOx, uint8_t PinNumber)
+{
+        pGPIOx->OUT ^= (1 << PinNumber);
+}
