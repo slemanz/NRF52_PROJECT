@@ -49,6 +49,8 @@
  * Base addresses of peripherals
  */
 
+#define SCS_BASE            				(0xE000E000UL)
+#define SYSTICK_BASEADDR					(SCS_BASE + 0x0010UL)
 #define GPIOP0_BASEADDR						(0x50000000UL)
 #define GPIOP1_BASEADDR						(0x50000300UL)
 #define UART_BASEADDR 						(0x40002000UL)
@@ -76,6 +78,14 @@ typedef struct
 {
 	__vo uint32_t CNF[32];
 }GPIOP_CNF_t;
+
+typedef struct
+{
+  __vo uint32_t CTRL; 
+  __vo uint32_t LOAD; 
+  __vo uint32_t VAL;  
+  __vo uint32_t CALIB;
+}SYSTICK_RegDef_t;
 
 typedef struct
 {
@@ -125,10 +135,12 @@ typedef struct
  * 	Peripheral definitions 
  */
 
+#define SYSTICK         ((SYSTICK_RegDef_t*)SYSTICK_BASEADDR) 
 #define GPIOP0			((GPIOP_RegDef_t*)(GPIOP0_BASEADDR + 0x504U))
 #define GPIOP1			((GPIOP_RegDef_t*)(GPIOP1_BASEADDR + 0x504U))
 #define GPIOP0_CNF		((GPIOP_CNF_t*)(GPIOP0_BASEADDR + 0x700U))
 #define GPIOP1_CNF		((GPIOP_CNF_t*)(GPIOP1_BASEADDR + 0x700U))
+
 
 
 #define UART_TASKS	 		((UART_TASKS_t*)(UART_BASEADDR + 0x0000U))
@@ -161,8 +173,8 @@ typedef struct
  *		SCB
  */
 
-#define SCB_BASE (0xE000ED00UL)
-#define VTOR_OFFSET       MMIO32(SCB_BASE + 0x08U)
+#define SCB_BASE 			(0xE000ED00UL)
+#define VTOR_OFFSET      	MMIO32(SCB_BASE + 0x08U)
 
 
 
@@ -171,5 +183,6 @@ typedef struct
  */
 
 #include "driver_gpio.h"
+#include "driver_systick.h"
 
 #endif
