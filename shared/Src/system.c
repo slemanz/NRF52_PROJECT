@@ -49,10 +49,14 @@ static void system_setupGpio(void)
     ledPins.GPIO_PinConfig.GPIO_PinNumber = LED_BUILT_IN;
     GPIO_Init(&ledPins);
 
+    ledPins.GPIO_PinConfig.GPIO_PinNumber = LED1_EXT;
+    GPIO_Init(&ledPins);
+
     // init all in HIGH
     GPIO_WriteToOutputPin(GPIOP0, LED_GREEN_PIN, GPIO_PIN_SET);
     GPIO_WriteToOutputPin(GPIOP0, LED_RED_PIN, GPIO_PIN_SET);
     GPIO_WriteToOutputPin(GPIOP0, LED_BLUE_PIN, GPIO_PIN_SET);
 
     GPIO_WriteToOutputPin(GPIOP0, LED_BUILT_IN, GPIO_PIN_RESET);
+    GPIO_WriteToOutputPin(GPIOP0, LED1_EXT, GPIO_PIN_RESET);
 }
