@@ -34,7 +34,7 @@ int main(void)
             start_time2 = system_get_ticks();
         }
 
-        if(GPIO_ReadFromInputPin(BUTTON1_PORT, BUTTON1_PIN))
+        if(!GPIO_ReadFromInputPin(BUTTON1_PORT, BUTTON1_PIN))
         {
             GPIO_WriteToOutputPin(GPIOP0, LED1_EXT_PIN, GPIO_PIN_SET);
         }else
