@@ -21,6 +21,14 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
     }
 }
 
+uint8_t  GPIO_ReadFromInputPin(GPIOP_RegDef_t *pGPIOx, uint8_t PinNumber)
+{
+    if(pGPIOx->IN & (1 << PinNumber))
+    {
+        return GPIO_PIN_SET;
+    }
+    return GPIO_PIN_RESET;
+}
 
 void GPIO_WriteToOutputPin(GPIOP_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t value)
 {

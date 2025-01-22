@@ -10,7 +10,10 @@
 #define LED_GREEN_PIN       GPIO_PIN_NO_16
 #define LED_RED_PIN         GPIO_PIN_NO_24
 #define LED_BUILT_IN        GPIO_PIN_NO_13
-#define LED1_EXT            GPIO_PIN_NO_5
+#define LED1_EXT_PIN        GPIO_PIN_NO_5
+
+#define BUTTON1_PORT           GPIOP1
+#define BUTTON1_PIN            GPIO_PIN_NO_2
 
 void system_init(void);
 
