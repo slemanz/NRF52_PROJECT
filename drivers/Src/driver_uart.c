@@ -3,9 +3,30 @@
 void uart_init(void)
 {
     // 1. init pin tx
-    // 2. init peripheral in tx
+    GPIO_Handle_t uartTx;
+    uartTx.pGPIOx = GPIOP1;
+    uartTx.GPIO_PinConfig.GPIO_PinDir = GPIO_DIR_OUT;
+    uartTx.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_3;
+    uartTx.GPIO_PinConfig.GPIO_PinPuPd = GPIO_PIN_NO_PUPD;
+    GPIO_Init(&uartTx);
+    GPIO_WriteToOutputPin(GPIOP1, GPIO_PIN_NO_3, GPIO_PIN_SET);
 
+    uint32_t temp = ((0 << 31) | (1 << 5) | (0x3 << 0));
+    UART->PSEL_TXD = temp;
+    
+
+    // 2. init peripheral in tx
+    UART->BAUDRATE = 0x00275000U;
+    UART->PENABLE = 0xF;
 }
 
-void uart_write_byte(uint8_t ch);
+void uart_write_byte(uint8_t ch)
+{
+    UART->TXD = (0xFF & ch);
+
+    UART_TASKS->STARTTX |= 1;
+    while(!(UART_EVENTS->TXDRDY & 0x1));
+    UART_TASKS->STOPTX |= 1;
+}
+
 void uart_write(uint8_t* ch, uint32_t Len);

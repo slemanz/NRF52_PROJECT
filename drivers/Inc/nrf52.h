@@ -118,7 +118,7 @@ typedef struct
 
 typedef struct
 {
-	__vo uint32_t ENABLE;
+	__vo uint32_t PENABLE;
 	__vo uint32_t RESERVERD0;
 	__vo uint32_t PSEL_RTS;
 	__vo uint32_t PSEL_TXD;
@@ -184,5 +184,6 @@ typedef struct
 
 #include "driver_gpio.h"
 #include "driver_systick.h"
+#include "driver_uart.h"
 
 #endif

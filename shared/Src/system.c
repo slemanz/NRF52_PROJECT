@@ -13,6 +13,7 @@ void system_init(void)
 {
     system_systickInit();
     system_setupGpio();
+    system_setupUart();
 }
 
 uint64_t system_get_ticks(void)
