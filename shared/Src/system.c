@@ -6,6 +6,7 @@ static volatile uint64_t ticks = 0;
 
 static void system_systickInit(void);
 static void system_setupGpio(void);
+static void system_setupUart(void);
 
 
 void system_init(void)
@@ -67,4 +68,9 @@ static void system_setupGpio(void)
     inputPin.GPIO_PinConfig.GPIO_PinNumber = BUTTON1_PIN;
     inputPin.GPIO_PinConfig.GPIO_PinPuPd = GPIO_PIN_PU;
     GPIO_Init(&inputPin);
+}
+
+static void system_setupUart(void)
+{
+    uart_init();
 }

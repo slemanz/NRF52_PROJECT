@@ -12,6 +12,8 @@ int main(void)
     uint64_t start_time2 = system_get_ticks();
     uint8_t cnt = 0;
 
+    GPIO_WriteToOutputPin(GPIOP0, LED_BUILT_IN, GPIO_PIN_SET);
+
     while (1)
     {   
         if((system_get_ticks() - start_time) >= 1000)
@@ -28,9 +30,8 @@ int main(void)
         }
         
 
-        if((system_get_ticks() - start_time2) >= 2000)
+        if((system_get_ticks() - start_time2) >= 2000) // send hello world
         {
-            GPIO_ToggleOutputPin(GPIOP0, LED_BUILT_IN);
             start_time2 = system_get_ticks();
         }
 
