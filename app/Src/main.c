@@ -30,9 +30,10 @@ int main(void)
         }
         
 
-        if((system_get_ticks() - start_time2) >= 2000) // send hello world
+        if((system_get_ticks() - start_time2) >= 1000) // send hello world
         {
             uart_write_byte('T');
+            uart_write_byte('e');
             start_time2 = system_get_ticks();
         }
 

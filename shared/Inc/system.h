@@ -3,7 +3,7 @@
 
 #include "nrf52.h"
 
-#define CPU_FREQ        (48000000)
+#define CPU_FREQ        (64000000)
 #define SYSTICK_FREQ    (1000) // in hz (1000hz == every 1 ms)
 
 #define LED_BLUE_PIN        GPIO_PIN_NO_6
