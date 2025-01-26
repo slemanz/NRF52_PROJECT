@@ -1,14 +1,20 @@
 // Author: William Sleman @ 2024/25
 #include "nrf52.h"
 #include "system.h"
+#include <stdio.h>
 
 const uint8_t leds_pin[] = {0, LED_BLUE_PIN, LED_RED_PIN, LED_GREEN_PIN};
+
+// retarget printf
+extern int __io_putchar(int ch)
+{
+    uart_write_byte((uint8_t)ch);
+    return ch;
+}
 
 int main(void)
  {
     system_init();
-
-    uint8_t string_to_send[] = "Hello World!\n";
 
     uint64_t start_time = system_get_ticks();
     uint64_t start_time2 = system_get_ticks();
@@ -34,7 +40,8 @@ int main(void)
 
         if((system_get_ticks() - start_time2) >= 1000) // send hello world
         {
-            uart_write(string_to_send, sizeof(string_to_send));
+            uart_write_byte('b');
+            printf("Testee");
             start_time2 = system_get_ticks();
         }
 
