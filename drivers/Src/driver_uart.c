@@ -31,4 +31,10 @@ void uart_write_byte(uint8_t ch)
     UART_TASKS->STOPTX |= 1;
 }
 
-void uart_write(uint8_t* ch, uint32_t Len);
+void uart_write(uint8_t* buffer, uint32_t Len)
+{
+    for(uint32_t i = 0; i < Len; i++)
+    {
+        uart_write_byte(buffer[i]);
+    }
+}

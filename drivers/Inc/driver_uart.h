@@ -5,6 +5,6 @@
 
 void uart_init(void);
 void uart_write_byte(uint8_t ch);
-void uart_write(uint8_t* ch, uint32_t Len);
+void uart_write(uint8_t* buffer, uint32_t Len);
 
 #endif

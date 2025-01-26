@@ -8,6 +8,8 @@ int main(void)
  {
     system_init();
 
+    uint8_t string_to_send[] = "Hello World!\n";
+
     uint64_t start_time = system_get_ticks();
     uint64_t start_time2 = system_get_ticks();
     uint8_t cnt = 0;
@@ -32,7 +34,7 @@ int main(void)
 
         if((system_get_ticks() - start_time2) >= 1000) // send hello world
         {
-            uart_write_byte('b');
+            uart_write(string_to_send, sizeof(string_to_send));
             start_time2 = system_get_ticks();
         }
 
