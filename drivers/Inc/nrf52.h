@@ -182,6 +182,7 @@ typedef struct
  * Drivers includes
  */
 
+#include "driver_event.h"
 #include "driver_gpio.h"
 #include "driver_systick.h"
 #include "driver_uart.h"

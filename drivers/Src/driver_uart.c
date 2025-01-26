@@ -26,8 +26,7 @@ void uart_write_byte(uint8_t ch)
     UART_TASKS->STARTTX |= 1;
     UART->TXD = (ch);
 
-    while(!(UART_EVENTS->TXDRDY & (1 << 0)));
-    UART_EVENTS->TXDRDY &= ~(1 << 0);
+    event_pooling(&UART_EVENTS->TXDRDY);
 
     UART_TASKS->STOPTX |= 1;
 }

@@ -32,8 +32,7 @@ int main(void)
 
         if((system_get_ticks() - start_time2) >= 1000) // send hello world
         {
-            uart_write_byte('T');
-            uart_write_byte('e');
+            uart_write_byte('b');
             start_time2 = system_get_ticks();
         }
 
