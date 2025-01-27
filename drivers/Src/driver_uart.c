@@ -18,17 +18,14 @@ void uart_init(void)
     // 2. init peripheral in tx
     UART->BAUDRATE = 0x00275000U;
     UART->PENABLE = (4 << 0);
+
+    uart_tx_start();
 }
 
 void uart_write_byte(uint8_t ch)
 {
-
-    UART_TASKS->STARTTX |= 1;
     UART->TXD = (ch);
-
     event_pooling(&UART_EVENTS->TXDRDY);
-
-    UART_TASKS->STOPTX |= 1;
 }
 
 void uart_write(uint8_t* buffer, uint32_t Len)
@@ -37,4 +34,14 @@ void uart_write(uint8_t* buffer, uint32_t Len)
     {
         uart_write_byte(buffer[i]);
     }
+}
+
+void uart_tx_start(void)
+{
+    UART_TASKS->STARTTX |= 1;
+}
+
+void uart_tx_stop(void)
+{
+    UART_TASKS->STOPTX |= 1;
 }

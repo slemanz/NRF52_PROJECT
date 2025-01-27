@@ -1,7 +1,7 @@
 // Author: William Sleman @ 2024/25
+#include <stdio.h>
 #include "nrf52.h"
 #include "system.h"
-#include <stdio.h>
 
 const uint8_t leds_pin[] = {0, LED_BLUE_PIN, LED_RED_PIN, LED_GREEN_PIN};
 
@@ -19,6 +19,7 @@ int main(void)
     uint64_t start_time = system_get_ticks();
     uint64_t start_time2 = system_get_ticks();
     uint8_t cnt = 0;
+    int test_cnt = 0;
 
     GPIO_WriteToOutputPin(GPIOP0, LED_BUILT_IN, GPIO_PIN_SET);
 
@@ -38,10 +39,9 @@ int main(void)
         }
         
 
-        if((system_get_ticks() - start_time2) >= 1000) // send hello world
+        if((system_get_ticks() - start_time2) >= 5000) // send hello world
         {
-            uart_write_byte('b');
-            printf("Testee");
+            printf("TESTE %d\n", test_cnt++);
             start_time2 = system_get_ticks();
         }
 
