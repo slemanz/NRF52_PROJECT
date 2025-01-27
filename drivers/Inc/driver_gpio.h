@@ -12,6 +12,7 @@ typedef struct
 	uint8_t GPIO_PinNumber; 	/*!< possible modes from @GPIO_PIN_NUMBER >*/
 	uint8_t GPIO_PinDir;		/*!< possible modes from @GPIO_PIN_DIR >*/
 	uint8_t GPIO_PinPuPd;		/*!< possible modes from @GPIO_PIN_PUPD >*/
+	uint8_t GPIO_PinState;		/*!< possible modes from @GPIO_PIN_STATE >*/
 }GPIO_PinConfig_t;
 
 
@@ -80,6 +81,14 @@ typedef struct
 #define GPIO_PIN_NO_PUPD	0
 #define GPIO_PIN_PD 		1
 #define GPIO_PIN_PU 		3
+
+/*
+ * @GPIO_PIN_STATE
+ * GPIO pin possible states
+ */
+
+#define GPIO_PIN_SET				1
+#define GPIO_PIN_RESET				0
 
 /********************************************************************************************
  * 								APIs supported by this driver

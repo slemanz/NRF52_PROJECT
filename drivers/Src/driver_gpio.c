@@ -16,6 +16,11 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
     {
         GPIOP1_CNF->CNF[pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber] = temp;
     }
+
+    if(pGPIOHandle->GPIO_PinConfig.GPIO_PinDir == GPIO_DIR_OUT)
+    {
+        GPIO_WriteToOutputPin(pGPIOHandle->pGPIOx, pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber, pGPIOHandle->GPIO_PinConfig.GPIO_PinState);
+    }
 }
 
 uint8_t  GPIO_ReadFromInputPin(GPIOP_RegDef_t *pGPIOx, uint8_t PinNumber)

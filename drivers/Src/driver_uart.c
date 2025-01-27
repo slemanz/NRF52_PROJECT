@@ -2,14 +2,6 @@
 
 void uart_init(void)
 {
-    // 1. init pin tx
-    GPIO_Handle_t uartTx;
-    uartTx.pGPIOx = GPIOP1;
-    uartTx.GPIO_PinConfig.GPIO_PinDir = GPIO_DIR_OUT;
-    uartTx.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_3;
-    uartTx.GPIO_PinConfig.GPIO_PinPuPd = GPIO_PIN_NO_PUPD;
-    GPIO_Init(&uartTx);
-    GPIO_WriteToOutputPin(GPIOP1, GPIO_PIN_NO_3, GPIO_PIN_SET);
 
     uint32_t temp = ((0 << 31) | (1 << 5) | (3 << 0));
     UART->PSEL_TXD = temp;

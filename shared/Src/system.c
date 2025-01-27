@@ -73,5 +73,14 @@ static void system_setupGpio(void)
 
 static void system_setupUart(void)
 {
+    // 1. init pin tx
+    GPIO_Handle_t uartTx;
+    uartTx.pGPIOx = GPIOP1;
+    uartTx.GPIO_PinConfig.GPIO_PinDir = GPIO_DIR_OUT;
+    uartTx.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_3;
+    uartTx.GPIO_PinConfig.GPIO_PinPuPd = GPIO_PIN_NO_PUPD;
+    uartTx.GPIO_PinConfig.GPIO_PinState = GPIO_PIN_SET;
+    GPIO_Init(&uartTx);
+
     uart_init();
 }
