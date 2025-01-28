@@ -22,6 +22,7 @@ OBJS		+= Build/nrf52_startup.o
 OBJS		+= Build/syscalls.o
 
 OBJS		+= Build/driver_event.o
+OBJS		+= Build/driver_interrupt.o
 OBJS		+= Build/driver_gpio.o
 OBJS		+= Build/driver_systick.o
 OBJS		+= Build/driver_uart.o

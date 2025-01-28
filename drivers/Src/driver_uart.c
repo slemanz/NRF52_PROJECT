@@ -2,11 +2,9 @@
 
 void uart_init(void)
 {
-
     uint32_t temp = ((0 << 31) | (1 << 5) | (3 << 0));
     UART->PSEL_TXD = temp;
     
-
     // 2. init peripheral in tx
     UART->BAUDRATE = 0x00275000U;
     UART->PENABLE = (4 << 0);

@@ -36,7 +36,7 @@
 #define NO_PR_BITS_IMPLEMENTED 		4
 
 
-
+/******************* Memory and Peripherals address *************************/
 /*
  * base addresses of Flash and SRAM memories
  */
@@ -149,7 +149,7 @@ typedef struct
 #define UART_CONFIG			(*(__vo uint32_t*)(UART_BASEADDR + 0x056CU))
 #define UART 				((UART_RegDef_t*)(UART_BASEADDR + 0x0500))
 /*
- * some generic macros
+ * 		Some generic macros
  */
 
 #define ENABLE 						1
@@ -161,7 +161,7 @@ typedef struct
 
 
 /*
- * IRQ Priority levels
+ * 		IRQ Priority levels
  */
 
 #define NVIC_IRQ_PRI0		0
@@ -181,6 +181,7 @@ typedef struct
  */
 
 #include "driver_event.h"
+#include "driver_interrupt.h"
 #include "driver_gpio.h"
 #include "driver_systick.h"
 #include "driver_uart.h"
