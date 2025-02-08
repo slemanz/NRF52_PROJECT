@@ -82,5 +82,7 @@ static void system_setupUart(void)
     uartTx.GPIO_PinConfig.GPIO_PinState = GPIO_PIN_SET;
     GPIO_Init(&uartTx);
 
-    uart_init();
+    UART_Handle_t UARTHandle;
+
+    uart_init(&UARTHandle);
 }
