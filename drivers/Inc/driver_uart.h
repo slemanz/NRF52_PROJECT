@@ -9,8 +9,8 @@
 
 typedef struct
 {
-	uint8_t USART_Mode;
-	uint32_t USART_Baud;
+	uint8_t Mode;
+	uint32_t Baud;
 }UART_Config_t;
 
 typedef struct

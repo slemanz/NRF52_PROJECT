@@ -16,26 +16,36 @@ void UART_Init(UART_Handle_t* pUARTHandle)
 {
     UART_PeriClockControl(DISABLE);
 
+    uint8_t psel_port = 0;
+
     uint32_t temp = 0;
-    if(pUARTHandle->UART_Config.USART_Mode == UART_MODE_ONLY_TX)
+    if(pUARTHandle->UART_Config.Mode == UART_MODE_ONLY_TX)
+    {
+        if(pUARTHandle->Tx.port == GPIOP1) psel_port = 1;
+        temp = ((0 << UART_PSEL_CONNECT) | (psel_port << UART_PSEL_PORT) | (pUARTHandle->Tx.pin << UART_PSEL_PIN));
+        UART->PSEL_TXD = temp;
+    }else if(pUARTHandle->UART_Config.Mode == UART_MODE_ONLY_RX)
     {
 
-    }else if(pUARTHandle->UART_Config.USART_Mode == UART_MODE_ONLY_RX)
-    {
-
-    }else if(pUARTHandle->UART_Config.USART_Mode == UART_MODE_TXRX)
+    }else if(pUARTHandle->UART_Config.Mode == UART_MODE_TXRX)
     {
 
     }
-
-    uint32_t temp = ((0 << 31) | (1 << 5) | (3 << 0));
-    UART->PSEL_TXD = temp;
     
-    // 2. init peripheral in tx
+    // 2. init peripheral
     UART_PeriClockControl(ENABLE);
-    UART->BAUDRATE = 0x00275000U;
+    UART->BAUDRATE = pUARTHandle->UART_Config.Baud;
 
-    uart_tx_start();
+    if(pUARTHandle->UART_Config.Mode == UART_MODE_ONLY_TX)
+    {
+        uart_tx_start();
+    }else if(pUARTHandle->UART_Config.Mode == UART_MODE_ONLY_RX)
+    {
+
+    }else if(pUARTHandle->UART_Config.Mode == UART_MODE_TXRX)
+    {
+
+    }
 }
 
 void uart_write_byte(uint8_t ch)

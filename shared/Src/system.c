@@ -84,5 +84,11 @@ static void system_setupUart(void)
 
     UART_Handle_t UARTHandle;
 
-    uart_init(&UARTHandle);
+    UARTHandle.UART_Config.Baud = UART_STD_BAUD_115200;
+    UARTHandle.UART_Config.Mode = UART_MODE_ONLY_TX;
+
+    UARTHandle.Tx.port = GPIOP1;
+    UARTHandle.Tx.pin  = GPIO_PIN_NO_3;
+
+    UART_Init(&UARTHandle);
 }

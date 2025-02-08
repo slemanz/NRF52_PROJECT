@@ -41,7 +41,7 @@ int main(void)
 
         if((system_get_ticks() - start_time2) >= 5000) // send hello world
         {
-            printf("Testando %d\n", test_cnt++);
+            printf("Teste %d\n", test_cnt++);
             start_time2 = system_get_ticks();
         }
 
