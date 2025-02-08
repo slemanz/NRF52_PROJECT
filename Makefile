@@ -27,8 +27,11 @@ OBJS		+= build/driver_interrupt.o
 OBJS		+= build/driver_gpio.o
 OBJS		+= build/driver_systick.o
 OBJS		+= build/driver_uart.o
-
 OBJS		+= build/system.o
+
+COMMON 		+= build/ring-buffer.o
+
+
 
 all: build/final.elf
 
@@ -44,8 +47,12 @@ build/%.o: app/Src/%.c
 build/%.o: drivers/Src/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o build/$(*).o drivers/Src/$(*).c
 
+build/%.o: common/Src/%.c
+	$(CC) $(CFLAGS) $(INCLUDES) -o build/$(*).o common/Src/$(*).c
+
 build/%.o: shared/Src/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o build/$(*).o shared/Src/$(*).c
+
 
 build/%.o: %.c
 	$(CC) $(CFLAGS) -o $@ $^ 
@@ -53,7 +60,7 @@ build/%.o: %.c
 ############################################
 # Finals
 
-build/final.elf: $(OBJS)
+build/final.elf: $(OBJS) $(COMMON)
 	$(CC) $(LDFLAGS) -o $@ $^
 	$(OBJCOPY) -O binary build/final.elf build/flash.bin
 
