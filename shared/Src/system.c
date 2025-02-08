@@ -81,14 +81,22 @@ static void system_setupUart(void)
     uartTx.GPIO_PinConfig.GPIO_PinPuPd = GPIO_PIN_NO_PUPD;
     uartTx.GPIO_PinConfig.GPIO_PinState = GPIO_PIN_SET;
     GPIO_Init(&uartTx);
+    
+    // 2. init pin rx
+    GPIO_Handle_t uartRx;
+    uartRx.pGPIOx = GPIOP1;
+    uartRx.GPIO_PinConfig.GPIO_PinDir = GPIO_DIR_IN;
+    uartRx.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_10;
+    uartRx.GPIO_PinConfig.GPIO_PinPuPd = GPIO_PIN_NO_PUPD;
+    GPIO_Init(&uartRx);
 
+    // 3. init peripheral
     UART_Handle_t UARTHandle;
-
     UARTHandle.UART_Config.Baud = UART_STD_BAUD_115200;
-    UARTHandle.UART_Config.Mode = UART_MODE_ONLY_TX;
-
+    UARTHandle.UART_Config.Mode = UART_MODE_TXRX;
     UARTHandle.Tx.port = GPIOP1;
     UARTHandle.Tx.pin  = GPIO_PIN_NO_3;
-
+    UARTHandle.Rx.port = GPIOP1;
+    UARTHandle.Rx.pin  = GPIO_PIN_NO_10;
     UART_Init(&UARTHandle);
 }

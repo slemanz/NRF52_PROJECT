@@ -19,9 +19,11 @@ int main(void)
     uint64_t start_time = system_get_ticks();
     uint64_t start_time2 = system_get_ticks();
     uint8_t cnt = 0;
-    int test_cnt = 0;
 
     GPIO_WriteToOutputPin(GPIOP0, LED_BUILT_IN, GPIO_PIN_SET);
+    for(uint32_t i = 0; i < 10000; i++); // stable the system
+    printf("Init system\n\r");
+
 
     while (1)
     {   
@@ -41,7 +43,6 @@ int main(void)
 
         if((system_get_ticks() - start_time2) >= 5000) // send hello world
         {
-            printf("Teste %d\n", test_cnt++);
             start_time2 = system_get_ticks();
         }
 

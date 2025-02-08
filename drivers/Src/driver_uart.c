@@ -16,6 +16,7 @@ void UART_Init(UART_Handle_t* pUARTHandle)
 {
     UART_PeriClockControl(DISABLE);
 
+    // 1, Config pins
     uint8_t psel_port = 0;
 
     uint32_t temp = 0;
@@ -26,10 +27,20 @@ void UART_Init(UART_Handle_t* pUARTHandle)
         UART->PSEL_TXD = temp;
     }else if(pUARTHandle->UART_Config.Mode == UART_MODE_ONLY_RX)
     {
+        if(pUARTHandle->Rx.port == GPIOP1) psel_port = 1;
+        temp = ((0 << UART_PSEL_CONNECT) | (psel_port << UART_PSEL_PORT) | (pUARTHandle->Rx.pin << UART_PSEL_PIN));
+        UART->PSEL_RXD = temp;
 
     }else if(pUARTHandle->UART_Config.Mode == UART_MODE_TXRX)
     {
+        if(pUARTHandle->Tx.port == GPIOP1) psel_port = 1;
+        temp = ((0 << UART_PSEL_CONNECT) | (psel_port << UART_PSEL_PORT) | (pUARTHandle->Tx.pin << UART_PSEL_PIN));
+        UART->PSEL_TXD = temp;
 
+        psel_port = 0;
+        if(pUARTHandle->Rx.port == GPIOP1) psel_port = 1;
+        temp = ((0 << UART_PSEL_CONNECT) | (psel_port << UART_PSEL_PORT) | (pUARTHandle->Rx.pin << UART_PSEL_PIN));
+        UART->PSEL_RXD = temp;
     }
     
     // 2. init peripheral
@@ -41,10 +52,12 @@ void UART_Init(UART_Handle_t* pUARTHandle)
         uart_tx_start();
     }else if(pUARTHandle->UART_Config.Mode == UART_MODE_ONLY_RX)
     {
+        uart_rx_start();
 
     }else if(pUARTHandle->UART_Config.Mode == UART_MODE_TXRX)
     {
-
+        uart_tx_start();
+        uart_rx_start();
     }
 }
 
@@ -70,4 +83,14 @@ void uart_tx_start(void)
 void uart_tx_stop(void)
 {
     UART_TASKS->STOPTX |= 1;
+}
+
+void uart_rx_start(void)
+{
+    UART_TASKS->STARTRX |= 1;
+}
+
+void uart_rx_stop(void)
+{
+    UART_TASKS->STOPRX |= 1;
 }
