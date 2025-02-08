@@ -94,3 +94,15 @@ void uart_rx_stop(void)
 {
     UART_TASKS->STOPRX |= 1;
 }
+
+
+void uart_interruptConfig(uint32_t interrupts, uint8_t EnorDi)
+{
+    if(EnorDi == ENABLE)
+    {
+        UART_INTEN->SET |= interrupts;
+    }else
+    {
+        UART_INTEN->CLR |= interrupts;
+    }
+}

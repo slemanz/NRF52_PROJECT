@@ -23,10 +23,19 @@ int main(void)
     GPIO_WriteToOutputPin(GPIOP0, LED_BUILT_IN, GPIO_PIN_SET);
     for(uint32_t i = 0; i < 10000; i++); // stable the system
     printf("Init system\n\r");
+    
 
 
     while (1)
     {   
+        if(event_read(&UART_EVENTS->RXDRDY))
+        {
+            event_clear(&UART_EVENTS->RXDRDY);
+            uint8_t temp = UART->RXD;
+            printf("Opa\n");
+            (void)temp;
+        }
+
         if((system_get_ticks() - start_time) >= 1000)
         {
             GPIO_WriteToOutputPin(GPIOP0, LED_GREEN_PIN, GPIO_PIN_SET);
@@ -43,6 +52,7 @@ int main(void)
 
         if((system_get_ticks() - start_time2) >= 5000) // send hello world
         {
+            //printf("Teste\n");
             start_time2 = system_get_ticks();
         }
 
@@ -54,4 +64,44 @@ int main(void)
             GPIO_WriteToOutputPin(GPIOP0, LED1_EXT_PIN, GPIO_PIN_RESET);
         }
     }
+}
+
+void ID0_IRQHandler(void)
+{
+    uart_write_byte('a');
+    uint8_t temp = UART->RXD;
+    (void)temp;
+    event_clear(&UART_EVENTS->RXDRDY);
+}
+
+void ID1_IRQHandler(void)
+{
+    uart_write_byte('a');
+    uint8_t temp = UART->RXD;
+    (void)temp;
+    event_clear(&UART_EVENTS->RXDRDY);
+}
+
+void ID2_IRQHandler(void)
+{
+    uart_write_byte('a');
+    uint8_t temp = UART->RXD;
+    (void)temp;
+    event_clear(&UART_EVENTS->RXDRDY);
+}
+
+void ID3_IRQHandler(void)
+{
+    uart_write_byte('a');
+    uint8_t temp = UART->RXD;
+    (void)temp;
+    event_clear(&UART_EVENTS->RXDRDY);
+}
+
+void ID4_IRQHandler(void)
+{
+    uart_write_byte('a');
+    uint8_t temp = UART->RXD;
+    (void)temp;
+    event_clear(&UART_EVENTS->RXDRDY);
 }

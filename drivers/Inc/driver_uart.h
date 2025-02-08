@@ -52,6 +52,17 @@ typedef struct{
 #define UART_PSEL_PORT          5
 #define UART_PSEL_CONNECT       31
 
+/*
+ * UART Interrupts
+ */
+
+#define UART_INTERRUPT_CTS		(1 << 0)
+#define UART_INTERRUPT_NCTS		(1 << 1)
+#define UART_INTERRUPT_RXRDY	(1 << 2)
+#define UART_INTERRUPT_TXRDY	(1 << 7)
+#define UART_INTERRUPT_ERROR	(1 << 9)
+#define UART_INTERRUPT_TXTO		(1 << 17)
+
 /********************************************************************************************
  * 								APIs supported by this driver
  * 					for more information check the function definitions
@@ -70,5 +81,10 @@ void uart_tx_start(void);
 void uart_tx_stop(void);
 void uart_rx_start(void);
 void uart_rx_stop(void);
+
+/*
+ * Interrupts
+ */
+void uart_interruptConfig(uint32_t interrupts, uint8_t EnorDi);
 
 #endif
