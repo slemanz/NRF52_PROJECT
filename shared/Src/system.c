@@ -99,5 +99,5 @@ static void system_setupUart(void)
     UARTHandle.Rx.port = GPIOP1;
     UARTHandle.Rx.pin  = GPIO_PIN_NO_10;
     UART_Init(&UARTHandle);
-    //uart_interruptConfig(UART_INTERRUPT_RXRDY, ENABLE);
+    uart_interruptConfig(UART_INTERRUPT_RXRDY, ENABLE);
 }
