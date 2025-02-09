@@ -12,6 +12,8 @@ extern int __io_putchar(int ch)
     return ch;
 }
 
+uint8_t rcv = 0;
+
 int main(void)
  {
     system_init();
@@ -20,18 +22,12 @@ int main(void)
     uint64_t start_time2 = system_get_ticks();
     uint8_t cnt = 0;
 
+    *NVIC_ISER0 |= ( 1 << 2);
+
     GPIO_WriteToOutputPin(GPIOP0, LED_BUILT_IN, GPIO_PIN_SET);
     for(uint32_t i = 0; i < 10000; i++); // stable the system
     printf("Init system\n\r");
     
-    if(UART_INTEN->SET & (UART_INTERRUPT_RXRDY))
-    {   
-        uint32_t temp = UART_INTEN->CLR;
-        printf("%lX\n", temp);
-        
-        temp = UART_EVENTS->RXDRDY;
-        printf("%lX\n", temp);
-    }
     event_clear(&UART_EVENTS->RXDRDY);
 
 
@@ -45,6 +41,12 @@ int main(void)
             printf("Opa\n");
             (void)temp;
         }*/
+
+       if(rcv != 0)
+       {
+            printf("%c", rcv);
+            rcv = 0;
+       }
 
         if((system_get_ticks() - start_time) >= 1000)
         {
@@ -60,11 +62,9 @@ int main(void)
         }
         
 
-        if((system_get_ticks() - start_time2) >= 5000) // send hello world
+        if((system_get_ticks() - start_time2) >= 30000) // send hello world
         {
-            //printf("Teste\n");
-            uint32_t temp = UART_EVENTS->RXDRDY;
-            printf("%lX\n", temp);
+            printf("Working\n");
             start_time2 = system_get_ticks();
         }
 
@@ -81,8 +81,9 @@ int main(void)
 
 void ID2_IRQHandler(void)
 {
-    event_clear(&UART_EVENTS->RXDRDY);
-    uint8_t temp = UART->RXD;
-    (void)temp;
-    printf("o");
+    if(UART_EVENTS->RXDRDY)
+    {
+        event_clear(&UART_EVENTS->RXDRDY);
+        rcv = UART->RXD;
+    }
 }

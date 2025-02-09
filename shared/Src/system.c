@@ -90,6 +90,7 @@ static void system_setupUart(void)
     uartRx.GPIO_PinConfig.GPIO_PinPuPd = GPIO_PIN_NO_PUPD;
     GPIO_Init(&uartRx);
 
+
     // 3. init peripheral
     UART_Handle_t UARTHandle;
     UARTHandle.UART_Config.Baud = UART_STD_BAUD_115200;

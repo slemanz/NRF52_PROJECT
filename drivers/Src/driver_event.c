@@ -8,7 +8,7 @@ uint8_t event_read(__vo uint32_t* reg)
 
 void event_clear(__vo uint32_t* reg)
 {
-    *reg &= ~(1 << 0);
+    *reg = 0;
 }
 
 

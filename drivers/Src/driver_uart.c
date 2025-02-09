@@ -100,7 +100,6 @@ void uart_interruptConfig(uint32_t interrupts, uint8_t EnorDi)
 {
     if(EnorDi == ENABLE)
     {
-        *NVIC_ISER0 |= ( 1 << 2);
         UART_INTEN->SET |= interrupts;
     }else
     {
