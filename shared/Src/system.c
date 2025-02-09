@@ -101,4 +101,5 @@ static void system_setupUart(void)
     UARTHandle.Rx.pin  = GPIO_PIN_NO_10;
     UART_Init(&UARTHandle);
     uart_interruptConfig(UART_INTERRUPT_RXRDY, ENABLE);
+    interrupt_config(UART_IRQ_NO, ENABLE);
 }

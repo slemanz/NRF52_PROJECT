@@ -37,7 +37,7 @@ void PendSV_Handler                 (void) __attribute__ ((weak, alias("Default_
 void SysTick_Handler                (void) __attribute__ ((weak, alias("Default_Handler")));
 void ID0_IRQHandler                 (void) __attribute__ ((weak, alias("Default_Handler")));
 void ID1_IRQHandler                 (void) __attribute__ ((weak, alias("Default_Handler")));
-void ID2_IRQHandler                 (void) __attribute__ ((weak, alias("Default_Handler")));
+void UART_IRQHandler                (void) __attribute__ ((weak, alias("Default_Handler")));
 void ID3_IRQHandler                 (void) __attribute__ ((weak, alias("Default_Handler")));
 void ID4_IRQHandler                 (void) __attribute__ ((weak, alias("Default_Handler")));
 void ID5_IRQHandler                 (void) __attribute__ ((weak, alias("Default_Handler")));
@@ -103,7 +103,7 @@ uint32_t vectors[] __attribute__((section(".isr_vector"))) = {
     (uint32_t)SysTick_Handler,
     (uint32_t)ID0_IRQHandler,
     (uint32_t)ID1_IRQHandler,
-    (uint32_t)ID2_IRQHandler,
+    (uint32_t)UART_IRQHandler,
     (uint32_t)ID3_IRQHandler,
     (uint32_t)ID4_IRQHandler,
     (uint32_t)ID5_IRQHandler,

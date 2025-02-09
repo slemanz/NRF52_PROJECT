@@ -22,10 +22,8 @@ int main(void)
     uint64_t start_time2 = system_get_ticks();
     uint8_t cnt = 0;
 
-    *NVIC_ISER0 |= ( 1 << 2);
-
     GPIO_WriteToOutputPin(GPIOP0, LED_BUILT_IN, GPIO_PIN_SET);
-    for(uint32_t i = 0; i < 10000; i++); // stable the system
+    for(uint32_t i = 0; i < 500000; i++) __asm("NOP"); // stable the system
     printf("Init system\n\r");
     
     event_clear(&UART_EVENTS->RXDRDY);
@@ -33,15 +31,6 @@ int main(void)
 
     while (1)
     {   
-        /*
-        if(event_read(&UART_EVENTS->RXDRDY))
-        {
-            event_clear(&UART_EVENTS->RXDRDY);
-            uint8_t temp = UART->RXD;
-            printf("Opa\n");
-            (void)temp;
-        }*/
-
        if(rcv != 0)
        {
             printf("%c", rcv);
@@ -79,11 +68,11 @@ int main(void)
 }
 
 
-void ID2_IRQHandler(void)
+void UART_IRQHandler(void)
 {
-    if(UART_EVENTS->RXDRDY)
+    if(UART_EVENT_RXDRDY)
     {
-        event_clear(&UART_EVENTS->RXDRDY);
+        event_clear(&UART_EVENT_RXDRDY);
         rcv = UART->RXD;
     }
 }

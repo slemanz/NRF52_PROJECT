@@ -63,6 +63,14 @@ typedef struct{
 #define UART_INTERRUPT_ERROR	(1 << 9)
 #define UART_INTERRUPT_TXTO		(1 << 17)
 
+/*
+ * UART Events
+ */
+
+#define UART_IRQ_NO				2
+
+#define UART_EVENT_RXDRDY		(UART_EVENTS->RXDRDY)
+
 /********************************************************************************************
  * 								APIs supported by this driver
  * 					for more information check the function definitions
