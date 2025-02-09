@@ -19,6 +19,7 @@ INCLUDES+= -I shared/Inc/
 # Source files
 
 OBJS		+= build/main.o
+OBJS		+= build/init_app.o
 OBJS		+= build/nrf52_startup.o
 OBJS		+= build/syscalls.o
 
