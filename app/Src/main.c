@@ -1,7 +1,7 @@
 // Author: William Sleman @ 2024/25
 #include <stdio.h>
 #include "nrf52.h"
-#include "system.h"
+#include "init_app.h"
 
 const uint8_t leds_pin[] = {0, LED_BLUE_PIN, LED_RED_PIN, LED_GREEN_PIN};
 
