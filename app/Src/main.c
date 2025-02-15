@@ -3,6 +3,14 @@
 #include "nrf52.h"
 #include "init_app.h"
 
+#define SPI_PORT            GPIOP1
+#define SPI_PIN_MISO        GPIO_PIN_NO_8
+#define SPI_PIN_MOSI        GPIO_PIN_NO_1
+#define SPI_PIN_SCK         GPIO_PIN_NO_2
+
+#define CS_PORT             GPIOP0
+#define CS_PIN              GPIO_PIN_NO_27
+
 const uint8_t leds_pin[] = {0, LED_BLUE_PIN, LED_RED_PIN, LED_GREEN_PIN};
 
 // retarget printf
@@ -18,6 +26,15 @@ int main(void)
  {
     system_init();
 
+
+
+
+
+
+
+
+
+
     uint64_t start_time = system_get_ticks();
     uint64_t start_time2 = system_get_ticks();
     uint8_t cnt = 0;
@@ -25,9 +42,6 @@ int main(void)
     GPIO_WriteToOutputPin(GPIOP0, LED_BUILT_IN, GPIO_PIN_SET);
     for(uint32_t i = 0; i < 500000; i++) __asm("NOP"); // stable the system
     printf("Init system\n\r");
-    
-    event_clear(&UART_EVENTS->RXDRDY);
-
 
     while (1)
     {   
@@ -51,9 +65,9 @@ int main(void)
         }
         
 
-        if((system_get_ticks() - start_time2) >= 300000) // send hello world
+        if((system_get_ticks() - start_time2) >= 1000) // send hello world
         {
-            printf("Working\n");
+            //printf("Working\n");
             start_time2 = system_get_ticks();
         }
 
