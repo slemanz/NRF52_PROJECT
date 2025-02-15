@@ -66,22 +66,20 @@
 
 typedef struct
 {
-	__vo uint32_t OUT;
-	__vo uint32_t OUTSET;
-	__vo uint32_t OUTCLR;
-	__vo uint32_t IN;
-	__vo uint32_t DIR;
-	__vo uint32_t DIRSET;
-	__vo uint32_t DIRCLR;
-	__vo uint32_t LATCH;
-	__vo uint32_t DETECTMODE;
+  	__vo uint32_t  RESERVED0[321];
+	__vo uint32_t  OUT;                               /*!< Write GPIO port                                                       */
+	__vo uint32_t  OUTSET;                            /*!< Set individual bits in GPIO port                                      */
+	__vo uint32_t  OUTCLR;                            /*!< Clear individual bits in GPIO port                                    */
+	__vo uint32_t  IN;                                /*!< Read GPIO port                                                        */
+	__vo uint32_t  DIR;                               /*!< Direction of GPIO pins                                                */
+	__vo uint32_t  DIRSET;                            /*!< DIR set register                                                      */
+	__vo uint32_t  DIRCLR;                            /*!< DIR clear register                                                    */
+	__vo uint32_t  LATCH;                             /*!< Latch register indicating what GPIO pins that have met the criteria
+                                                         set in the PIN_CNF[n].SENSE registers                                 */
+	__vo uint32_t  DETECTMODE;                        /*!< Select between default DETECT signal behaviour and LDETECT mode       */
+	__vo uint32_t  RESERVED1[118];
+	__vo uint32_t  PIN_CNF[32];  
 }GPIOP_RegDef_t;
-
-
-typedef struct
-{
-	__vo uint32_t CNF[32];
-}GPIOP_CNF_t;
 
 typedef struct
 {
@@ -167,10 +165,9 @@ typedef struct {                                    /*!< SPI Structure          
  */
 
 #define SYSTICK         ((SYSTICK_RegDef_t*)SYSTICK_BASEADDR) 
-#define GPIOP0			((GPIOP_RegDef_t*)(GPIOP0_BASEADDR + 0x504U))
-#define GPIOP1			((GPIOP_RegDef_t*)(GPIOP1_BASEADDR + 0x504U))
-#define GPIOP0_CNF		((GPIOP_CNF_t*)(GPIOP0_BASEADDR + 0x700U))
-#define GPIOP1_CNF		((GPIOP_CNF_t*)(GPIOP1_BASEADDR + 0x700U))
+
+#define GPIOP0			((GPIOP_RegDef_t*)(GPIOP0_BASEADDR))
+#define GPIOP1			((GPIOP_RegDef_t*)(GPIOP1_BASEADDR))
 
 
 

@@ -41,6 +41,8 @@ static void system_setupGpio(void)
     ledPins.GPIO_PinConfig.GPIO_PinDir = GPIO_DIR_OUT;
     ledPins.GPIO_PinConfig.GPIO_PinNumber = LED_GREEN_PIN;
     ledPins.GPIO_PinConfig.GPIO_PinPuPd = GPIO_PIN_NO_PUPD;
+    ledPins.GPIO_PinConfig.GPIO_InpBuf = GPIO_INP_BUF_DISCONNECT;
+    ledPins.GPIO_PinConfig.GPIO_PinState = GPIO_PIN_SET;
     GPIO_Init(&ledPins);
 
     ledPins.GPIO_PinConfig.GPIO_PinNumber = LED_BLUE_PIN;
@@ -52,22 +54,12 @@ static void system_setupGpio(void)
     ledPins.GPIO_PinConfig.GPIO_PinNumber = LED_BUILT_IN;
     GPIO_Init(&ledPins);
 
-    ledPins.GPIO_PinConfig.GPIO_PinNumber = LED1_EXT_PIN;
-    GPIO_Init(&ledPins);
-
-    // init all in HIGH
-    GPIO_WriteToOutputPin(GPIOP0, LED_GREEN_PIN, GPIO_PIN_SET);
-    GPIO_WriteToOutputPin(GPIOP0, LED_RED_PIN, GPIO_PIN_SET);
-    GPIO_WriteToOutputPin(GPIOP0, LED_BLUE_PIN, GPIO_PIN_SET);
-
-    GPIO_WriteToOutputPin(GPIOP0, LED_BUILT_IN, GPIO_PIN_RESET);
-    GPIO_WriteToOutputPin(GPIOP0, LED1_EXT_PIN, GPIO_PIN_RESET);
-
     GPIO_Handle_t inputPin;
     inputPin.pGPIOx = BUTTON1_PORT;
     inputPin.GPIO_PinConfig.GPIO_PinDir = GPIO_DIR_IN;
     inputPin.GPIO_PinConfig.GPIO_PinNumber = BUTTON1_PIN;
     inputPin.GPIO_PinConfig.GPIO_PinPuPd = GPIO_PIN_PU;
+    inputPin.GPIO_PinConfig.GPIO_InpBuf = GPIO_INP_BUF_CONNECT;
     GPIO_Init(&inputPin);
 }
 
@@ -79,6 +71,7 @@ static void system_setupUart(void)
     uartTx.GPIO_PinConfig.GPIO_PinDir = GPIO_DIR_OUT;
     uartTx.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_3;
     uartTx.GPIO_PinConfig.GPIO_PinPuPd = GPIO_PIN_NO_PUPD;
+    uartTx.GPIO_PinConfig.GPIO_InpBuf = GPIO_INP_BUF_DISCONNECT;
     uartTx.GPIO_PinConfig.GPIO_PinState = GPIO_PIN_SET;
     GPIO_Init(&uartTx);
     
@@ -88,6 +81,7 @@ static void system_setupUart(void)
     uartRx.GPIO_PinConfig.GPIO_PinDir = GPIO_DIR_IN;
     uartRx.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_10;
     uartRx.GPIO_PinConfig.GPIO_PinPuPd = GPIO_PIN_NO_PUPD;
+    uartRx.GPIO_PinConfig.GPIO_InpBuf = GPIO_INP_BUF_CONNECT;
     GPIO_Init(&uartRx);
 
 

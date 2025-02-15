@@ -4,18 +4,10 @@ void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
 {
     uint32_t temp = 0;
 
-    temp |= (pGPIOHandle->GPIO_PinConfig.GPIO_PinDir << 0); // IN or OUT
-    temp |= (((pGPIOHandle->GPIO_PinConfig.GPIO_PinDir == GPIO_DIR_IN) ? 0 : 1 ) << 1); // input buffer
-    temp |= (pGPIOHandle->GPIO_PinConfig.GPIO_PinPuPd << 2); // PUDP
+    temp |= (pGPIOHandle->GPIO_PinConfig.GPIO_PinPuPd << 2) | (pGPIOHandle->GPIO_PinConfig.GPIO_InpBuf << 1) |
+            (pGPIOHandle->GPIO_PinConfig.GPIO_PinDir << 0); 
 
-    if(pGPIOHandle->pGPIOx == GPIOP0)
-    {
-        GPIOP0_CNF->CNF[pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber] = temp;
-
-    }else if(pGPIOHandle->pGPIOx == GPIOP1)
-    {
-        GPIOP1_CNF->CNF[pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber] = temp;
-    }
+    pGPIOHandle->pGPIOx->PIN_CNF[pGPIOHandle->GPIO_PinConfig.GPIO_PinNumber] = temp;
 
     if(pGPIOHandle->GPIO_PinConfig.GPIO_PinDir == GPIO_DIR_OUT)
     {

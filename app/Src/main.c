@@ -31,17 +31,18 @@ int main(void)
     SpiPins.GPIO_PinConfig.GPIO_PinNumber = SPI_PIN_MISO;
     SpiPins.GPIO_PinConfig.GPIO_PinDir = GPIO_DIR_IN;
     SpiPins.GPIO_PinConfig.GPIO_PinPuPd = GPIO_PIN_NO_PUPD;
+    SpiPins.GPIO_PinConfig.GPIO_InpBuf = GPIO_INP_BUF_CONNECT;
     GPIO_Init(&SpiPins);
 
-    SpiPins.GPIO_PinConfig.GPIO_PinNumber = SPI_PIN_MOSI;
+    SpiPins.GPIO_PinConfig.GPIO_PinNumber = SPI_PIN_SCK;
     SpiPins.GPIO_PinConfig.GPIO_PinDir = GPIO_DIR_OUT;
     SpiPins.GPIO_PinConfig.GPIO_PinPuPd = GPIO_PIN_NO_PUPD;
     SpiPins.GPIO_PinConfig.GPIO_PinState = GPIO_PIN_RESET;
     GPIO_Init(&SpiPins);
 
-    SpiPins.GPIO_PinConfig.GPIO_PinNumber = SPI_PIN_SCK;
+    SpiPins.GPIO_PinConfig.GPIO_InpBuf = GPIO_INP_BUF_DISCONNECT;
+    SpiPins.GPIO_PinConfig.GPIO_PinNumber = SPI_PIN_MOSI;
     GPIO_Init(&SpiPins);
-    GPIOP1_CNF->CNF[SPI_PIN_SCK] &= ~(1 << 1);
 
 
     GPIO_Handle_t CsPin;
@@ -50,6 +51,7 @@ int main(void)
     CsPin.GPIO_PinConfig.GPIO_PinNumber = CS_PIN;
     CsPin.GPIO_PinConfig.GPIO_PinPuPd = GPIO_PIN_NO_PUPD;
     CsPin.GPIO_PinConfig.GPIO_PinState = GPIO_PIN_SET;
+    CsPin.GPIO_PinConfig.GPIO_InpBuf = GPIO_INP_BUF_DISCONNECT;
     GPIO_Init(&CsPin);
 
     SPI_Handle_t SPIHandle;
