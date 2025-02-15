@@ -49,10 +49,7 @@ int main(void)
     SPIHandle.SCK.pin  = SPI_PIN_SCK;
     SPI_Init(&SPIHandle);
 
-
-
-
-
+    uint8_t sendSpi[] = "Hello World!";
 
 
 
@@ -93,6 +90,7 @@ int main(void)
         {
             //printf("Working\n");
             GPIO_WriteToOutputPin(CS_PORT, CS_PIN, GPIO_PIN_RESET);
+            SPI_SendData(SPI0, sendSpi, 1);
             GPIO_WriteToOutputPin(CS_PORT, CS_PIN, GPIO_PIN_SET);
             start_time2 = system_get_ticks();
         }
