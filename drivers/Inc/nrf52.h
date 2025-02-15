@@ -133,25 +133,30 @@ typedef struct
 	__vo uint32_t BAUDRATE;
 }UART_RegDef_t;
 
-typedef struct
-{
-	__vo uint32_t SET;
-	__vo uint32_t CLR;
-}SPI_INTEN_t;
+typedef struct {
+	__vo uint32_t  SCK;                               /*!< Pin select for SCK                                                    */
+	__vo uint32_t  MOSI;                              /*!< Pin select for MOSI signal                                            */
+	__vo uint32_t  MISO;                              /*!< Pin select for MISO signal                                            */
+} SPI_PSEL_T;
 
-typedef struct
-{
-	__vo uint32_t PENABLE;
-	__vo uint32_t RESERVERD0;
-	__vo uint32_t PSEL_SCK;
-	__vo uint32_t PSEL_MOSI;
-	__vo uint32_t PSEL_MISO;
-	__vo uint32_t RESERVERD1;
-	__vo uint32_t RXD;
-	__vo uint32_t TXD;
-	__vo uint32_t RESERVERD2;
-	__vo uint32_t FREQUENCY;
-}SPI_RegDef_t;
+typedef struct {                                    /*!< SPI Structure                                                         */
+  __vo uint32_t  RESERVED0[66];
+  __vo uint32_t  EVENTS_READY;                      /*!< TXD byte sent and RXD byte received                                   */
+  __vo uint32_t  RESERVED1[126];
+  __vo uint32_t  INTENSET;                          /*!< Enable interrupt                                                      */
+  __vo uint32_t  INTENCLR;                          /*!< Disable interrupt                                                     */
+  __vo uint32_t  RESERVED2[125];
+  __vo uint32_t  ENABLER;                            /*!< Enable SPI                                                            */
+  __vo uint32_t  RESERVED3;
+  SPI_PSEL_T     PSEL;                               /*!< Unspecified                                                           */
+  __vo uint32_t  RESERVED4;
+  __vo uint32_t  RXD;                               /*!< RXD register                                                          */
+  __vo uint32_t  TXD;                               /*!< TXD register                                                          */
+  __vo uint32_t  RESERVED5;
+  __vo uint32_t  FREQUENCY;                         /*!< SPI frequency. Accuracy depends on the HFCLK source selected.         */
+  __vo uint32_t  RESERVED6[11];
+  __vo uint32_t  CONFIG;                            /*!< Configuration register                                                */
+} SPI_RegDef_t;
 
 
 
@@ -174,20 +179,9 @@ typedef struct
 #define UART_CONFIG			(*(__vo uint32_t*)(UART_BASEADDR + 0x056CU))
 #define UART 				((UART_RegDef_t*)(UART_BASEADDR + 0x0500))
 
-#define SPI0_EVENTS	 		(*(__vo uint32_t*)	(SPI0_BASEADDR + 0x0108U))
-#define SPI0_INTEN			((SPI_INTEN_t*)		(SPI0_BASEADDR + 0x0304U))
-#define SPI0_CONFIG			(*(__vo uint32_t*)	(SPI0_BASEADDR + 0x0554U))
-#define SPI0 				((SPI_RegDef_t*)	(SPI0_BASEADDR + 0x0500U))
-
-#define SPI1_EVENTS	 		(*(__vo uint32_t*)	(SPI1_BASEADDR + 0x0108U))
-#define SPI1_INTEN			((SPI_INTEN_t*)		(SPI1_BASEADDR + 0x0304U))
-#define SPI1_CONFIG			(*(__vo uint32_t*)	(SPI1_BASEADDR + 0x0554U))
-#define SPI1 				((SPI_RegDef_t*)	(SPI1_BASEADDR + 0x0500U))
-
-#define SPI2_EVENTS	 		(*(__vo uint32_t*)	(SPI2_BASEADDR + 0x0108U))
-#define SPI2_INTEN			((SPI_INTEN_t*)		(SPI2_BASEADDR + 0x0304U))
-#define SPI2_CONFIG			(*(__vo uint32_t*)	(SPI2_BASEADDR + 0x0554U))
-#define SPI2 				((SPI_RegDef_t*)	(SPI2_BASEADDR + 0x0500U))
+#define SPI0 				((SPI_RegDef_t*)	(SPI0_BASEADDR))
+#define SPI1 				((SPI_RegDef_t*)	(SPI1_BASEADDR))
+#define SPI2 				((SPI_RegDef_t*)	(SPI2_BASEADDR))
 
 
 /*

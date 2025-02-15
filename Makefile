@@ -28,6 +28,7 @@ OBJS		+= build/driver_interrupt.o
 OBJS		+= build/driver_gpio.o
 OBJS		+= build/driver_systick.o
 OBJS		+= build/driver_uart.o
+OBJS		+= build/driver_spi.o
 
 COMMON 		+= build/ring-buffer.o
 

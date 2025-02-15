@@ -26,6 +26,30 @@ int main(void)
  {
     system_init();
 
+    GPIO_Handle_t CsPin;
+    CsPin.pGPIOx = CS_PORT;
+    CsPin.GPIO_PinConfig.GPIO_PinDir = GPIO_DIR_OUT;
+    CsPin.GPIO_PinConfig.GPIO_PinNumber = CS_PIN;
+    CsPin.GPIO_PinConfig.GPIO_PinPuPd = GPIO_PIN_NO_PUPD;
+    CsPin.GPIO_PinConfig.GPIO_PinState = GPIO_PIN_SET;
+    GPIO_Init(&CsPin);
+
+    SPI_Handle_t SPIHandle;
+    SPIHandle.pSPIx = SPI0;
+    SPIHandle.SPI_Config.CPHA = SPI_CPHA_LOW;
+    SPIHandle.SPI_Config.CPOL = SPI_CPOL_LOW;
+    SPIHandle.SPI_Config.Frequency = SPI_FREQUENCY_K250;
+
+    SPIHandle.MISO.port = SPI_PORT;
+    SPIHandle.MOSI.port = SPI_PORT;
+    SPIHandle.SCK.port  = SPI_PORT;
+
+    SPIHandle.MISO.pin = SPI_PIN_MISO;
+    SPIHandle.MOSI.pin = SPI_PIN_MOSI;
+    SPIHandle.SCK.pin  = SPI_PIN_SCK;
+    SPI_Init(&SPIHandle);
+
+
 
 
 
@@ -68,6 +92,8 @@ int main(void)
         if((system_get_ticks() - start_time2) >= 1000) // send hello world
         {
             //printf("Working\n");
+            GPIO_WriteToOutputPin(CS_PORT, CS_PIN, GPIO_PIN_RESET);
+            GPIO_WriteToOutputPin(CS_PORT, CS_PIN, GPIO_PIN_SET);
             start_time2 = system_get_ticks();
         }
 

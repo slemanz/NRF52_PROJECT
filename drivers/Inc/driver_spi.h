@@ -26,6 +26,7 @@ typedef struct
 
 typedef struct{
 	SPI_Config_t SPI_Config;
+	SPI_RegDef_t *pSPIx;
     SPI_PSEL_t MOSI;
     SPI_PSEL_t MISO;
     SPI_PSEL_t SCK;
@@ -59,6 +60,14 @@ typedef struct{
 #define SPI_FREQUENCY_M4        0x40000000U
 #define SPI_FREQUENCY_M8        0x80000000U
 
+/*
+ * SPI Registers 
+ */
+
+#define SPI_PSEL_PIN           0
+#define SPI_PSEL_PORT          5
+#define SPI_PSEL_CONNECT       31
+
 
 /********************************************************************************************
  * 								APIs supported by this driver
@@ -69,10 +78,10 @@ typedef struct{
 
 
 /*
- *		Peripheral Clock Setup
+ *		Peripheral Control
  */
 
-void SPI_PeriClockControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi);
+void SPI_PeriControl(SPI_RegDef_t *pSPIx, uint8_t EnorDi);
 
 
 
