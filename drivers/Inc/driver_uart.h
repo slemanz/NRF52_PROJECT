@@ -79,6 +79,7 @@ void UART_PeriClockControl(uint8_t EnorDi);
 void UART_Init(UART_Handle_t* pUARTHandle);
 void uart_write_byte(uint8_t ch);
 void uart_write(uint8_t* buffer, uint32_t Len);
+uint8_t uart_read_byte(void);
 
 void uart_tx_start(void);
 void uart_tx_stop(void);
@@ -89,5 +90,12 @@ void uart_rx_stop(void);
  * Interrupts
  */
 void uart_interruptConfig(uint32_t interrupts, uint8_t EnorDi);
+
+/*
+ * Other
+ */
+bool uart_data_available(void);
+uint32_t uart_rcv(uint8_t *data, const uint32_t length);
+uint8_t uart_rcv_byte(void);
 
 #endif

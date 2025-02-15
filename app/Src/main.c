@@ -81,10 +81,9 @@ int main(void)
 
     while (1)
     {   
-       if(rcv != 0)
+       if(uart_data_available())
        {
-            printf("%c", rcv);
-            rcv = 0;
+            uart_write_byte(uart_rcv_byte());
        }
 
         if((system_get_ticks() - start_time) >= 1000)
@@ -117,15 +116,5 @@ int main(void)
         {
             GPIO_WriteToOutputPin(GPIOP0, LED1_EXT_PIN, GPIO_PIN_RESET);
         }
-    }
-}
-
-
-void UART_IRQHandler(void)
-{
-    if(UART_EVENT_RXDRDY)
-    {
-        event_clear(&UART_EVENT_RXDRDY);
-        rcv = UART->RXD;
     }
 }
