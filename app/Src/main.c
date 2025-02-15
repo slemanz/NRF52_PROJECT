@@ -3,13 +3,6 @@
 #include "nrf52.h"
 #include "init_app.h"
 
-#define SPI_PORT            GPIOP1
-#define SPI_PIN_MISO        GPIO_PIN_NO_8
-#define SPI_PIN_MOSI        GPIO_PIN_NO_1
-#define SPI_PIN_SCK         GPIO_PIN_NO_2
-
-#define CS_PORT             GPIOP0
-#define CS_PIN              GPIO_PIN_NO_27
 
 const uint8_t leds_pin[] = {0, LED_BLUE_PIN, LED_RED_PIN, LED_GREEN_PIN};
 
@@ -26,50 +19,7 @@ int main(void)
  {
     system_init();
 
-    GPIO_Handle_t SpiPins;
-    SpiPins.pGPIOx = SPI_PORT;
-    SpiPins.GPIO_PinConfig.GPIO_PinNumber = SPI_PIN_MISO;
-    SpiPins.GPIO_PinConfig.GPIO_PinDir = GPIO_DIR_IN;
-    SpiPins.GPIO_PinConfig.GPIO_PinPuPd = GPIO_PIN_NO_PUPD;
-    SpiPins.GPIO_PinConfig.GPIO_InpBuf = GPIO_INP_BUF_CONNECT;
-    GPIO_Init(&SpiPins);
-
-    SpiPins.GPIO_PinConfig.GPIO_PinNumber = SPI_PIN_SCK;
-    SpiPins.GPIO_PinConfig.GPIO_PinDir = GPIO_DIR_OUT;
-    SpiPins.GPIO_PinConfig.GPIO_PinPuPd = GPIO_PIN_NO_PUPD;
-    SpiPins.GPIO_PinConfig.GPIO_PinState = GPIO_PIN_RESET;
-    GPIO_Init(&SpiPins);
-
-    SpiPins.GPIO_PinConfig.GPIO_InpBuf = GPIO_INP_BUF_DISCONNECT;
-    SpiPins.GPIO_PinConfig.GPIO_PinNumber = SPI_PIN_MOSI;
-    GPIO_Init(&SpiPins);
-
-
-    GPIO_Handle_t CsPin;
-    CsPin.pGPIOx = CS_PORT;
-    CsPin.GPIO_PinConfig.GPIO_PinDir = GPIO_DIR_OUT;
-    CsPin.GPIO_PinConfig.GPIO_PinNumber = CS_PIN;
-    CsPin.GPIO_PinConfig.GPIO_PinPuPd = GPIO_PIN_NO_PUPD;
-    CsPin.GPIO_PinConfig.GPIO_PinState = GPIO_PIN_SET;
-    CsPin.GPIO_PinConfig.GPIO_InpBuf = GPIO_INP_BUF_DISCONNECT;
-    GPIO_Init(&CsPin);
-
-    SPI_Handle_t SPIHandle;
-    SPIHandle.pSPIx = SPI0;
-    SPIHandle.SPI_Config.CPHA = SPI_CPHA_LOW;
-    SPIHandle.SPI_Config.CPOL = SPI_CPOL_LOW;
-    SPIHandle.SPI_Config.Frequency = SPI_FREQUENCY_K250;
-
-    SPIHandle.MISO.port = SPI_PORT;
-    SPIHandle.MOSI.port = SPI_PORT;
-    SPIHandle.SCK.port  = SPI_PORT;
-
-    SPIHandle.MISO.pin = SPI_PIN_MISO;
-    SPIHandle.MOSI.pin = SPI_PIN_MOSI;
-    SPIHandle.SCK.pin  = SPI_PIN_SCK;
-    SPI_Init(&SPIHandle);
-
-    uint8_t sendSpi[] = "Hello World!";
+    uint8_t sendSpi[] = "Testando";
 
     uint64_t start_time = system_get_ticks();
     uint64_t start_time2 = system_get_ticks();
@@ -104,7 +54,7 @@ int main(void)
         {
             //printf("Working\n");
             GPIO_WriteToOutputPin(CS_PORT, CS_PIN, GPIO_PIN_RESET);
-            SPI_SendData(SPI0, sendSpi, 12);
+            SPI_SendData(SPI0, sendSpi, (sizeof(sendSpi) - 1));
             GPIO_WriteToOutputPin(CS_PORT, CS_PIN, GPIO_PIN_SET);
             start_time2 = system_get_ticks();
         }

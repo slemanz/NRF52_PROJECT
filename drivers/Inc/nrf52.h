@@ -59,6 +59,9 @@
 #define SPI1_BASEADDR 						(0x40004000UL)
 #define SPI2_BASEADDR 						(0x40023000UL)
 
+#define TWI0_BASEADDR                   	(0x40003000UL)
+#define TWI1_BASEADDR                   	(0x40004000UL)
+
 
 #define RCC_BASEADDR						(AHB1PERIPH_BASE + 0x3800U)
 
@@ -159,6 +162,53 @@ typedef struct {                                    /*!< SPI Structure          
   __vo uint32_t  CONFIG;                            /*!< Configuration register                                                */
 } SPI_RegDef_t;
 
+typedef struct {
+	__vo uint32_t  SCL;                               /*!< Pin select for SCL                                                    */
+	__vo uint32_t  SDA;                               /*!< Pin select for SDA                                                    */
+} TWI_PSEL_T;
+
+typedef struct {                                    /*!< TWI Structure                                                         */
+	__vo uint32_t  TASKS_STARTRX;                     /*!< Start TWI receive sequence                                            */
+	__vo uint32_t  RESERVED0;
+	__vo uint32_t  TASKS_STARTTX;                     /*!< Start TWI transmit sequence                                           */
+	__vo uint32_t  RESERVED1[2];
+	__vo uint32_t  TASKS_STOP;                        /*!< Stop TWI transaction                                                  */
+	__vo uint32_t  RESERVED2;
+	__vo uint32_t  TASKS_SUSPEND;                     /*!< Suspend TWI transaction                                               */
+	__vo uint32_t  TASKS_RESUME;                      /*!< Resume TWI transaction                                                */
+	__vo uint32_t  RESERVED3[56];
+	__vo uint32_t  EVENTS_STOPPED;                    /*!< TWI stopped                                                           */
+	__vo uint32_t  EVENTS_RXDREADY;                   /*!< TWI RXD byte received                                                 */
+	__vo uint32_t  RESERVED4[4];
+	__vo uint32_t  EVENTS_TXDSENT;                    /*!< TWI TXD byte sent                                                     */
+	__vo uint32_t  RESERVED5;
+	__vo uint32_t  EVENTS_ERROR;                      /*!< TWI error                                                             */
+	__vo uint32_t  RESERVED6[4];
+	__vo uint32_t  EVENTS_BB;                         /*!< TWI byte boundary, generated before each byte that is sent or
+														received                                                              */
+	__vo uint32_t  RESERVED7[3];
+	__vo uint32_t  EVENTS_SUSPENDED;                  /*!< TWI entered the suspended state                                       */
+	__vo uint32_t  RESERVED8[45];
+	__vo uint32_t  SHORTS;                            /*!< Shortcut register                                                     */
+	__vo uint32_t  RESERVED9[64];
+	__vo uint32_t  INTENSET;                          /*!< Enable interrupt                                                      */
+	__vo uint32_t  INTENCLR;                          /*!< Disable interrupt                                                     */
+	__vo uint32_t  RESERVED10[110];
+	__vo uint32_t  ERRORSRC;                          /*!< Error source                                                          */
+	__vo uint32_t  RESERVED11[14];
+	__vo uint32_t  ENABLE;                            /*!< Enable TWI                                                            */
+	__vo uint32_t  RESERVED12;
+	TWI_PSEL_T    PSEL;                               /*!< Unspecified                                                           */
+	__vo uint32_t  RESERVED13[2];
+	__vo uint32_t  RXD;                               /*!< RXD register                                                          */
+	__vo uint32_t  TXD;                               /*!< TXD register                                                          */
+	__vo uint32_t  RESERVED14;
+	__vo uint32_t  FREQUENCY;                         /*!< TWI frequency. Accuracy depends on the HFCLK source selected.         */
+	__vo uint32_t  RESERVED15[24];
+	__vo uint32_t  ADDRESS;                           /*!< Address used in the TWI transfer                                      */
+} TWI_RegDef_t;
+
+
 typedef struct
 {
 	GPIOP_RegDef_t* port;
@@ -166,13 +216,11 @@ typedef struct
 }PSEL_t;
 
 
+/* ================================================================================ */
+/* ================             Peripheral declaration             ================ */
+/* ================================================================================ */
 
-
-/*
- * 	Peripheral definitions 
- */
-
-#define SYSTICK         ((SYSTICK_RegDef_t*)SYSTICK_BASEADDR) 
+#define SYSTICK         	((SYSTICK_RegDef_t*)SYSTICK_BASEADDR) 
 
 #define GPIOP0				((GPIOP_RegDef_t*)	(GPIOP0_BASEADDR))
 #define GPIOP1				((GPIOP_RegDef_t*)	(GPIOP1_BASEADDR))
@@ -182,6 +230,9 @@ typedef struct
 #define SPI0 				((SPI_RegDef_t*)	(SPI0_BASEADDR))
 #define SPI1 				((SPI_RegDef_t*)	(SPI1_BASEADDR))
 #define SPI2 				((SPI_RegDef_t*)	(SPI2_BASEADDR))
+
+#define TWI0				((TWI_RegDef_t*)	(TWI0_BASEADDR))
+#define TWI1				((TWI_RegDef_t*)	(TWI1_BASEADDR))
 
 
 /*

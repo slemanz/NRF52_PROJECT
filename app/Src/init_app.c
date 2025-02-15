@@ -7,6 +7,7 @@ static volatile uint64_t ticks = 0;
 static void system_systickInit(void);
 static void system_setupGpio(void);
 static void system_setupUart(void);
+static void system_setupSpi(void);
 
 
 void system_init(void)
@@ -14,6 +15,7 @@ void system_init(void)
     system_systickInit();
     system_setupGpio();
     system_setupUart();
+    system_setupSpi();
 }
 
 uint64_t system_get_ticks(void)
@@ -96,4 +98,50 @@ static void system_setupUart(void)
     UART_Init(&UARTHandle);
     uart_interruptConfig(UART_INTERRUPT_RXRDY, ENABLE);
     interrupt_config(UART_IRQ_NO, ENABLE);
+}
+
+static void system_setupSpi(void)
+{
+    GPIO_Handle_t SpiPins;
+    SpiPins.pGPIOx = SPI_PORT;
+    SpiPins.GPIO_PinConfig.GPIO_PinNumber = SPI_PIN_MISO;
+    SpiPins.GPIO_PinConfig.GPIO_PinDir = GPIO_DIR_IN;
+    SpiPins.GPIO_PinConfig.GPIO_PinPuPd = GPIO_PIN_NO_PUPD;
+    SpiPins.GPIO_PinConfig.GPIO_InpBuf = GPIO_INP_BUF_CONNECT;
+    GPIO_Init(&SpiPins);
+
+    SpiPins.GPIO_PinConfig.GPIO_PinNumber = SPI_PIN_SCK;
+    SpiPins.GPIO_PinConfig.GPIO_PinDir = GPIO_DIR_OUT;
+    SpiPins.GPIO_PinConfig.GPIO_PinPuPd = GPIO_PIN_NO_PUPD;
+    SpiPins.GPIO_PinConfig.GPIO_PinState = GPIO_PIN_RESET;
+    GPIO_Init(&SpiPins);
+
+    SpiPins.GPIO_PinConfig.GPIO_InpBuf = GPIO_INP_BUF_DISCONNECT;
+    SpiPins.GPIO_PinConfig.GPIO_PinNumber = SPI_PIN_MOSI;
+    GPIO_Init(&SpiPins);
+
+
+    GPIO_Handle_t CsPin;
+    CsPin.pGPIOx = CS_PORT;
+    CsPin.GPIO_PinConfig.GPIO_PinDir = GPIO_DIR_OUT;
+    CsPin.GPIO_PinConfig.GPIO_PinNumber = CS_PIN;
+    CsPin.GPIO_PinConfig.GPIO_PinPuPd = GPIO_PIN_NO_PUPD;
+    CsPin.GPIO_PinConfig.GPIO_PinState = GPIO_PIN_SET;
+    CsPin.GPIO_PinConfig.GPIO_InpBuf = GPIO_INP_BUF_DISCONNECT;
+    GPIO_Init(&CsPin);
+
+    SPI_Handle_t SPIHandle;
+    SPIHandle.pSPIx = SPI0;
+    SPIHandle.SPI_Config.CPHA = SPI_CPHA_LOW;
+    SPIHandle.SPI_Config.CPOL = SPI_CPOL_LOW;
+    SPIHandle.SPI_Config.Frequency = SPI_FREQUENCY_K500;
+
+    SPIHandle.MISO.port = SPI_PORT;
+    SPIHandle.MOSI.port = SPI_PORT;
+    SPIHandle.SCK.port  = SPI_PORT;
+
+    SPIHandle.MISO.pin = SPI_PIN_MISO;
+    SPIHandle.MOSI.pin = SPI_PIN_MOSI;
+    SPIHandle.SCK.pin  = SPI_PIN_SCK;
+    SPI_Init(&SPIHandle);
 }
