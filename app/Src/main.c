@@ -26,6 +26,23 @@ int main(void)
  {
     system_init();
 
+    GPIO_Handle_t SpiPins;
+    SpiPins.pGPIOx = SPI_PORT;
+    SpiPins.GPIO_PinConfig.GPIO_PinNumber = SPI_PIN_MISO;
+    SpiPins.GPIO_PinConfig.GPIO_PinDir = GPIO_DIR_IN;
+    SpiPins.GPIO_PinConfig.GPIO_PinPuPd = GPIO_PIN_NO_PUPD;
+    GPIO_Init(&SpiPins);
+
+    SpiPins.GPIO_PinConfig.GPIO_PinNumber = SPI_PIN_MOSI;
+    SpiPins.GPIO_PinConfig.GPIO_PinDir = GPIO_DIR_OUT;
+    SpiPins.GPIO_PinConfig.GPIO_PinPuPd = GPIO_PIN_NO_PUPD;
+    SpiPins.GPIO_PinConfig.GPIO_PinState = GPIO_PIN_RESET;
+    GPIO_Init(&SpiPins);
+
+    SpiPins.GPIO_PinConfig.GPIO_PinNumber = SPI_PIN_SCK;
+    GPIO_Init(&SpiPins);
+
+
     GPIO_Handle_t CsPin;
     CsPin.pGPIOx = CS_PORT;
     CsPin.GPIO_PinConfig.GPIO_PinDir = GPIO_DIR_OUT;

@@ -46,14 +46,14 @@ void SPI_SendData(SPI_RegDef_t *pSPIx, uint8_t *pTxBuffer, uint32_t Len)
 {
     uint8_t temp = 0;
 
-    pSPIx->EVENTS_READY = 0;
+    //pSPIx->EVENTS_READY = 0;
     while(Len)
     {
         //pSPIx->TXD = *(pTxBuffer++);
-        *((uint8_t*)&pSPIx->TXD) = 0x55;
-        //while(!(pSPIx->EVENTS_READY = 0));
-        temp = pSPIx->RXD;
+        pSPIx->TXD = 0x55;
+        //while((pSPIx->EVENTS_READY == 0));
         pSPIx->EVENTS_READY = 0;
+        temp = pSPIx->RXD;
 
         (void)temp;
         Len--;
