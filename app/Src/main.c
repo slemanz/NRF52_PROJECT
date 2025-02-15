@@ -41,6 +41,7 @@ int main(void)
 
     SpiPins.GPIO_PinConfig.GPIO_PinNumber = SPI_PIN_SCK;
     GPIO_Init(&SpiPins);
+    GPIOP1_CNF->CNF[SPI_PIN_SCK] &= ~(1 << 1);
 
 
     GPIO_Handle_t CsPin;
@@ -103,11 +104,11 @@ int main(void)
         }
         
 
-        if((system_get_ticks() - start_time2) >= 1000) // send hello world
+        if((system_get_ticks() - start_time2) >= 2000) // send hello world
         {
             //printf("Working\n");
             GPIO_WriteToOutputPin(CS_PORT, CS_PIN, GPIO_PIN_RESET);
-            SPI_SendData(SPI0, sendSpi, 1);
+            SPI_SendData(SPI0, sendSpi, 12);
             GPIO_WriteToOutputPin(CS_PORT, CS_PIN, GPIO_PIN_SET);
             start_time2 = system_get_ticks();
         }
