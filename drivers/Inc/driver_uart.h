@@ -13,11 +13,6 @@ typedef struct
 	uint32_t Baud;
 }UART_Config_t;
 
-typedef struct
-{
-	GPIOP_RegDef_t* port;
-	uint8_t pin;
-}UART_PSEL_t;
 
 /*
  * Handle structure for USARTx peripheral
@@ -25,8 +20,8 @@ typedef struct
 
 typedef struct{
 	UART_Config_t UART_Config;
-    UART_PSEL_t Tx;
-    UART_PSEL_t Rx;
+    PSEL_t Tx;
+    PSEL_t Rx;
 }UART_Handle_t;
 
 /*
@@ -69,7 +64,7 @@ typedef struct{
 
 #define UART_IRQ_NO				2
 
-#define UART_EVENT_RXDRDY		(UART_EVENTS->RXDRDY)
+#define UART_EVENT_RXDRDY		(UART->EVENTS_RXDRDY)
 
 /********************************************************************************************
  * 								APIs supported by this driver

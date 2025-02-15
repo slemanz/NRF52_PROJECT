@@ -71,18 +71,13 @@ int main(void)
 
     uint8_t sendSpi[] = "Hello World!";
 
-
-
-
-
-
     uint64_t start_time = system_get_ticks();
     uint64_t start_time2 = system_get_ticks();
     uint8_t cnt = 0;
 
     GPIO_WriteToOutputPin(GPIOP0, LED_BUILT_IN, GPIO_PIN_SET);
     for(uint32_t i = 0; i < 500000; i++) __asm("NOP"); // stable the system
-    printf("Init system\n\r");
+    printf("Init system ok...\n\r");
 
     while (1)
     {   

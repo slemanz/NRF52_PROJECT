@@ -83,53 +83,55 @@ typedef struct
 
 typedef struct
 {
-  __vo uint32_t CTRL; 
-  __vo uint32_t LOAD; 
-  __vo uint32_t VAL;  
-  __vo uint32_t CALIB;
+	__vo uint32_t CTRL; 
+	__vo uint32_t LOAD; 
+	__vo uint32_t VAL;  
+	__vo uint32_t CALIB;
 }SYSTICK_RegDef_t;
 
-typedef struct
-{
-	__vo uint32_t STARTRX;
-	__vo uint32_t STOPRX;
-	__vo uint32_t STARTTX;
-	__vo uint32_t STOPTX;
-	__vo uint32_t RESERVERD[3];
-	__vo uint32_t SUSPEND;
-}UART_TASKS_t;
+typedef struct {
+	__vo uint32_t  RTS;                               /*!< Pin select for RTS                                                    */
+	__vo uint32_t  TXD;                               /*!< Pin select for TXD                                                    */
+	__vo uint32_t  CTS;                               /*!< Pin select for CTS                                                    */
+	__vo uint32_t  RXD;                               /*!< Pin select for RXD                                                    */
+} UART_PSEL_T;
+
 
 typedef struct
 {
-	__vo uint32_t CTS;
-	__vo uint32_t NCTS;
-	__vo uint32_t RXDRDY;
-	__vo uint32_t RESERVERD0[4];
-	__vo uint32_t TXDRDY;
-	__vo uint32_t RESERVERD1;
-	__vo uint32_t ERROR;
-	__vo uint32_t RESERVERD2[7];
-	__vo uint32_t RXTO;
-}UART_EVENTS_t;
-
-typedef struct
-{
-	__vo uint32_t SET;
-	__vo uint32_t CLR;
-}UART_INTEN_t;
-
-typedef struct
-{
-	__vo uint32_t PENABLE;
-	__vo uint32_t RESERVERD0;
-	__vo uint32_t PSEL_RTS;
-	__vo uint32_t PSEL_TXD;
-	__vo uint32_t PSEL_CTS;
-	__vo uint32_t PSEL_RXD;
-	__vo uint32_t RXD;
-	__vo uint32_t TXD;
-	__vo uint32_t RESERVERD1;
-	__vo uint32_t BAUDRATE;
+	__vo uint32_t  TASKS_STARTRX;                     /*!< Start UART receiver                                                   */
+	__vo uint32_t  TASKS_STOPRX;                      /*!< Stop UART receiver                                                    */
+	__vo uint32_t  TASKS_STARTTX;                     /*!< Start UART transmitter                                                */
+	__vo uint32_t  TASKS_STOPTX;                      /*!< Stop UART transmitter                                                 */
+	__vo uint32_t  RESERVED0[3];
+	__vo uint32_t  TASKS_SUSPEND;                     /*!< Suspend UART                                                          */
+	__vo uint32_t  RESERVED1[56];
+	__vo uint32_t  EVENTS_CTS;                        /*!< CTS is activated (set low). Clear To Send.                            */
+	__vo uint32_t  EVENTS_NCTS;                       /*!< CTS is deactivated (set high). Not Clear To Send.                     */
+	__vo uint32_t  EVENTS_RXDRDY;                     /*!< Data received in RXD                                                  */
+	__vo uint32_t  RESERVED2[4];
+	__vo uint32_t  EVENTS_TXDRDY;                     /*!< Data sent from TXD                                                    */
+	__vo uint32_t  RESERVED3;
+	__vo uint32_t  EVENTS_ERROR;                      /*!< Error detected                                                        */
+	__vo uint32_t  RESERVED4[7];
+	__vo uint32_t  EVENTS_RXTO;                       /*!< Receiver timeout                                                      */
+	__vo uint32_t  RESERVED5[46];
+	__vo uint32_t  SHORTS;                            /*!< Shortcut register                                                     */
+	__vo uint32_t  RESERVED6[64];
+	__vo uint32_t  INTENSET;                          /*!< Enable interrupt                                                      */
+	__vo uint32_t  INTENCLR;                          /*!< Disable interrupt                                                     */
+	__vo uint32_t  RESERVED7[93];
+	__vo uint32_t  ERRORSRC;                          /*!< Error source                                                          */
+	__vo uint32_t  RESERVED8[31];
+	__vo uint32_t  ENABLER;                            /*!< Enable UART                                                           */
+	__vo uint32_t  RESERVED9;
+	UART_PSEL_T    PSEL;                              /*!< Unspecified                                                           */
+	__vo uint32_t  RXD;                               /*!< RXD register                                                          */
+	__vo uint32_t  TXD;                               /*!< TXD register                                                          */
+	__vo uint32_t  RESERVED10;
+	__vo uint32_t  BAUDRATE;                          /*!< Baud rate. Accuracy depends on the HFCLK source selected.             */
+	__vo uint32_t  RESERVED11[17];
+	__vo uint32_t  CONFIG; 
 }UART_RegDef_t;
 
 typedef struct {
@@ -157,6 +159,12 @@ typedef struct {                                    /*!< SPI Structure          
   __vo uint32_t  CONFIG;                            /*!< Configuration register                                                */
 } SPI_RegDef_t;
 
+typedef struct
+{
+	GPIOP_RegDef_t* port;
+	uint8_t pin;
+}PSEL_t;
+
 
 
 
@@ -166,16 +174,10 @@ typedef struct {                                    /*!< SPI Structure          
 
 #define SYSTICK         ((SYSTICK_RegDef_t*)SYSTICK_BASEADDR) 
 
-#define GPIOP0			((GPIOP_RegDef_t*)(GPIOP0_BASEADDR))
-#define GPIOP1			((GPIOP_RegDef_t*)(GPIOP1_BASEADDR))
+#define GPIOP0				((GPIOP_RegDef_t*)	(GPIOP0_BASEADDR))
+#define GPIOP1				((GPIOP_RegDef_t*)	(GPIOP1_BASEADDR))
 
-
-
-#define UART_TASKS	 		((UART_TASKS_t*)(UART_BASEADDR + 0x0000U))
-#define UART_EVENTS 		((UART_EVENTS_t*)(UART_BASEADDR + 0x0100U))
-#define UART_INTEN			((UART_INTEN_t*)(UART_BASEADDR + 0x0304U))
-#define UART_CONFIG			(*(__vo uint32_t*)(UART_BASEADDR + 0x056CU))
-#define UART 				((UART_RegDef_t*)(UART_BASEADDR + 0x0500))
+#define UART 				((UART_RegDef_t*)	(UART_BASEADDR))
 
 #define SPI0 				((SPI_RegDef_t*)	(SPI0_BASEADDR))
 #define SPI1 				((SPI_RegDef_t*)	(SPI1_BASEADDR))
