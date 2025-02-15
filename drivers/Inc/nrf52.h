@@ -54,6 +54,9 @@
 #define GPIOP0_BASEADDR						(0x50000000UL)
 #define GPIOP1_BASEADDR						(0x50000300UL)
 #define UART_BASEADDR 						(0x40002000UL)
+#define SPI0_BASEADDR 						(0x40000300UL)
+#define SPI1_BASEADDR 						(0x40000400UL)
+#define SPI2_BASEADDR 						(0x40002300UL)
 
 
 #define RCC_BASEADDR						(AHB1PERIPH_BASE + 0x3800U)
@@ -130,6 +133,28 @@ typedef struct
 	__vo uint32_t BAUDRATE;
 }UART_RegDef_t;
 
+typedef struct
+{
+	__vo uint32_t SET;
+	__vo uint32_t CLR;
+}SPI_INTEN_t;
+
+typedef struct
+{
+	__vo uint32_t PENABLE;
+	__vo uint32_t RESERVERD0;
+	__vo uint32_t PSEL_SCK;
+	__vo uint32_t PSEL_MOSI;
+	__vo uint32_t PSEL_MISO;
+	__vo uint32_t RESERVERD1;
+	__vo uint32_t RXD;
+	__vo uint32_t TXD;
+	__vo uint32_t RESERVERD2;
+	__vo uint32_t FREQUENCY;
+}SPI_RegDef_t;
+
+
+
 
 /*
  * 	Peripheral definitions 
@@ -148,6 +173,23 @@ typedef struct
 #define UART_INTEN			((UART_INTEN_t*)(UART_BASEADDR + 0x0304U))
 #define UART_CONFIG			(*(__vo uint32_t*)(UART_BASEADDR + 0x056CU))
 #define UART 				((UART_RegDef_t*)(UART_BASEADDR + 0x0500))
+
+#define SPI0_EVENTS	 		(*(__vo uint32_t*)	(SPI0_BASEADDR + 0x0108U))
+#define SPI0_INTEN			((SPI_INTEN_t*)		(SPI0_BASEADDR + 0x0304U))
+#define SPI0_CONFIG			(*(__vo uint32_t*)	(SPI0_BASEADDR + 0x0554U))
+#define SPI0 				((SPI_RegDef_t*)	(SPI0_BASEADDR + 0x0500U))
+
+#define SPI1_EVENTS	 		(*(__vo uint32_t*)	(SPI1_BASEADDR + 0x0108U))
+#define SPI1_INTEN			((SPI_INTEN_t*)		(SPI1_BASEADDR + 0x0304U))
+#define SPI1_CONFIG			(*(__vo uint32_t*)	(SPI1_BASEADDR + 0x0554U))
+#define SPI1 				((SPI_RegDef_t*)	(SPI1_BASEADDR + 0x0500U))
+
+#define SPI2_EVENTS	 		(*(__vo uint32_t*)	(SPI2_BASEADDR + 0x0108U))
+#define SPI2_INTEN			((SPI_INTEN_t*)		(SPI2_BASEADDR + 0x0304U))
+#define SPI2_CONFIG			(*(__vo uint32_t*)	(SPI2_BASEADDR + 0x0554U))
+#define SPI2 				((SPI_RegDef_t*)	(SPI2_BASEADDR + 0x0500U))
+
+
 /*
  * 		Some generic macros
  */
@@ -185,5 +227,6 @@ typedef struct
 #include "driver_gpio.h"
 #include "driver_systick.h"
 #include "driver_uart.h"
+#include "driver_spi.h"
 
 #endif

@@ -68,5 +68,8 @@ load:
 	openocd -f interface/jlink.cfg -c "transport select swd" -f target/nrf52.cfg -c init -c "reset init" \
 	-c "flash write_image erase build/final.elf" -c "reset run" -c shutdown
 
+reset:
+	openocd -f interface/jlink.cfg -c "transport select swd" -f target/nrf52.cfg -c init -c "reset run" -c shutdown
+
 clean:
 	rm -rf *.o *.map build/*.o

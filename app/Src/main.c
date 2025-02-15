@@ -51,7 +51,7 @@ int main(void)
         }
         
 
-        if((system_get_ticks() - start_time2) >= 30000) // send hello world
+        if((system_get_ticks() - start_time2) >= 300000) // send hello world
         {
             printf("Working\n");
             start_time2 = system_get_ticks();
