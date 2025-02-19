@@ -31,6 +31,8 @@ int main(void)
     printf("Init system ok...\n\r");
 
     nor_waitBusy();
+    uint8_t bufferNor[64];
+    NOR_ReadBytes(bufferNor, 0x00000000, 64);
 
     while (1)
     {   
