@@ -257,3 +257,47 @@ void NOR_WriteBytes(uint8_t *pBuffer, uint32_t WriteAddr, uint32_t NumBytesToWri
 	nor_waitBusy();
 	NOR_PRINTF("Write done.!\n\r\n\r");
 }
+
+void NOR_WritePage(uint8_t *pBuffer, uint32_t PageAddr, uint32_t Offset, uint32_t NumBytesToWrite)
+{
+	uint32_t Address;
+
+	while (Offset >= NOR_SIZE_PAGE)
+	{
+		PageAddr++;
+		Offset -= NOR_SIZE_PAGE;
+	}
+
+	Address = (PageAddr * NOR_SIZE_PAGE) + Offset;
+	NOR_WriteBytes(pBuffer, Address, NumBytesToWrite);
+}
+
+
+void NOR_WriteSector(uint8_t *pBuffer, uint32_t SectorAddr, uint32_t Offset, uint32_t NumBytesToWrite)
+{
+	int32_t Address;
+
+	while (Offset >= NOR_SIZE_SECTOR)
+	{
+		SectorAddr++;
+		Offset -= NOR_SIZE_SECTOR;
+	}
+
+	Address = (SectorAddr * NOR_SIZE_SECTOR) + Offset;
+	NOR_WriteBytes(pBuffer, Address, NumBytesToWrite);
+}
+
+
+void NOR_WriteBlock(uint8_t *pBuffer, uint32_t BlockAddr, uint32_t Offset, uint32_t NumBytesToWrite)
+{
+	uint32_t Address;
+
+	while (Offset >= NOR_SIZE_BLOCK)
+	{
+		BlockAddr++;
+		Offset -= NOR_SIZE_BLOCK;
+	}
+
+	Address = (BlockAddr * NOR_SIZE_BLOCK) + Offset;
+	NOR_WriteBytes(pBuffer, Address, NumBytesToWrite);
+}
