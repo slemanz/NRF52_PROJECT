@@ -185,6 +185,21 @@ void NOR_EraseAddress(uint32_t Address, nor_erase_method_e method){
     NOR_PRINTF("Erased complete\n");
 }
 
+void NOR_EraseSector(uint32_t SectorAddr){
+	uint32_t Address;
+
+
+	Address = SectorAddr * NOR_SIZE_SECTOR;
+	return NOR_EraseAddress(Address, NOR_ERASE_4K);
+}
+
+void NOR_EraseBlock(uint32_t BlockAddr){
+	uint32_t Address;
+
+	Address = BlockAddr * NOR_SIZE_BLOCK;
+	return NOR_EraseAddress(Address, NOR_ERASE_64K);
+}
+
 /* ================================================================================ */
 /* ================           NOR WRITE FUNCTIONS                  ================ */
 /* ================================================================================ */

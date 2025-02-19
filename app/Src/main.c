@@ -30,10 +30,13 @@ int main(void)
 
     nor_waitBusy();
     uint8_t bufferNor[64];
-    //uint8_t bufferWrite[8] = {0x69, 0x55, 0x77, 0x66, 0x55};
-    //NOR_EraseAddress(0x00000000, NOR_ERASE_4K);
-    //NOR_WriteBytes(bufferWrite, 0x00000000, 5);
+    uint8_t bufferWrite[8] = {0x55, 0x55, 0x66, 0x66, 0x55};
+    NOR_EraseSector(1);
+    NOR_WriteSector(bufferWrite, 1, 0, 5);
+    NOR_EraseSector(0);
+    NOR_WriteSector(bufferWrite, 0, 0, 5);
     NOR_ReadPage(bufferNor, 0, 0, 32);
+    NOR_ReadPage(bufferNor, 1, 0, 32);
 
     while (1)
     {   
