@@ -3,7 +3,6 @@
 
 #include <stdint.h>
 
-
 typedef enum{
 	NOR_ERASE_4K, /**< NOR_ERASE_4K */
 	NOR_ERASE_32K,/**< NOR_ERASE_32K */
@@ -11,6 +10,7 @@ typedef enum{
 }nor_erase_method_e;
 
 void nor_init(void);
+void nor_waitBusy(void);
 void nor_erase_chip(void);
 
 void nor_eraseAddress(uint32_t Address, nor_erase_method_e method);

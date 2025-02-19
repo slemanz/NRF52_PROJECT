@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "nrf52.h"
 #include "init_app.h"
+#include "nor.h"
 
 
 const uint8_t leds_pin[] = {0, LED_BLUE_PIN, LED_RED_PIN, LED_GREEN_PIN};
@@ -28,6 +29,8 @@ int main(void)
     GPIO_WriteToOutputPin(GPIOP0, LED_BUILT_IN, GPIO_PIN_SET);
     for(uint32_t i = 0; i < 500000; i++) __asm("NOP"); // stable the system
     printf("Init system ok...\n\r");
+
+    nor_waitBusy();
 
     while (1)
     {   

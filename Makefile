@@ -11,6 +11,7 @@ OBJCOPY=arm-none-eabi-objcopy
 INCLUDES+= -I app/Inc/
 INCLUDES+= -I drivers/Inc/ 
 INCLUDES+= -I common/Inc/ 
+INCLUDES+= -I bsp/Inc/ 
 INCLUDES+= -I shared/Inc/
 
 
@@ -29,6 +30,8 @@ OBJS		+= build/driver_gpio.o
 OBJS		+= build/driver_systick.o
 OBJS		+= build/driver_uart.o
 OBJS		+= build/driver_spi.o
+
+OBJS		+= build/nor.o
 
 COMMON 		+= build/ring-buffer.o
 
@@ -50,6 +53,9 @@ build/%.o: drivers/Src/%.c
 
 build/%.o: common/Src/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o build/$(*).o common/Src/$(*).c
+
+build/%.o: bsp/Src/%.c
+	$(CC) $(CFLAGS) $(INCLUDES) -o build/$(*).o bsp/Src/$(*).c
 
 build/%.o: shared/Src/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o build/$(*).o shared/Src/$(*).c
