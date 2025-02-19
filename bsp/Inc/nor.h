@@ -9,6 +9,10 @@ typedef enum{
 	NOR_ERASE_64K /**< NOR_ERASE_64K */
 }nor_erase_method_e;
 
+#define NOR_SIZE_BLOCK				65536
+#define NOR_SIZE_SECTOR				4096
+#define NOR_SIZE_PAGE				256
+
 
 /* ================================================================================ */
 /* ================             	  NOR COMMANDS 	               ================ */

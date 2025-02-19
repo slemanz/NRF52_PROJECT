@@ -62,8 +62,6 @@ void nor_waitBusy(void)
     uint8_t cmd = NOR_CMD_SR1;
     uint8_t statusReg;
 
-    NOR_PRINTF("Nor busy\n");
-
     _nor_cs_assert();
 	_nor_spi_rx(&statusReg, 1);
 	do{
@@ -72,10 +70,11 @@ void nor_waitBusy(void)
 		_nor_spi_rx(&statusReg, 1);
         _nor_cs_deassert();
 	}while ((statusReg & (1 << 0))); // SR1_BUSY_BIT
-	//_nor_cs_deassert();
-    //NOR_PRINTF("%x\n", statusReg);
-    ///NOR_PRINTF("Nor not busy\n");
 }
+
+/* ================================================================================ */
+/* ================           NOR READ FUNCTIONS                   ================ */
+/* ================================================================================ */
 
 void NOR_ReadBytes(uint8_t *pBuffer, uint32_t ReadAddr, uint32_t NumByteToRead)
 {
@@ -110,6 +109,49 @@ void NOR_ReadBytes(uint8_t *pBuffer, uint32_t ReadAddr, uint32_t NumByteToRead)
 	}
 	NOR_PRINTF("\n\r=============================================================\n\r");
 }
+void NOR_ReadPage(uint8_t *pBuffer, uint32_t PageAddr, uint32_t Offset, uint32_t NumByteToRead)
+{
+	uint32_t Address;
+
+	while (Offset >= NOR_SIZE_PAGE)
+    {
+		PageAddr++;
+		Offset -= NOR_SIZE_PAGE;
+	}
+
+	Address = (PageAddr * NOR_SIZE_PAGE) + Offset;
+	NOR_ReadBytes(pBuffer, Address, NumByteToRead);
+}
+
+void NOR_ReadSector(uint8_t *pBuffer, uint32_t SectorAddr, uint32_t Offset, uint32_t NumByteToRead)
+{
+	uint32_t Address;
+
+	while (Offset >= NOR_SIZE_SECTOR){
+		SectorAddr++;
+		Offset -= NOR_SIZE_SECTOR;
+	}
+
+	Address = (SectorAddr * NOR_SIZE_SECTOR) + Offset;
+	NOR_ReadBytes(pBuffer, Address, NumByteToRead);
+}
+
+void NOR_ReadBlock(uint8_t *pBuffer, uint32_t BlockAddr, uint32_t Offset, uint32_t NumByteToRead)
+{
+	uint32_t Address;
+
+	while (Offset >= NOR_SIZE_BLOCK){
+		BlockAddr++;
+		Offset -= NOR_SIZE_BLOCK;
+	}
+
+	Address = (BlockAddr * NOR_SIZE_BLOCK) + Offset;
+	NOR_ReadBytes(pBuffer, Address, NumByteToRead);
+}
+
+/* ================================================================================ */
+/* ================           NOR ERASE FUNCTIONS                  ================ */
+/* ================================================================================ */
 
 void NOR_EraseAddress(uint32_t Address, nor_erase_method_e method){
 	uint8_t EraseChipCmd[4];
@@ -142,6 +184,10 @@ void NOR_EraseAddress(uint32_t Address, nor_erase_method_e method){
 		
     NOR_PRINTF("Erased complete\n");
 }
+
+/* ================================================================================ */
+/* ================           NOR WRITE FUNCTIONS                  ================ */
+/* ================================================================================ */
 
 void NOR_WriteBytes(uint8_t *pBuffer, uint32_t WriteAddr, uint32_t NumBytesToWrite)
 {

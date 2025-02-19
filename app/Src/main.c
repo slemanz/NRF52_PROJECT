@@ -20,8 +20,6 @@ int main(void)
  {
     system_init();
 
-    uint8_t sendSpi[] = "Testando";
-
     uint64_t start_time = system_get_ticks();
     uint64_t start_time2 = system_get_ticks();
     uint8_t cnt = 0;
@@ -32,10 +30,10 @@ int main(void)
 
     nor_waitBusy();
     uint8_t bufferNor[64];
-    uint8_t bufferWrite[8] = {0x69, 0x55, 0x77, 0x66, 0x55};
+    //uint8_t bufferWrite[8] = {0x69, 0x55, 0x77, 0x66, 0x55};
     //NOR_EraseAddress(0x00000000, NOR_ERASE_4K);
     //NOR_WriteBytes(bufferWrite, 0x00000000, 5);
-    NOR_ReadBytes(bufferNor, 0x00000000, 64);
+    NOR_ReadPage(bufferNor, 0, 0, 32);
 
     while (1)
     {   
@@ -61,9 +59,6 @@ int main(void)
         if((system_get_ticks() - start_time2) >= 2000) // send hello world
         {
             //printf("Working\n");
-            GPIO_WriteToOutputPin(CS_PORT, CS_PIN, GPIO_PIN_RESET);
-            SPI_SendData(SPI0, sendSpi, (sizeof(sendSpi) - 1));
-            GPIO_WriteToOutputPin(CS_PORT, CS_PIN, GPIO_PIN_SET);
             start_time2 = system_get_ticks();
         }
 
