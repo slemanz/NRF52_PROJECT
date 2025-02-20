@@ -18,3 +18,11 @@
  {
     SAADC->RESOLUTION = res;
  }
+
+ void saadc_calibrate(void)
+ {
+    SAADC->TASKS_CALIBRATEOFFSET = 1;
+    while(SAADC->EVENTS_CALIBRATEDONE == 0);
+    SAADC->EVENTS_CALIBRATEDONE = 0;
+    while(SAADC->STATUS == (1 << 0));
+ }

@@ -56,9 +56,10 @@ int main(void)
     saadc_setResolution(SAADC_RESOLUTION_12BIT);
 
     SAADC->RESULT.MAXCNT = 1;
-    SAADC->RESULT.PTR   = (uint32_t*)&result;
+    SAADC->RESULT.PTR   = (uint32_t)&result;
 
     SAADC->ENABLER = 1;
+    saadc_calibrate();
 
 
     while (1)
@@ -82,9 +83,18 @@ int main(void)
         }
         
 
-        if((system_get_ticks() - start_time2) >= 2000) // send hello world
+        if((system_get_ticks() - start_time2) >= 3000) // send hello world
         {
-            //printf("Working\n");
+            SAADC->TASKS_START = 1;
+            while (SAADC->EVENTS_STARTED == 0);
+            SAADC->EVENTS_STARTED = 0;
+
+            // Do a SAADC sample, will put the result in the configured RAM buffer.
+            SAADC->TASKS_SAMPLE = 1;
+            while (SAADC->EVENTS_END == 0);
+            SAADC->EVENTS_END = 0;
+
+            printf("Result: %d\n", result);
             start_time2 = system_get_ticks();
         }
 
