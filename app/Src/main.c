@@ -38,7 +38,27 @@ int main(void)
     */
 
 
+    // A0 -> P0.4
+    volatile int16_t result = 0;
 
+    SAADC_Handle_t SAADCHandle;
+    SAADCHandle.CHANNEL = SAADC_CHANNEL_0;
+    SAADCHandle.RESN    = SAADC_RES_BYPASS;
+    SAADCHandle.RESP    = SAADC_RES_BYPASS;
+    SAADCHandle.GAIN    = SAADC_GAIN_1_4;
+    SAADCHandle.REFSEL  = SAADC_REFSEL_VDD_1_4;
+    SAADCHandle.MODE    = SAADC_MODE_SE;
+    SAADCHandle.TACQ    = SAADC_TACQ_10US;
+
+    SAADCHandle.PSELP   = SAADC_PSEL_AIN0;
+    SAADCHandle.PSELN   = SAADC_PSEL_NC;
+    saadc_init(&SAADCHandle);
+    saadc_setResolution(SAADC_RESOLUTION_12BIT);
+
+    SAADC->RESULT.MAXCNT = 1;
+    SAADC->RESULT.PTR   = (uint32_t*)&result;
+
+    SAADC->ENABLER = 1;
 
 
     while (1)

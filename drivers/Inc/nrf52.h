@@ -261,7 +261,7 @@ typedef struct {                                    /*!< SAADC Structure        
 	__vo uint32_t  RESERVED2[61];
 	__vo uint32_t  STATUS;                            /*!< Status                                                                */
 	__vo uint32_t  RESERVED3[63];
-	__vo uint32_t  ENABLE;                            /*!< Enable or disable SAADC                                               */
+	__vo uint32_t  ENABLER;                            /*!< Enable or disable SAADC                                               */
 	__vo uint32_t  RESERVED4[3];
 	SAADC_CH_T 	   CH[8];                              /*!< Unspecified                                                           */
 	__vo uint32_t  RESERVED5[24];

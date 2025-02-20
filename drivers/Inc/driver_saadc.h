@@ -5,7 +5,7 @@
 
 typedef struct
 {
-    uint8_t channel;
+    uint8_t CHANNEL;
     uint8_t RESP;
     uint8_t RESN;
     uint8_t GAIN;
@@ -16,6 +16,21 @@ typedef struct
     uint8_t PSELP;
     uint8_t PSELN;
 }SAADC_Handle_t;
+
+
+/*
+ *@SAADC_CHANNEL
+ *Possible options for SAADC_CHANNEL
+ */
+
+#define SAADC_CHANNEL_0                 0
+#define SAADC_CHANNEL_1                 1
+#define SAADC_CHANNEL_2                 2
+#define SAADC_CHANNEL_3                 3
+#define SAADC_CHANNEL_4                 4
+#define SAADC_CHANNEL_5                 5
+#define SAADC_CHANNEL_6                 6
+#define SAADC_CHANNEL_7                 7
 
 /*
  *@SAADC_RES
@@ -118,6 +133,22 @@ typedef struct
  #define SAADC_OVERSAMPLE_64X           6
  #define SAADC_OVERSAMPLE_128X          7
  #define SAADC_OVERSAMPLE_256X          8
+
+/* **********************************
+ * SAADC Register bits
+ * **********************************/
+
+#define SAADC_CH_CONFIG_RESP_BIT        0
+#define SAADC_CH_CONFIG_RESN_BIT        4
+#define SAADC_CH_CONFIG_GAIN_BIT        8
+#define SAADC_CH_CONFIG_REFSEL_BIT      12
+#define SAADC_CH_CONFIG_TACQ_BIT        16
+#define SAADC_CH_CONFIG_MODE_BIT        20
+#define SAADC_CH_CONFIG_BURST_BIT       24
+
+
+
+ 
 
 
 /********************************************************************************************
