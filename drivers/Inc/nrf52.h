@@ -62,6 +62,8 @@
 #define TWI0_BASEADDR                   	(0x40003000UL)
 #define TWI1_BASEADDR                   	(0x40004000UL)
 
+#define SAADC_BASEADDR                  	(0x40007000UL)
+
 
 #define RCC_BASEADDR						(AHB1PERIPH_BASE + 0x3800U)
 
@@ -215,6 +217,65 @@ typedef struct
 	uint8_t pin;
 }PSEL_t;
 
+typedef struct
+{
+	__vo uint32_t  LIMITH;                            /*!< Description cluster[n]: Last result is equal or above CH[n].LIMIT.HIGH */
+	__vo uint32_t  LIMITL;                            /*!< Description cluster[n]: Last result is equal or below CH[n].LIMIT.LOW */
+} SAADC_EVENTS_CH_T;
+
+typedef struct 
+{
+	__vo uint32_t  PSELP;                             /*!< Description cluster[n]: Input positive pin selection for CH[n]        */
+	__vo uint32_t  PSELN;                             /*!< Description cluster[n]: Input negative pin selection for CH[n]        */
+	__vo uint32_t  CONFIG;                            /*!< Description cluster[n]: Input configuration for CH[n]                 */
+	__vo uint32_t  LIMIT;                             /*!< Description cluster[n]: High/low limits for event monitoring			*/
+} SAADC_CH_T;
+
+typedef struct 
+{
+	__vo uint32_t  PTR;                               /*!< Data pointer                                                          */
+	__vo uint32_t  MAXCNT;                            /*!< Maximum number of 16-bit samples to be written to output RAM		   */
+	__vo uint32_t  AMOUNT;                            /*!< Number of 16-bit samples written to output RAM buffer since
+                                                		the previous START task                                               	*/
+} SAADC_RESULT_T;
+
+typedef struct {                                    /*!< SAADC Structure                                                       */
+	__vo uint32_t  TASKS_START;                       /*!< Starts the SAADC and prepares the result buffer in RAM                */
+	__vo uint32_t  TASKS_SAMPLE;                      /*!< Takes one SAADC sample                                                */
+	__vo uint32_t  TASKS_STOP;                        /*!< Stops the SAADC and terminates all on-going conversions               */
+	__vo uint32_t  TASKS_CALIBRATEOFFSET;             /*!< Starts offset auto-calibration                                        */
+	__vo uint32_t  RESERVED0[60];
+	__vo uint32_t  EVENTS_STARTED;                    /*!< The SAADC has started                                                 */
+	__vo uint32_t  EVENTS_END;                        /*!< The SAADC has filled up the result buffer                             */
+	__vo uint32_t  EVENTS_DONE;                       /*!< A conversion task has been completed. Depending on the configuration,
+                                                         multiple conversions might be needed for a result to be transferred
+                                                          to RAM.                                                              */
+	__vo uint32_t  EVENTS_RESULTDONE;                 /*!< Result ready for transfer to RAM                                      */
+	__vo uint32_t  EVENTS_CALIBRATEDONE;              /*!< Calibration is complete                                               */
+	__vo uint32_t  EVENTS_STOPPED;                    /*!< The SAADC has stopped                                                 */
+	SAADC_EVENTS_CH_T EVENTS_CH[8];                /*!< Unspecified                                                           */
+	__vo uint32_t  RESERVED1[106];
+	__vo uint32_t  INTEN;                             /*!< Enable or disable interrupt                                           */
+	__vo uint32_t  INTENSET;                          /*!< Enable interrupt                                                      */
+	__vo uint32_t  INTENCLR;                          /*!< Disable interrupt                                                     */
+	__vo uint32_t  RESERVED2[61];
+	__vo uint32_t  STATUS;                            /*!< Status                                                                */
+	__vo uint32_t  RESERVED3[63];
+	__vo uint32_t  ENABLE;                            /*!< Enable or disable SAADC                                               */
+	__vo uint32_t  RESERVED4[3];
+	SAADC_CH_T 	   CH[8];                              /*!< Unspecified                                                           */
+	__vo uint32_t  RESERVED5[24];
+	__vo uint32_t  RESOLUTION;                        /*!< Resolution configuration                                              */
+	__vo uint32_t  OVERSAMPLE;                        /*!< Oversampling configuration. The RESOLUTION is applied before
+                                                         averaging, thus for high OVERSAMPLE a higher RESOLUTION should
+                                                          be used.                                                             */
+  	__vo uint32_t  SAMPLERATE;                        /*!< Controls normal or continuous sample rate                             */
+  	__vo uint32_t  RESERVED6[12];
+	SAADC_RESULT_T RESULT;                         /*!< RESULT EasyDMA channel                                                */
+} SAADC_RegDef_t;
+
+
+
 
 /* ================================================================================ */
 /* ================             Peripheral declaration             ================ */
@@ -233,6 +294,9 @@ typedef struct
 
 #define TWI0				((TWI_RegDef_t*)	(TWI0_BASEADDR))
 #define TWI1				((TWI_RegDef_t*)	(TWI1_BASEADDR))
+
+#define SAADC               ((SAADC_RegDef_t*) 	(SAADC_BASEADDR))
+
 
 
 /*
