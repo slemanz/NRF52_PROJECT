@@ -337,5 +337,6 @@ typedef struct {                                    /*!< SAADC Structure        
 #include "driver_systick.h"
 #include "driver_uart.h"
 #include "driver_spi.h"
+#include "driver_saadc.h"
 
 #endif

@@ -28,18 +28,18 @@ int main(void)
     for(uint32_t i = 0; i < 500000; i++) __asm("NOP"); // stable the system
     printf("Init system ok...\n\r");
 
-    nor_waitBusy();
+    /*
     uint8_t bufferNor[64];
-    //uint8_t bufferWrite[8] = {0x55, 0x55, 0x66, 0x66, 0x55};
-    //uint8_t bufferWrite[8] = {0x77, 0x88, 0x99, 0xAA, 0xBB};
-    //NOR_EraseSector(0);
-    ////NOR_EraseSector(1);
-
-    //NOR_WriteSector(bufferWrite, 0, 0, 5);
-    //NOR_WriteSector(bufferWrite, 1, 0, 5);
+    uint8_t bufferWrite[8] = {0x55, 0x55, 0x66, 0x66, 0x55};
+    NOR_EraseSector(0);
+    NOR_WriteSector(bufferWrite, 0, 0, 5);
 
     NOR_ReadSector(bufferNor, 0, 0, 32);
-    NOR_ReadSector(bufferNor, 1, 0, 32);
+    */
+
+
+
+
 
     while (1)
     {   
