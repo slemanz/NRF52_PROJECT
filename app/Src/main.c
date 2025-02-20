@@ -27,6 +27,7 @@ int main(void)
     GPIO_WriteToOutputPin(GPIOP0, LED_BUILT_IN, GPIO_PIN_SET);
     for(uint32_t i = 0; i < 500000; i++) __asm("NOP"); // stable the system
     printf("Init system ok...\n\r");
+    
 
     /*
     uint8_t bufferNor[64];
@@ -45,15 +46,17 @@ int main(void)
     SAADCHandle.CHANNEL = SAADC_CHANNEL_0;
     SAADCHandle.RESN    = SAADC_RES_BYPASS;
     SAADCHandle.RESP    = SAADC_RES_BYPASS;
-    SAADCHandle.GAIN    = SAADC_GAIN_1_4;
-    SAADCHandle.REFSEL  = SAADC_REFSEL_VDD_1_4;
+    SAADCHandle.GAIN    = SAADC_GAIN_1_5;
+    SAADCHandle.REFSEL  = SAADC_REFSEL_INTERNAL;
     SAADCHandle.MODE    = SAADC_MODE_SE;
-    SAADCHandle.TACQ    = SAADC_TACQ_10US;
+    SAADCHandle.TACQ    = SAADC_TACQ_15US;
 
-    SAADCHandle.PSELP   = SAADC_PSEL_AIN0;
+    SAADCHandle.PSELP   = SAADC_PSEL_AIN1;
     SAADCHandle.PSELN   = SAADC_PSEL_NC;
-    saadc_init(&SAADCHandle);
+
     saadc_setResolution(SAADC_RESOLUTION_12BIT);
+    saadc_init(&SAADCHandle);
+    //SAADC->OVERSAMPLE = SAADC_OVERSAMPLE_32X;
 
     SAADC->RESULT.MAXCNT = 1;
     SAADC->RESULT.PTR   = (uint32_t)&result;
@@ -61,7 +64,23 @@ int main(void)
     SAADC->ENABLER = 1;
     saadc_calibrate();
 
+    for(uint32_t i = 0; i < 10; i++)
+    {
+        SAADC->TASKS_START = 1;
+        while (SAADC->EVENTS_STARTED == 0);
+        SAADC->EVENTS_STARTED = 0;
 
+        // Do a SAADC sample, will put the result in the configured RAM buffer.
+        SAADC->TASKS_SAMPLE = 1;
+        while (SAADC->EVENTS_END == 0);
+        SAADC->EVENTS_END = 0;
+
+        uint16_t adc_value = result;
+        printf("Result: %u\n", adc_value);
+    }
+
+
+    SAADC->EVENTS_END = 0;
     while (1)
     {   
        if(uart_data_available())
@@ -85,16 +104,6 @@ int main(void)
 
         if((system_get_ticks() - start_time2) >= 3000) // send hello world
         {
-            SAADC->TASKS_START = 1;
-            while (SAADC->EVENTS_STARTED == 0);
-            SAADC->EVENTS_STARTED = 0;
-
-            // Do a SAADC sample, will put the result in the configured RAM buffer.
-            SAADC->TASKS_SAMPLE = 1;
-            while (SAADC->EVENTS_END == 0);
-            SAADC->EVENTS_END = 0;
-
-            printf("Result: %d\n", result);
             start_time2 = system_get_ticks();
         }
 
