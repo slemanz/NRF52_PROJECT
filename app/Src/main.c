@@ -28,7 +28,6 @@ int main(void)
     for(uint32_t i = 0; i < 500000; i++) __asm("NOP"); // stable the system
     printf("Init system ok...\n\r");
     
-
     /*
     uint8_t bufferNor[64];
     uint8_t bufferWrite[8] = {0x55, 0x55, 0x66, 0x66, 0x55};
@@ -37,24 +36,6 @@ int main(void)
 
     NOR_ReadSector(bufferNor, 0, 0, 32);
     */
-
-
-    // A0 -> P0.4
-
-    SAADC_Handle_t SAADCHandle;
-    SAADCHandle.CHANNEL = SAADC_CHANNEL_0;
-    SAADCHandle.RESN    = SAADC_RES_BYPASS;
-    SAADCHandle.RESP    = SAADC_RES_BYPASS;
-    SAADCHandle.GAIN    = SAADC_GAIN_1_4;
-    SAADCHandle.REFSEL  = SAADC_REFSEL_VDD_1_4;
-    SAADCHandle.MODE    = SAADC_MODE_SE;
-    SAADCHandle.TACQ    = SAADC_TACQ_15US;
-    SAADCHandle.RESOLUTION = SAADC_RESOLUTION_12BIT;
-
-    SAADCHandle.PSELP   = SAADC_PSEL_AIN2;
-    SAADCHandle.PSELN   = SAADC_PSEL_NC;
-
-    saadc_init(&SAADCHandle);
 
     while (1)
     {   
@@ -77,11 +58,17 @@ int main(void)
         }
         
 
-        if((system_get_ticks() - start_time2) >= 3000) // send hello world
+        if((system_get_ticks() - start_time2) >= 10000) // send hello world
         {
 
+            saadc_selectInp(SAADC_PSEL_AIN2);
             uint16_t adc_value = saadc_read();
-            printf("Result: %d\n", (adc_value));
+            printf("Result 1: %d\n", (adc_value));
+
+            saadc_selectInp(SAADC_PSEL_VDD);
+            adc_value = saadc_read();
+            printf("Result 2: %d\n", (adc_value));
+
             start_time2 = system_get_ticks();
         }
 

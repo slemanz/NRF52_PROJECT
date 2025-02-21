@@ -52,3 +52,10 @@ uint16_t saadc_read(void)
    if( result_adc & (1 << 15)) return 0;
    return result_adc;
 }
+
+ void saadc_selectInp(uint8_t psel)
+ {
+    SAADC->ENABLER = 0;
+    SAADC->CH[0].PSELP  = psel;
+    SAADC->ENABLER = 1;
+ }

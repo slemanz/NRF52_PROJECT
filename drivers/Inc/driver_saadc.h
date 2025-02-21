@@ -159,6 +159,7 @@ typedef struct
 
  void saadc_init(SAADC_Handle_t *pSAADCHandle);
  void saadc_calibrate(void);
+ void saadc_selectInp(uint8_t psel); // works only when channel 0 is been used
  uint16_t saadc_read(void);
 
 #endif /* DRIVER_SAADC_H_ */

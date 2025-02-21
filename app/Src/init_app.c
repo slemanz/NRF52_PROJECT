@@ -8,6 +8,7 @@ static void system_systickInit(void);
 static void system_setupGpio(void);
 static void system_setupUart(void);
 static void system_setupSpi(void);
+static void system_setupSaadc(void);
 
 
 void system_init(void)
@@ -16,6 +17,7 @@ void system_init(void)
     system_setupGpio();
     system_setupUart();
     system_setupSpi();
+    system_setupSaadc();
 }
 
 uint64_t system_get_ticks(void)
@@ -144,4 +146,23 @@ static void system_setupSpi(void)
     SPIHandle.MOSI.pin = SPI_PIN_MOSI;
     SPIHandle.SCK.pin  = SPI_PIN_SCK;
     SPI_Init(&SPIHandle);
+}
+
+static void system_setupSaadc(void)
+{
+    // A2 -> P0.4
+    SAADC_Handle_t SAADCHandle;
+    SAADCHandle.CHANNEL = SAADC_CHANNEL_0;
+    SAADCHandle.RESN    = SAADC_RES_BYPASS;
+    SAADCHandle.RESP    = SAADC_RES_BYPASS;
+    SAADCHandle.GAIN    = SAADC_GAIN_1_4;
+    SAADCHandle.REFSEL  = SAADC_REFSEL_VDD_1_4;
+    SAADCHandle.MODE    = SAADC_MODE_SE;
+    SAADCHandle.TACQ    = SAADC_TACQ_15US;
+    SAADCHandle.RESOLUTION = SAADC_RESOLUTION_12BIT;
+
+    SAADCHandle.PSELP   = SAADC_PSEL_AIN2;
+    SAADCHandle.PSELN   = SAADC_PSEL_NC;
+
+    saadc_init(&SAADCHandle);
 }
