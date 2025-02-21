@@ -136,7 +136,7 @@ static void system_setupSpi(void)
     SPIHandle.pSPIx = SPI0;
     SPIHandle.SPI_Config.CPHA = SPI_CPHA_LOW;
     SPIHandle.SPI_Config.CPOL = SPI_CPOL_LOW;
-    SPIHandle.SPI_Config.Frequency = SPI_FREQUENCY_K500;
+    SPIHandle.SPI_Config.Frequency = SPI_FREQUENCY_K250;
 
     SPIHandle.MISO.port = SPI_PORT;
     SPIHandle.MOSI.port = SPI_PORT;

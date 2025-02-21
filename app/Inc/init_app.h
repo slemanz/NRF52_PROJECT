@@ -17,9 +17,9 @@
 
 // SPI
 #define SPI_PORT            GPIOP1
-#define SPI_PIN_MISO        GPIO_PIN_NO_8
-#define SPI_PIN_MOSI        GPIO_PIN_NO_1
-#define SPI_PIN_SCK         GPIO_PIN_NO_2
+#define SPI_PIN_MISO        GPIO_PIN_NO_2
+#define SPI_PIN_MOSI        GPIO_PIN_NO_8
+#define SPI_PIN_SCK         GPIO_PIN_NO_1
 #define CS_PORT             GPIOP0
 #define CS_PIN              GPIO_PIN_NO_27
 

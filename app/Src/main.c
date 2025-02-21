@@ -27,18 +27,18 @@ int main(void)
     GPIO_WriteToOutputPin(GPIOP0, LED_BUILT_IN, GPIO_PIN_SET);
     for(uint32_t i = 0; i < 500000; i++) __asm("NOP"); // stable the system
     printf("Init system ok...\n\r");
-    
-    /*
-    uint8_t bufferNor[64];
-    uint8_t bufferWrite[8] = {0x55, 0x55, 0x66, 0x66, 0x55};
-    NOR_EraseSector(0);
-    NOR_WriteSector(bufferWrite, 0, 0, 5);
-
-    NOR_ReadSector(bufferNor, 0, 0, 32);
-    */
-
     saadc_selectInp(SAADC_PSEL_AIN2);
     uint16_t adc_value = saadc_read();
+
+    /*
+    uint8_t bufferWrite[8] = {0x22, 0x44, 0x45, 0x46, 0x57};
+    NOR_EraseSector(1);
+    NOR_WriteSector(bufferWrite, 1, 0, 5);
+    */
+
+    uint8_t bufferNor[64];
+    NOR_ReadSector(bufferNor, 1, 0, 32);
+    
     printf("Pot adc value: %d\n", (adc_value));
 
     while (1)
