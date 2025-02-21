@@ -51,12 +51,12 @@ int main(void)
     SAADCHandle.MODE    = SAADC_MODE_SE;
     SAADCHandle.TACQ    = SAADC_TACQ_15US;
 
-    SAADCHandle.PSELP   = SAADC_PSEL_AIN1;
+    SAADCHandle.PSELP   = SAADC_PSEL_AIN2;
     SAADCHandle.PSELN   = SAADC_PSEL_NC;
 
     saadc_setResolution(SAADC_RESOLUTION_12BIT);
+    //SAADC->OVERSAMPLE = (SAADC_OVERSAMPLE_4X);
     saadc_init(&SAADCHandle);
-    //SAADC->OVERSAMPLE = SAADC_OVERSAMPLE_32X;
 
     SAADC->RESULT.MAXCNT = 1;
     SAADC->RESULT.PTR   = (uint32_t)&result;
@@ -69,6 +69,9 @@ int main(void)
         SAADC->TASKS_START = 1;
         while (SAADC->EVENTS_STARTED == 0);
         SAADC->EVENTS_STARTED = 0;
+
+        while (SAADC->EVENTS_RESULTDONE == 0);
+        SAADC->EVENTS_RESULTDONE = 0;
 
         // Do a SAADC sample, will put the result in the configured RAM buffer.
         SAADC->TASKS_SAMPLE = 1;
@@ -104,6 +107,20 @@ int main(void)
 
         if((system_get_ticks() - start_time2) >= 3000) // send hello world
         {
+            SAADC->TASKS_START = 1;
+            while (SAADC->EVENTS_STARTED == 0);
+            SAADC->EVENTS_STARTED = 0;
+
+            while (SAADC->EVENTS_RESULTDONE == 0);
+            SAADC->EVENTS_RESULTDONE = 0;
+
+            // Do a SAADC sample, will put the result in the configured RAM buffer.
+            SAADC->TASKS_SAMPLE = 1;
+            while (SAADC->EVENTS_END == 0);
+            SAADC->EVENTS_END = 0;
+
+            uint16_t adc_value = result;
+            printf("Result: %u\n", (adc_value & 0xFFF));
             start_time2 = system_get_ticks();
         }
 
