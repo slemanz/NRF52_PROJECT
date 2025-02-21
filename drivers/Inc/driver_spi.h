@@ -21,15 +21,15 @@ typedef struct
 }SPI_PSEL_t;
 
 /*
- * Handle structure for USARTx peripheral
+ * Handle structure for SPIx peripheral
  */
 
 typedef struct{
 	SPI_Config_t SPI_Config;
 	SPI_RegDef_t *pSPIx;
-    SPI_PSEL_t MOSI;
-    SPI_PSEL_t MISO;
-    SPI_PSEL_t SCK;
+    PSEL_t MOSI;
+    PSEL_t MISO;
+    PSEL_t SCK;
 }SPI_Handle_t;
 
 

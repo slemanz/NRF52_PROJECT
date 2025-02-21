@@ -37,6 +37,10 @@ int main(void)
     NOR_ReadSector(bufferNor, 0, 0, 32);
     */
 
+    saadc_selectInp(SAADC_PSEL_AIN2);
+    uint16_t adc_value = saadc_read();
+    printf("Pot adc value: %d\n", (adc_value));
+
     while (1)
     {   
        if(uart_data_available())
@@ -61,13 +65,6 @@ int main(void)
         if((system_get_ticks() - start_time2) >= 10000) // send hello world
         {
 
-            saadc_selectInp(SAADC_PSEL_AIN2);
-            uint16_t adc_value = saadc_read();
-            printf("Result 1: %d\n", (adc_value));
-
-            saadc_selectInp(SAADC_PSEL_VDD);
-            adc_value = saadc_read();
-            printf("Result 2: %d\n", (adc_value));
 
             start_time2 = system_get_ticks();
         }
