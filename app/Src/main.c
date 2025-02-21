@@ -40,50 +40,22 @@ int main(void)
 
 
     // A0 -> P0.4
-    volatile int16_t result = 0;
 
     SAADC_Handle_t SAADCHandle;
     SAADCHandle.CHANNEL = SAADC_CHANNEL_0;
     SAADCHandle.RESN    = SAADC_RES_BYPASS;
     SAADCHandle.RESP    = SAADC_RES_BYPASS;
-    SAADCHandle.GAIN    = SAADC_GAIN_1_5;
-    SAADCHandle.REFSEL  = SAADC_REFSEL_INTERNAL;
+    SAADCHandle.GAIN    = SAADC_GAIN_1_4;
+    SAADCHandle.REFSEL  = SAADC_REFSEL_VDD_1_4;
     SAADCHandle.MODE    = SAADC_MODE_SE;
     SAADCHandle.TACQ    = SAADC_TACQ_15US;
+    SAADCHandle.RESOLUTION = SAADC_RESOLUTION_12BIT;
 
     SAADCHandle.PSELP   = SAADC_PSEL_AIN2;
     SAADCHandle.PSELN   = SAADC_PSEL_NC;
 
-    saadc_setResolution(SAADC_RESOLUTION_12BIT);
-    //SAADC->OVERSAMPLE = (SAADC_OVERSAMPLE_4X);
     saadc_init(&SAADCHandle);
 
-    SAADC->RESULT.MAXCNT = 1;
-    SAADC->RESULT.PTR   = (uint32_t)&result;
-
-    SAADC->ENABLER = 1;
-    saadc_calibrate();
-
-    for(uint32_t i = 0; i < 10; i++)
-    {
-        SAADC->TASKS_START = 1;
-        while (SAADC->EVENTS_STARTED == 0);
-        SAADC->EVENTS_STARTED = 0;
-
-        while (SAADC->EVENTS_RESULTDONE == 0);
-        SAADC->EVENTS_RESULTDONE = 0;
-
-        // Do a SAADC sample, will put the result in the configured RAM buffer.
-        SAADC->TASKS_SAMPLE = 1;
-        while (SAADC->EVENTS_END == 0);
-        SAADC->EVENTS_END = 0;
-
-        uint16_t adc_value = result;
-        printf("Result: %u\n", adc_value);
-    }
-
-
-    SAADC->EVENTS_END = 0;
     while (1)
     {   
        if(uart_data_available())
@@ -107,20 +79,9 @@ int main(void)
 
         if((system_get_ticks() - start_time2) >= 3000) // send hello world
         {
-            SAADC->TASKS_START = 1;
-            while (SAADC->EVENTS_STARTED == 0);
-            SAADC->EVENTS_STARTED = 0;
 
-            while (SAADC->EVENTS_RESULTDONE == 0);
-            SAADC->EVENTS_RESULTDONE = 0;
-
-            // Do a SAADC sample, will put the result in the configured RAM buffer.
-            SAADC->TASKS_SAMPLE = 1;
-            while (SAADC->EVENTS_END == 0);
-            SAADC->EVENTS_END = 0;
-
-            uint16_t adc_value = result;
-            printf("Result: %u\n", (adc_value & 0xFFF));
+            uint16_t adc_value = saadc_read();
+            printf("Result: %d\n", (adc_value));
             start_time2 = system_get_ticks();
         }
 

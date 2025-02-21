@@ -15,6 +15,7 @@ typedef struct
     uint8_t BURST;
     uint8_t PSELP;
     uint8_t PSELN;
+    uint8_t RESOLUTION;
 }SAADC_Handle_t;
 
 
@@ -157,9 +158,7 @@ typedef struct
  ********************************************************************************************/
 
  void saadc_init(SAADC_Handle_t *pSAADCHandle);
- void saadc_setResolution(uint8_t res);
- void saadc_setOverSample(uint8_t res);
  void saadc_calibrate(void);
- uint16_t saadc_read(uint8_t channel);
+ uint16_t saadc_read(void);
 
 #endif /* DRIVER_SAADC_H_ */
