@@ -276,6 +276,9 @@ typedef struct {                                    /*!< SAADC Structure        
 
 
 
+#define PSEL_PIN           0
+#define PSEL_PORT          5
+#define PSEL_CONNECT       31
 
 /* ================================================================================ */
 /* ================             Peripheral declaration             ================ */
