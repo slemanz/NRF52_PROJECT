@@ -30,6 +30,7 @@ OBJS		+= build/driver_gpio.o
 OBJS		+= build/driver_systick.o
 OBJS		+= build/driver_uart.o
 OBJS		+= build/driver_spi.o
+OBJS		+= build/driver_twi.o
 OBJS		+= build/driver_saadc.o
 
 OBJS		+= build/nor.o

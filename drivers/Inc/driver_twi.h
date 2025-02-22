@@ -17,11 +17,11 @@ typedef struct{
 
 /*
  *@TWI_FREQUENCY
- *Possible options for SPI_Frequency
+ *Possible options for TWI_Frequency
  */
-#define SPI_FREQUENCY_K100      0x01980000U
-#define SPI_FREQUENCY_K250      0x04000000U
-#define SPI_FREQUENCY_K400      0x06680000U
+#define TWI_FREQUENCY_K100      0x01980000U
+#define TWI_FREQUENCY_K250      0x04000000U
+#define TWI_FREQUENCY_K400      0x06680000U
 
 void TWI_Init(TWI_Handle_t *pTWIHandle);
 
