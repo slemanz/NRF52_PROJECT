@@ -9,6 +9,7 @@ static void system_setupGpio(void);
 static void system_setupUart(void);
 static void system_setupSpi(void);
 static void system_setupSaadc(void);
+static void system_setupTwi(void);
 
 
 void system_init(void)
@@ -18,6 +19,7 @@ void system_init(void)
     system_setupUart();
     system_setupSpi();
     system_setupSaadc();
+    system_setupTWi();
 }
 
 uint64_t system_get_ticks(void)
@@ -165,4 +167,19 @@ static void system_setupSaadc(void)
     SAADCHandle.PSELN   = SAADC_PSEL_NC;
 
     saadc_init(&SAADCHandle);
+}
+
+static void system_setupTwi(void)
+{
+    TWI_Handle_t TWIHandle;
+    TWIHandle.config.FREQUENCY = TWI_FREQUENCY_K100;
+    TWIHandle.pTWIx = TWI0;
+
+    TWIHandle.SCL.port = GPIOP0;
+    TWIHandle.SCL.pin = GPIO_PIN_NO_23;
+
+    TWIHandle.SDA.port = GPIOP1;
+    TWIHandle.SDA.pin = GPIO_PIN_NO_14;
+
+    TWI_Init(&TWIHandle);
 }

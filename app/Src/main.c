@@ -41,6 +41,9 @@ int main(void)
     
     printf("Pot adc value: %d\n", (adc_value));
 
+    uint8_t temperatureAddress = (0x48);
+    uint8_t twi_send[2] = {0, 0};
+
     while (1)
     {   
        if(uart_data_available())
@@ -62,10 +65,9 @@ int main(void)
         }
         
 
-        if((system_get_ticks() - start_time2) >= 10000) // send hello world
+        if((system_get_ticks() - start_time2) >= 2000) // send hello world
         {
-
-
+            TWI_MasterSendData(TWI0, twi_send, 1, temperatureAddress);
             start_time2 = system_get_ticks();
         }
 
