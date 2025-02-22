@@ -19,9 +19,21 @@ void TWI_Init(TWI_Handle_t *pTWIHandle)
     pTWIHandle->pTWIx->ENABLER = 1;
 }
 
-void TWI_MasterSendData(TWI_RegDef_t *pTWIx, uint8_t *pTxbuffer, uint32_t Len, uint8_t SlaveAddr)
+void TWI_MasterSendData(TWI_RegDef_t *pTWIx, uint8_t *pTxBuffer, uint32_t Len, uint8_t SlaveAddr)
 {
+    pTWIx->ADDRESS = SlaveAddr;
 
+    pTWIx->TASKS_STARTTX = 1;
+    do
+    {
+        pTWIx->TXD = *(pTxBuffer++);
+        event_pooling(&pTWIx->EVENTS_TXDSENT);
+        
+        Len--;
+    } while (Len);
+    pTWIx->TASKS_STOP = 1;
+    event_pooling(&pTWIx->EVENTS_STOPPED);
+    
 }
 
 void TWI_MasterReceiveData(TWI_RegDef_t *pTWIx, uint8_t *pRxBuffer, uint8_t Len, uint8_t SlaveAddr)
