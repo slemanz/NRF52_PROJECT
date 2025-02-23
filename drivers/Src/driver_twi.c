@@ -16,7 +16,8 @@ void TWI_Init(TWI_Handle_t *pTWIHandle)
     pTWIHandle->pTWIx->PSEL.SCL = temp;
 
     pTWIHandle->pTWIx->FREQUENCY = pTWIHandle->config.FREQUENCY;
-    pTWIHandle->pTWIx->ENABLER = 1;
+
+    pTWIHandle->pTWIx->ENABLER = 5;
 }
 
 void TWI_MasterSendData(TWI_RegDef_t *pTWIx, uint8_t *pTxBuffer, uint32_t Len, uint8_t SlaveAddr)
