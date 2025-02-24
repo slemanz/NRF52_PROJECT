@@ -39,5 +39,16 @@ void TWI_MasterSendData(TWI_RegDef_t *pTWIx, uint8_t *pTxBuffer, uint32_t Len, u
 
 void TWI_MasterReceiveData(TWI_RegDef_t *pTWIx, uint8_t *pRxBuffer, uint8_t Len, uint8_t SlaveAddr)
 {
+    pTWIx->ADDRESS = SlaveAddr;
 
+    pTWIx->TASKS_STARTRX = 1;
+    do
+    {
+        event_pooling(&pTWIx->EVENTS_RXDREADY);
+       *(pRxBuffer++) = pTWIx->RXD;
+        
+        Len--;
+    }while(Len);
+    pTWIx->TASKS_STOP = 1;
+    event_pooling(&pTWIx->EVENTS_STOPPED);
 }
