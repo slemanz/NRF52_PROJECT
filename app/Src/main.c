@@ -69,11 +69,10 @@ int main(void)
 
         if((system_get_ticks() - start_time2) >= 3000) // send hello world
         {
-            TWI_MasterSendDataRS(TWI1, twi_send, 1, temperatureAddress);
-            TWI_MasterReceiveData(TWI1, (uint8_t*)twi_read, 3, temperatureAddress);
-            printf("Temperatura: %d\n", twi_read[0]);
-            printf("Temperatura: %d\n", twi_read[1]);
-            printf("Temperatura: %d\n", twi_read[2]);
+            TWI_MasterSendData(TWI1, twi_send, 1, temperatureAddress);
+            TWI_MasterReceiveData(TWI1, (uint8_t*)twi_read, 2, temperatureAddress);
+            printf("Temperatura: %x\n", twi_read[0]);
+            printf("Temperatura: %x\n", twi_read[1]);
             start_time2 = system_get_ticks();
         }
 

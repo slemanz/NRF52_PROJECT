@@ -50,7 +50,6 @@ void TWI_MasterSendDataRS(TWI_RegDef_t *pTWIx, uint8_t *pTxBuffer, uint32_t Len,
     pTWIx->TASKS_STARTTX = 1;
     do
     {
-        pTWIx->TXD = *(pTxBuffer++);
         while(pTWIx->EVENTS_TXDSENT == 0)
         {
             if(pTWIx->EVENTS_ERROR)
@@ -60,21 +59,22 @@ void TWI_MasterSendDataRS(TWI_RegDef_t *pTWIx, uint8_t *pTxBuffer, uint32_t Len,
             }
         }
         pTWIx->EVENTS_TXDSENT = 0;
+
+        pTWIx->TXD = *(pTxBuffer++);
         Len--;
     } while (Len);
 }
 
 void TWI_MasterReceiveData(TWI_RegDef_t *pTWIx, uint8_t *pRxBuffer, uint8_t Len, uint8_t SlaveAddr)
 {
-    if(pTWIx->EVENTS_RXDREADY == 1) pTWIx->EVENTS_RXDREADY = 0;
     pTWIx->ADDRESS = SlaveAddr;
 
     pTWIx->TASKS_STARTRX = 1;
-    do
+
+    for (uint8_t i = 0; i < Len; i++)
     {
-       *(pRxBuffer) = (uint8_t)(0xFF & pTWIx->RXD);
-       pRxBuffer++;
-        while(pTWIx->EVENTS_RXDREADY == 0)
+        // Wait until the RX buffer is ready
+        while (!pTWIx->EVENTS_RXDREADY)
         {
             if(pTWIx->EVENTS_ERROR)
             {
@@ -82,11 +82,19 @@ void TWI_MasterReceiveData(TWI_RegDef_t *pTWIx, uint8_t *pRxBuffer, uint8_t Len,
                 break;
             }
         }
-       pTWIx->EVENTS_RXDREADY = 0;
+        pTWIx->EVENTS_RXDREADY = 0;
 
-        
-        Len--;
-    }while(Len);
+        pRxBuffer[i] = (uint8_t)pTWIx->RXD;
+
+    }
+    
+    // Stop the reception
     pTWIx->TASKS_STOP = 1;
-    event_pooling(&pTWIx->EVENTS_STOPPED);
+
+    //uint8_t temp = 0;
+    //(void)(temp = (uint8_t)pTWIx->RXD);
+    
+    // Wait until the stop condition is sent
+    while (!pTWIx->EVENTS_STOPPED);
+    pTWIx->EVENTS_STOPPED = 0;
 }
