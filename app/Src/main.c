@@ -44,7 +44,7 @@ int main(void)
     //uint8_t temperatureAddress = 0x48;
     uint8_t temperatureAddress = 0x4F;
     uint8_t twi_send[2] = {0, 0};
-    uint8_t twi_read = 0;
+    int8_t twi_read[3];
 
     while (1)
     {   
@@ -67,10 +67,13 @@ int main(void)
         }
         
 
-        if((system_get_ticks() - start_time2) >= 2000) // send hello world
+        if((system_get_ticks() - start_time2) >= 3000) // send hello world
         {
-            TWI_MasterSendData(TWI1, twi_send, 1, temperatureAddress);
-            TWI_MasterReceiveData(TWI1, &twi_read, 1, temperatureAddress);
+            TWI_MasterSendDataRS(TWI1, twi_send, 1, temperatureAddress);
+            TWI_MasterReceiveData(TWI1, (uint8_t*)twi_read, 3, temperatureAddress);
+            printf("Temperatura: %d\n", twi_read[0]);
+            printf("Temperatura: %d\n", twi_read[1]);
+            printf("Temperatura: %d\n", twi_read[2]);
             start_time2 = system_get_ticks();
         }
 
