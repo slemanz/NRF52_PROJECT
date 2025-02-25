@@ -34,6 +34,7 @@ OBJS		+= build/driver_twi.o
 OBJS		+= build/driver_saadc.o
 
 OBJS		+= build/nor.o
+OBJS		+= build/temperature.o
 
 COMMON 		+= build/ring-buffer.o
 
