@@ -82,9 +82,14 @@ void TWI_MasterReceiveData(TWI_RegDef_t *pTWIx, uint8_t *pRxBuffer, uint8_t Len,
                 break;
             }
         }
-        pTWIx->EVENTS_RXDREADY = 0;
+
+        pTWIx->TASKS_SUSPEND = 1;
+        while(pTWIx->EVENTS_SUSPENDED == 0);
+        pTWIx->EVENTS_SUSPENDED = 0;
 
         pRxBuffer[i] = (uint8_t)pTWIx->RXD;
+        pTWIx->EVENTS_RXDREADY = 0;
+        pTWIx->TASKS_RESUME = 1;
 
     }
     

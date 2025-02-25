@@ -167,47 +167,63 @@ typedef struct {                                    /*!< SPI Structure          
 typedef struct {
 	__vo uint32_t  SCL;                               /*!< Pin select for SCL                                                    */
 	__vo uint32_t  SDA;                               /*!< Pin select for SDA                                                    */
-} TWI_PSEL_T;
+} TWIM_PSEL_T;
+
+typedef struct {
+  __vo uint32_t  PTR;                               /*!< Data pointer                                                          */
+  __vo uint32_t  MAXCNT;                            /*!< Maximum number of bytes in receive buffer                             */
+  __vo uint32_t  AMOUNT;                            /*!< Number of bytes transferred in the last transaction                   */
+  __vo uint32_t  LIST;                              /*!< EasyDMA list type                                                     */
+} TWIM_RXD_Type;
+
+typedef struct {
+  __vo uint32_t  PTR;                               /*!< Data pointer                                                          */
+  __vo uint32_t  MAXCNT;                            /*!< Maximum number of bytes in transmit buffer                            */
+  __vo uint32_t  AMOUNT;                            /*!< Number of bytes transferred in the last transaction                   */
+  __vo uint32_t  LIST;                              /*!< EasyDMA list type                                                     */
+} TWIM_TXD_Type;
 
 typedef struct {                                    /*!< TWI Structure                                                         */
 	__vo uint32_t  TASKS_STARTRX;                     /*!< Start TWI receive sequence                                            */
 	__vo uint32_t  RESERVED0;
 	__vo uint32_t  TASKS_STARTTX;                     /*!< Start TWI transmit sequence                                           */
 	__vo uint32_t  RESERVED1[2];
-	__vo uint32_t  TASKS_STOP;                        /*!< Stop TWI transaction                                                  */
+	__vo uint32_t  TASKS_STOP;                        /*!< Stop TWI transaction. Must be issued while the TWI master is
+															not suspended.                                                        */
 	__vo uint32_t  RESERVED2;
 	__vo uint32_t  TASKS_SUSPEND;                     /*!< Suspend TWI transaction                                               */
 	__vo uint32_t  TASKS_RESUME;                      /*!< Resume TWI transaction                                                */
 	__vo uint32_t  RESERVED3[56];
 	__vo uint32_t  EVENTS_STOPPED;                    /*!< TWI stopped                                                           */
-	__vo uint32_t  EVENTS_RXDREADY;                   /*!< TWI RXD byte received                                                 */
-	__vo uint32_t  RESERVED4[4];
-	__vo uint32_t  EVENTS_TXDSENT;                    /*!< TWI TXD byte sent                                                     */
-	__vo uint32_t  RESERVED5;
+	__vo uint32_t  RESERVED4[7];
 	__vo uint32_t  EVENTS_ERROR;                      /*!< TWI error                                                             */
-	__vo uint32_t  RESERVED6[4];
-	__vo uint32_t  EVENTS_BB;                         /*!< TWI byte boundary, generated before each byte that is sent or
-														received                                                              */
-	__vo uint32_t  RESERVED7[3];
-	__vo uint32_t  EVENTS_SUSPENDED;                  /*!< TWI entered the suspended state                                       */
-	__vo uint32_t  RESERVED8[45];
+	__vo uint32_t  RESERVED5[8];
+	__vo uint32_t  EVENTS_SUSPENDED;                  /*!< Last byte has been sent out after the SUSPEND task has been
+															issued, TWI traffic is now suspended.                                 */
+	__vo uint32_t  EVENTS_RXSTARTED;                  /*!< Receive sequence started                                              */
+	__vo uint32_t  EVENTS_TXSTARTED;                  /*!< Transmit sequence started                                             */
+	__vo uint32_t  RESERVED6[2];
+	__vo uint32_t  EVENTS_LASTRX;                     /*!< Byte boundary, starting to receive the last byte                      */
+	__vo uint32_t  EVENTS_LASTTX;                     /*!< Byte boundary, starting to transmit the last byte                     */
+	__vo uint32_t  RESERVED7[39];
 	__vo uint32_t  SHORTS;                            /*!< Shortcut register                                                     */
-	__vo uint32_t  RESERVED9[64];
+	__vo uint32_t  RESERVED8[63];
+	__vo uint32_t  INTEN;                             /*!< Enable or disable interrupt                                           */
 	__vo uint32_t  INTENSET;                          /*!< Enable interrupt                                                      */
 	__vo uint32_t  INTENCLR;                          /*!< Disable interrupt                                                     */
-	__vo uint32_t  RESERVED10[110];
+	__vo uint32_t  RESERVED9[110];
 	__vo uint32_t  ERRORSRC;                          /*!< Error source                                                          */
-	__vo uint32_t  RESERVED11[14];
-	__vo uint32_t  ENABLER;                            /*!< Enable TWI                                                            */
-	__vo uint32_t  RESERVED12;
-	TWI_PSEL_T    PSEL;                               /*!< Unspecified                                                           */
-	__vo uint32_t  RESERVED13[2];
-	__vo uint32_t  RXD;                               /*!< RXD register                                                          */
-	__vo uint32_t  TXD;                               /*!< TXD register                                                          */
-	__vo uint32_t  RESERVED14;
+	__vo uint32_t  RESERVED10[14];
+	__vo uint32_t  ENABLE;                            /*!< Enable TWIM                                                           */
+	__vo uint32_t  RESERVED11;
+	TWIM_PSEL_T    PSEL;                              /*!< Unspecified                                                           */
+	__vo uint32_t  RESERVED12[5];
 	__vo uint32_t  FREQUENCY;                         /*!< TWI frequency. Accuracy depends on the HFCLK source selected.         */
-	__vo uint32_t  RESERVED15[24];
-	__vo uint32_t  ADDRESS;                           /*!< Address used in the TWI transfer                                      */
+	__vo uint32_t  RESERVED13[3];
+	TWIM_RXD_Type RXD;                                /*!< RXD EasyDMA channel                                                   */
+	TWIM_TXD_Type TXD;                                /*!< TXD EasyDMA channel                                                   */
+	__vo uint32_t  RESERVED14[13];
+	__vo uint32_t  ADDRESS;  
 } TWI_RegDef_t;
 
 
