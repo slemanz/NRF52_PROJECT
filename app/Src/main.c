@@ -3,6 +3,7 @@
 #include "nrf52.h"
 #include "init_app.h"
 #include "nor.h"
+#include "temperature.h"
 
 
 const uint8_t leds_pin[] = {0, LED_BLUE_PIN, LED_RED_PIN, LED_GREEN_PIN};
@@ -41,9 +42,7 @@ int main(void)
     
     printf("Pot adc value: %d\n", (adc_value));
 
-    //uint8_t temperatureAddress = 0x48;
-    uint8_t temperatureAddress = 0x4F;
-    int8_t twi_read[3];
+    uint16_t temperature_value = 0;
 
     while (1)
     {   
@@ -66,10 +65,9 @@ int main(void)
         }
         
 
-        if((system_get_ticks() - start_time2) >= 3000) // send hello world
+        if((system_get_ticks() - start_time2) >= 120000) // send hello world
         {
-            TWI_MasterReceiveData(TWI1, 0x00, (uint8_t*)twi_read, 2, temperatureAddress);
-            uint16_t temperature_value = (twi_read[0] << 8 | twi_read[1]) >> 5;
+            temperature_value = temperature_get();
             printf("Temperatura: %d.%d C\n", temperature_value/10, temperature_value%10);
             start_time2 = system_get_ticks();
         }
