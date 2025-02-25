@@ -214,7 +214,7 @@ typedef struct {                                    /*!< TWI Structure          
 	__vo uint32_t  RESERVED9[110];
 	__vo uint32_t  ERRORSRC;                          /*!< Error source                                                          */
 	__vo uint32_t  RESERVED10[14];
-	__vo uint32_t  ENABLE;                            /*!< Enable TWIM                                                           */
+	__vo uint32_t  ENABLER;                            /*!< Enable TWIM                                                           */
 	__vo uint32_t  RESERVED11;
 	TWIM_PSEL_T    PSEL;                              /*!< Unspecified                                                           */
 	__vo uint32_t  RESERVED12[5];
