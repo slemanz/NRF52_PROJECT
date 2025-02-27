@@ -36,6 +36,8 @@ OBJS		+= build/driver_saadc.o
 OBJS		+= build/nor.o
 OBJS		+= build/temperature.o
 
+OBJS		+= build/cli.o
+
 COMMON 		+= build/ring-buffer.o
 
 

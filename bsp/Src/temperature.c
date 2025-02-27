@@ -8,6 +8,6 @@ uint8_t temperature_get(void)
 
     TWI_MasterReceiveData(TWI1, 0x00, (uint8_t*)twi_read, 2, temperatureAddress);
     uint16_t temperature_value = (twi_read[0] << 8 | twi_read[1]) >> 5;
-    
+
     return temperature_value;
 }
