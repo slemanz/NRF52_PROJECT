@@ -4,6 +4,7 @@
 #include "init_app.h"
 #include "nor.h"
 #include "temperature.h"
+#include "cli.h"
 
 
 const uint8_t leds_pin[] = {0, LED_BLUE_PIN, LED_RED_PIN, LED_GREEN_PIN};
@@ -48,7 +49,9 @@ int main(void)
     {   
        if(uart_data_available())
        {
-            uart_write_byte(uart_rcv_byte());
+            uint8_t ch = uart_rcv_byte();
+            uart_write_byte(ch);
+            ProcessCommands(ch);
        }
 
         if((system_get_ticks() - start_time) >= 1000)
