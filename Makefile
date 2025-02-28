@@ -37,6 +37,7 @@ OBJS		+= build/nor.o
 OBJS		+= build/temperature.o
 
 OBJS		+= build/cli.o
+OBJS		+= build/storage.o
 
 COMMON 		+= build/ring-buffer.o
 
