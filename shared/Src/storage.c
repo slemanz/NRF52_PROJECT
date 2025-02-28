@@ -34,10 +34,12 @@ uint8_t storage_getCount(void)
     return count;
 }
 
-void    storage_updateCount(uint8_t count)
+void storage_updateCount(void)
 {
+    uint8_t count = storage_getCount() + 1;
     buffer[0] = count;
-    
+
+    _storage_copySector(0);
     NOR_EraseSector(STORAGE_SECTOR_INFO);
     NOR_WriteSector(buffer, STORAGE_SECTOR_INFO, 0, 1);
     

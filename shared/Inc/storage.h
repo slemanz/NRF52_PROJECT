@@ -18,10 +18,8 @@ typedef struct
 
 
 uint8_t storage_getCount(void);
-void    storage_updateCount(uint8_t count);
+void    storage_updateCount(void);
 
 void storage_clean(void);
-
-void    storage_addDate(storage_date_t date);
 
 #endif /* STORAGE_H_ */

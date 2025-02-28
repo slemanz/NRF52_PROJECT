@@ -30,18 +30,15 @@ int main(void)
     GPIO_WriteToOutputPin(GPIOP0, LED_BUILT_IN, GPIO_PIN_SET);
     for(uint32_t i = 0; i < 500000; i++) __asm("NOP"); // stable the system
     printf("Init system ok...\n\r");
+    
     saadc_selectInp(SAADC_PSEL_AIN2);
     uint16_t adc_value = saadc_read();
-
-    printf("Pot adc value: %d\n", (adc_value));
+    printf("Input: %d\n", (adc_value));
 
     //storage_clean(); // only first boot
+    storage_updateCount();
     uint8_t count_data = storage_getCount();
     printf("Count: %d\n", count_data);
-    //storage_updateCount(17);
-    //uint8_t test[16];
-    //NOR_EraseSector(0);
-    //NOR_ReadSector(test, 0, 0, 16);
 
 
     while (1)
