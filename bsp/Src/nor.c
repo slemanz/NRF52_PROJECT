@@ -3,7 +3,7 @@
 #include "driver_gpio.h"
 
 
-#define NOR_DEBUG
+//#define NOR_DEBUG
 #if defined (NOR_DEBUG)
 #include <stdarg.h>
 #include <stdio.h>
@@ -62,8 +62,6 @@ void nor_waitBusy(void)
     uint8_t cmd = NOR_CMD_SR1;
     uint8_t statusReg;
 
-    _nor_cs_assert();
-	_nor_spi_rx(&statusReg, 1);
 	do{
         _nor_cs_assert();
         _nor_spi_tx((uint8_t*)&cmd, 1);
@@ -95,6 +93,7 @@ void NOR_ReadBytes(uint8_t *pBuffer, uint32_t ReadAddr, uint32_t NumByteToRead)
     _nor_cs_assert();
 	_nor_spi_tx(ReadCmd, 5);
 	_nor_spi_rx(pBuffer, NumByteToRead);
+    _nor_cs_deassert();
 
     NOR_PRINTF("Buffer readed from NOR:\n\r");
 	NOR_PRINTF("====================== Values in HEX ========================");
@@ -177,10 +176,12 @@ void NOR_EraseAddress(uint32_t Address, nor_erase_method_e method){
 	//_nor_mtx_lock(nor);
 	_nor_WriteEnable();
 	_nor_cs_assert();
-	_nor_spi_tx(EraseChipCmd, sizeof(EraseChipCmd));
+	_nor_spi_tx(EraseChipCmd, 4);
 	_nor_cs_deassert();
+
 	nor_waitBusy();
-	_nor_WriteEnable();
+
+	_nor_WriteDisable();
 		
     NOR_PRINTF("Erased complete\n");
 }
