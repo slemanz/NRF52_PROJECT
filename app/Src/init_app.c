@@ -197,3 +197,10 @@ static void system_setupTwi(void)
 
     TWI_Init(&TWIHandle);
 }
+
+// retarget printf
+extern int __io_putchar(int ch)
+{
+    uart_write_byte((uint8_t)ch);
+    return ch;
+}
