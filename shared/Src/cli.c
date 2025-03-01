@@ -4,11 +4,13 @@
 
 static void get_temperature(void);
 static void get_count(void);
+static void clear(void);
 static void Help(void);
 
 commandStruct_t commands[] = {
     {"temperature", get_temperature, "Shows temperature value"},
     {"count", get_count, "Shows storage data count"},
+    {"storage clear", clear, "Clear storage data"},
     {"help", Help, "List all commands"},
 };
 
@@ -55,6 +57,13 @@ static void get_count(void)
 {
     uint8_t count_data = storage_getCount();
     printf("Count: %d\n", count_data);
+}
+
+static void clear(void)
+{
+    printf("Begin storage clear\n");
+    storage_clean();
+    printf("Successeful!\n");
 }
 
 

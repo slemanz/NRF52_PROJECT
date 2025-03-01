@@ -22,7 +22,6 @@ int main(void)
     uint16_t adc_value = saadc_read();
     printf("Input: %d\n", (adc_value));
 
-    //storage_clean(); // only first boot
     storage_updateCount();
     uint8_t count_data = storage_getCount();
     printf("Count: %d\n", count_data);
@@ -45,7 +44,7 @@ int main(void)
         }
         
 
-        if((system_get_ticks() - start_time2) >= 120000) // send hello world
+        if((system_get_ticks() - start_time2) >= 120000) 
         {
             //uint16_t temperature_value = 0;
             //temperature_value = temperature_get();
