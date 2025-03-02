@@ -69,6 +69,7 @@ void storage_temperatureAppend(uint16_t temperature_value)
     temp[1] = ((uint8_t*)&temp_value)[0];
     temp[2] = ((uint8_t*)&temp_value)[1];
 
+    if(offset_temperature == 0) NOR_EraseSector(sector_num);
     NOR_WriteSector(temp, sector_num, offset_temperature, 3);
     offset_temperature += 3;
 }
@@ -78,12 +79,19 @@ void storage_temperatureExtract(void)
 {
     printf("Extract Values\n");
     uint8_t temp[3];
+    uint16_t temperature_value = 0;
     uint8_t count = storage_getCount();
     for(uint32_t i = 1; i <= count; i++)
     {
+        printf("%d:\n", i);
         NOR_ReadSector(temp, i, 0, 3);
-        
+        while(temp[0] == 0xF5)
+        {
+            ((uint8_t*)&temperature_value)[0] = temp[1];
+            ((uint8_t*)&temperature_value)[1] = temp[2];
 
+            printf("Temperatura: %d.%d C\n", temperature_value/10, temperature_value%10);
+            NOR_ReadSector(temp, i, 0, 3);
+        }
     }
-
 }
