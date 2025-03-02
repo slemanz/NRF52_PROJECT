@@ -4,6 +4,8 @@
 static uint8_t buffer[STORAGE_BUFFER_SIZE];
 static void _storage_copySector(uint32_t sector);
 
+static uint32_t offset_temperature = 0;
+
 static void _storage_copySector(uint32_t sector)
 {
     NOR_EraseSector(STORAGE_SECTOR_COPY);
@@ -55,4 +57,33 @@ void storage_clean(void)
         NOR_EraseSector(i);
     }
     NOR_WriteSector(&count, STORAGE_SECTOR_INFO, 0, 1);
+}
+
+
+void storage_temperatureAppend(uint16_t temperature_value)
+{
+    uint32_t sector_num = storage_getCount();
+    uint16_t temp_value = temperature_value;
+    uint8_t temp[3];
+    temp[0] = 0xF5; // should be crc
+    temp[1] = ((uint8_t*)&temp_value)[0];
+    temp[2] = ((uint8_t*)&temp_value)[1];
+
+    NOR_WriteSector(temp, sector_num, offset_temperature, 3);
+    offset_temperature += 3;
+}
+
+
+void storage_temperatureExtract(void)
+{
+    printf("Extract Values\n");
+    uint8_t temp[3];
+    uint8_t count = storage_getCount();
+    for(uint32_t i = 1; i <= count; i++)
+    {
+        NOR_ReadSector(temp, i, 0, 3);
+        
+
+    }
+
 }
