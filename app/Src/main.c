@@ -25,6 +25,7 @@ int main(void)
     storage_updateCount();
     uint8_t count_data = storage_getCount();
     printf("Count: %d\n", count_data);
+    storage_temperatureAppend(temperature_get());
 
 
     while (1)
@@ -44,11 +45,9 @@ int main(void)
         }
         
 
-        if((system_get_ticks() - start_time2) >= 120000) 
+        if((system_get_ticks() - start_time2) >= 30000) 
         {
-            //uint16_t temperature_value = 0;
-            //temperature_value = temperature_get();
-            //printf("Temperatura: %d.%d C\n", temperature_value/10, temperature_value%10);
+            storage_temperatureAppend(temperature_get());
             start_time2 = system_get_ticks();
         }
     }
