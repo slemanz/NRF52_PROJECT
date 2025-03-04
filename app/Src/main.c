@@ -1,4 +1,10 @@
-// Author: William Sleman @ 2024/25
+/*
+ * =====================================================================
+ *              File:           main.c
+ *              Author:         William Sleman
+ *              Description:    main function file
+ * =====================================================================
+ */
 #include <stdio.h>
 #include "nrf52.h"
 #include "init_app.h"
