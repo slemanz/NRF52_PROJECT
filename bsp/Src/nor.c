@@ -3,7 +3,7 @@
 #include "driver_gpio.h"
 
 
-#define NOR_DEBUG
+//#define NOR_DEBUG
 #if defined (NOR_DEBUG)
 #include <stdarg.h>
 #include <stdio.h>

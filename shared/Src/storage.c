@@ -50,7 +50,6 @@ void storage_updateCount(void)
 
 void storage_clean(void)
 {
-    ///uint8_t sector_count = storage_getCount();
     uint8_t count = 0;
 
     for(uint16_t i = 0; i <= 255; i++)
@@ -72,7 +71,6 @@ void storage_temperatureAppend(uint16_t temperature_value)
     temp[1] = ((uint8_t*)&temp_value)[0];
     temp[2] = ((uint8_t*)&temp_value)[1];
 
-    printf("append %ld\n", offset_temperature);
     NOR_WriteSector(temp, sector_num, offset_temperature, 3);
     offset_temperature = offset_temperature + 3;
 }
@@ -88,6 +86,7 @@ void storage_temperatureExtract(void)
     uint8_t count = storage_getCount();
     for(uint32_t i = 1; i <= count; i++)
     {
+        offset_temp = 0;
         printf("%ld:\n", i);
         NOR_ReadSector(temp, i, 0, 3);
         uint8_t crc = temp[0];

@@ -15,11 +15,6 @@ int main(void)
     uint64_t start_time = system_get_ticks();
     uint64_t start_time2 = system_get_ticks();
 
-
-    uint8_t temp_nor[64];
-    NOR_ReadSector(temp_nor, 5, 0, 16);
-    while(1);
-
     GPIO_WriteToOutputPin(GPIOP0, LED_BUILT_IN, GPIO_PIN_SET);
     for(uint32_t i = 0; i < 500000; i++) __asm("NOP"); // stable the system
     printf("Init system ok...\n\r");
@@ -52,7 +47,7 @@ int main(void)
         }
         
 
-        if((system_get_ticks() - start_time2) >= 30000) 
+        if((system_get_ticks() - start_time2) >= 120000) 
         {
             storage_temperatureAppend(temperature_get());
             start_time2 = system_get_ticks();
