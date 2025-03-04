@@ -9,10 +9,16 @@
 
 int main(void)
  {
+    for(uint32_t i = 0; i < 1000000; i++) __asm("NOP"); // stable the system
     system_init();
 
     uint64_t start_time = system_get_ticks();
     uint64_t start_time2 = system_get_ticks();
+
+
+    uint8_t temp_nor[64];
+    NOR_ReadSector(temp_nor, 5, 0, 16);
+    while(1);
 
     GPIO_WriteToOutputPin(GPIOP0, LED_BUILT_IN, GPIO_PIN_SET);
     for(uint32_t i = 0; i < 500000; i++) __asm("NOP"); // stable the system
@@ -22,6 +28,7 @@ int main(void)
     uint16_t adc_value = saadc_read();
     printf("Input: %d\n", (adc_value));
 
+    //storage_clean();
     storage_updateCount();
     uint8_t count_data = storage_getCount();
     printf("Count: %d\n", count_data);

@@ -3,7 +3,7 @@
 #include "driver_gpio.h"
 
 
-//#define NOR_DEBUG
+#define NOR_DEBUG
 #if defined (NOR_DEBUG)
 #include <stdarg.h>
 #include <stdio.h>
@@ -242,6 +242,7 @@ void NOR_WriteBytes(uint8_t *pBuffer, uint32_t WriteAddr, uint32_t NumBytesToWri
             _BytesToWrite = NumBytesToWrite;
         }
         _nor_WriteEnable();
+		nor_waitBusy();
 		WriteCmd[0] = NOR_PAGE_PROGRAM;
 		WriteCmd[1] = ((WriteAddr >> 16) & 0xFF);
 		WriteCmd[2] = ((WriteAddr >> 8) & 0xFF);
@@ -253,6 +254,9 @@ void NOR_WriteBytes(uint8_t *pBuffer, uint32_t WriteAddr, uint32_t NumBytesToWri
 		pBuffer += _BytesToWrite;
 		WriteAddr += _BytesToWrite;
 		NumBytesToWrite -= _BytesToWrite;
+
+        _nor_WriteDisable();
+		nor_waitBusy();
 	}while (NumBytesToWrite > 0);
 	// release the routine only when the data is writted
 	nor_waitBusy();
