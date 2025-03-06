@@ -1,3 +1,10 @@
+/*
+ * =====================================================================
+ *              File:           cli.c
+ *              Author:         William Sleman
+ *              Description:    Command Line Interface header file
+ * =====================================================================
+ */
 #ifndef CLI_H_
 #define CLI_H_
 

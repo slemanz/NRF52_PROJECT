@@ -1,3 +1,10 @@
+/*
+ * =====================================================================
+ *              File:           cli.c
+ *              Author:         William Sleman
+ *              Description:    Command Line Interface source file
+ * =====================================================================
+ */
 #include "cli.h"
 #include "temperature.h"
 #include "storage.h"
