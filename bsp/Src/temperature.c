@@ -1,3 +1,10 @@
+/*
+ * =====================================================================
+ *              File:           temperature.c
+ *              Author:         William Sleman
+ *              Description:    Temperature source file
+ * =====================================================================
+ */
 #include "temperature.h"
 #include "driver_twi.h"
 

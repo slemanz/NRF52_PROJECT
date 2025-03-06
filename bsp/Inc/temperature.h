@@ -1,3 +1,10 @@
+/*
+ * =====================================================================
+ *              File:           temperature.c
+ *              Author:         William Sleman
+ *              Description:    Temperature header file
+ * =====================================================================
+ */
 #ifndef INC_TEMPERATURE_H_
 #define INC_TEMPERATURE_H_
 
