@@ -1,16 +1,16 @@
 /*
  * ==========================================================================================
- * 		File: driver_gpio.h
- * 		Author: William Sleaman
+ * 	    File: driver_gpio.h
+ * 	    Author: William Sleaman
  *
- * 		Description:
- * 		This header file defines structures and function prototypes for configuring and 
- * 		managing General Purpose Input/Output (GPIO) pins. It supports pin initialization, 
- * 		reading, writing, toggling, and configuring pin modes, pull-up/down settings.
+ * 	    Description:
+ * 	    This header file defines structures and function prototypes for configuring and 
+ * 	    managing General Purpose Input/Output (GPIO) pins. It supports pin initialization, 
+ * 	    reading, writing, toggling, and configuring pin modes, pull-up/down settings.
  *
- * 		Note:
- * 		For function definitions and detailed driver behavior, see the implementation file: 
- * 		driver_gpio.c.
+ * 	    Note:
+ * 	    For function definitions and detailed driver behavior, see the implementation file: 
+ * 	    driver_gpio.c.
  * ==========================================================================================
  */
 #ifndef INC_DRIVER_GPIO_H_
@@ -152,8 +152,8 @@ typedef struct
 #define GPIO_INP_BUF_DISCONNECT		1
 
 /********************************************************************************************
- *							APIs supported by this driver
- * 					for more information check the function definitions
+ *                          APIs supported by this driver
+ *                  for more information check the function definitions
  ********************************************************************************************/
 
 /*

@@ -10,8 +10,8 @@
  *      output states. 
  *
  *      Note:
- * 		For details on the structures and function prototypes, see the header file: 
- * 		driver_gpio.h.
+ * 	    For details on the structures and function prototypes, see the header file: 
+ * 	    driver_gpio.h.
  * ==========================================================================================
  */
 #include "driver_gpio.h"
