@@ -1,9 +1,41 @@
+/*
+ * ==========================================================================================
+ *      File: driver_saadc.c
+ *      Author: William Sleman
+ *
+ *      Description:
+ *      This implementation file contains the definitions for the functions that manage
+ *      the Successive Approximation Analog-to-Digital Converter (SAADC). It includes 
+ *      initialization, calibration of the ADC, the reading of ADC values, and the selection
+ *      of input pins for the ADC.
+ *
+ *      Note:
+ *      For structure definitions and function prototypes, see the header file: 
+ *      driver_saadc.h.
+ * ==========================================================================================
+ */
 #include "driver_saadc.h"
 
 volatile int16_t result_adc = 0;
 
- void saadc_init(SAADC_Handle_t *pSAADCHandle)
- {
+/*
+ ********************************************************************************************
+ * @function        - saadc_init
+ *
+ * @brief           - Initializes the SAADC with the specified configurations from the 
+ *                    SAADC_Handle_t structure. This includes configuring the gain, 
+ *                    mode, reference voltage selection, and connecting the specified 
+ *                    positive and negative channels.
+ *
+ * @param[in]       - pSAADCHandle: Pointer to a SAADC_Handle_t structure that contains 
+ *                    the configuration settings for the SAADC.
+ *
+ * @Note            - After initialization, the calibrate function is called to ensure 
+ *                    correct ADC operation.
+ ********************************************************************************************
+ */
+void saadc_init(SAADC_Handle_t *pSAADCHandle)
+{
     uint32_t temp = 0;
 
     temp =  (pSAADCHandle->GAIN << SAADC_CH_CONFIG_GAIN_BIT) |
@@ -24,8 +56,19 @@ volatile int16_t result_adc = 0;
 
     SAADC->ENABLER = 1;
     saadc_calibrate();
- }
+}
 
+
+/*
+ ********************************************************************************************
+ * @function        - saadc_calibrate
+ *
+ * @brief           - Calibrates the offset of the SAADC to ensure accurate readings.
+ *
+ * @Note            - This function waits for the calibration to complete and clears
+ *                    the calibration done event.
+ ********************************************************************************************
+ */
 
  void saadc_calibrate(void)
  {
@@ -34,6 +77,19 @@ volatile int16_t result_adc = 0;
     SAADC->EVENTS_CALIBRATEDONE = 0;
     while(SAADC->STATUS == (1 << 0));
  }
+
+
+ /*
+ ********************************************************************************************
+ * @function        - saadc_read
+ *
+ * @brief           - Starts a conversion on the configured SAADC channel and waits for the 
+ *                    result to be available. Returns the ADC result or 0 if an error is 
+ *                    detected (negative result).
+ *
+ * @return          - uint16_t: The ADC reading or 0 if an error occurred.
+ ********************************************************************************************
+ */
 
 uint16_t saadc_read(void)
 {
@@ -52,6 +108,20 @@ uint16_t saadc_read(void)
    if( result_adc & (1 << 15)) return 0;
    return result_adc;
 }
+
+
+/*
+ ********************************************************************************************
+ * @function        - saadc_selectInp
+ *
+ * @brief           - Selects the input pin for channel 0 of the SAADC. This function can 
+ *                    only be used when channel 0 is active.
+ *
+ * @param[in]       - psel: The positive input selection based on @SAADC_PSEL options.
+ *
+ * @Note            - The SAADC must be disabled before changing the input selection.
+ ********************************************************************************************
+ */
 
  void saadc_selectInp(uint8_t psel)
  {

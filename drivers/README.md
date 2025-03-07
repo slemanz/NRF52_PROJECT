@@ -6,6 +6,10 @@ Drivers for the NRF52 microcontroller, facilitating easy access and control for 
   - [Inc](Inc/driver_gpio.h)
   - [Src](Src/driver_gpio.c)
 
+- **SAADC Driver**
+  - [Inc](Inc/driver_saadc.h)
+  - [Src](Src/driver_saadc.c)
+
 - **UART Driver**
   - [Inc](Inc/driver_uart.h)
   - [Src](Src/driver_uart.c)

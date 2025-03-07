@@ -1,7 +1,70 @@
+/*
+ * ==========================================================================================
+ *      File: driver_saadc.h
+ *      Author: William Sleman
+ *
+ *      Description:
+ *      This header file defines structures and function prototypes for configuring and 
+ *      managing the Successive Approximation Analog-to-Digital Converter (SAADC).
+ *      It supports channel initialization, calibration, selection of input pins, and data 
+ *      reading from the ADC.
+ *
+ *      Note:
+ *      For function definitions and detailed driver behavior, see the implementation file: 
+ *      driver_saadc.c.
+ * ==========================================================================================
+ */
 #ifndef DRIVER_SAADC_H_
 #define DRIVER_SAADC_H_
 
 #include "nrf52.h"
+
+
+/*
+ ********************************************************************************************
+ * @struct          - SAADC_Handle_t
+ *
+ * @brief           - Handle structure for configuring the SAADC, holding settings 
+ *                    such as channel number, response configurations, gain, and 
+ *                    reference selection for the ADC.
+ *
+ * @field           - CHANNEL: Specifies the SAADC channel number to configure,
+ *                    defined by possible options from @SAADC_CHANNEL.
+ *
+ * @field           - RESP: Specifies the response configuration, defined by possible 
+ *                    options from @SAADC_RES.
+ *
+ * @field           - RESN: Specifies the reference negative input configuration,
+ *                    defined by possible options from @SAADC_RES.
+ *
+ * @field           - GAIN: Specifies the gain settings for the SAADC, defined by 
+ *                    possible options from @SAADC_GAIN.
+ *
+ * @field           - REFSEL: Specifies the reference selection for the SAADC, 
+ *                    defined by possible options from @SAADC_REFSEL.
+ *
+ * @field           - TACQ: Specifies the acquisition time for the SAADC, defined by 
+ *                    possible options from @SAADC_TACQ.
+ *
+ * @field           - MODE: Specifies the mode of operation for the SAADC,
+ *                    defined by possible options from @SAADC_MODE.
+ *
+ * @field           - BURST: Specifies the burst mode setting for the SAADC, 
+ *                    defined by possible options from @SAADC_BURST.
+ *
+ * @field           - PSELP: Specifies the positive input selection for the SAADC, 
+ *                    defined by possible options from @SAADC_PSEL.
+ *
+ * @field           - PSELN: Specifies the negative input selection for the SAADC, 
+ *                    defined by possible options from @SAADC_PSEL.
+ *
+ * @field           - RESOLUTION: Specifies the resolution setting for the SAADC, 
+ *                    defined by possible options from @SAADC_RESOLUTION.
+ *
+ * @Note            - none
+ *
+ ********************************************************************************************
+ */
 
 typedef struct
 {
@@ -148,18 +211,14 @@ typedef struct
 #define SAADC_CH_CONFIG_BURST_BIT       24
 
 
-
- 
-
-
 /********************************************************************************************
- * 								APIs supported by this driver
- * 					for more information check the function definitions
+ *                            APIs supported by this driver
+ *                  for more information check the function definitions
  ********************************************************************************************/
 
- void saadc_init(SAADC_Handle_t *pSAADCHandle);
- void saadc_calibrate(void);
- void saadc_selectInp(uint8_t psel); // works only when channel 0 is been used
- uint16_t saadc_read(void);
+void saadc_init(SAADC_Handle_t *pSAADCHandle);
+void saadc_calibrate(void);
+void saadc_selectInp(uint8_t psel); // works only when channel 0 is been used
+uint16_t saadc_read(void);
 
 #endif /* DRIVER_SAADC_H_ */
