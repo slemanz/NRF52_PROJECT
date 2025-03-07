@@ -1,30 +1,82 @@
-#ifndef INC_GPIO_H_
-#define INC_GPIO_H_
+/*
+ * ==========================================================================================
+ * 		File: driver_gpio.h
+ * 		Author: William Sleaman
+ *
+ * 		Description:
+ * 		This header file defines structures and function prototypes for configuring and 
+ * 		managing General Purpose Input/Output (GPIO) pins. It supports pin initialization, 
+ * 		reading, writing, toggling, and configuring pin modes, pull-up/down settings.
+ *
+ * 		Note:
+ * 		For function definitions and detailed API behavior, see the implementation file: 
+ * 		driver_gpio.c.
+ * ==========================================================================================
+ */
+#ifndef INC_DRIVER_GPIO_H_
+#define INC_DRIVER_GPIO_H_
 
 #include "nrf52.h"
 
 /*
- * This is a configuration structure for a GPIO pin
+ ********************************************************************************************
+ * @struct          - GPIO_PinConfig_t
+ *
+ * @brief           - Configuration structure for a GPIO pin, holding
+ *                    settings such as pin number, direction, pull-up/pull-down
+ *                    configuration, state, and input buffer status.
+ *
+ * @field           - GPIO_PinNumber: Specifies the GPIO pin number to configure,
+ *                    defined by possible modes from @GPIO_PIN_NUMBER.
+ *
+ * @field           - GPIO_PinDir: Specifies the direction of the GPIO pin,
+ *                    defined by possible modes from @GPIO_PIN_DIR.
+ *
+ * @field           - GPIO_PinPuPd: Specifies the pull-up or pull-down configuration,
+ *                    defined by possible modes from @GPIO_PIN_PUPD.
+ *
+ * @field           - GPIO_PinState: Specifies the initial state of the pin,
+ *                    defined by possible modes from @GPIO_PIN_STATE.
+ *
+ * @field           - GPIO_InpBuf: Specifies the status of the input buffer,
+ *                    defined by possible modes from @GPIO_INP_BUF.
+ *
+ * @Note            - none
+ *
+ ********************************************************************************************
  */
 
 typedef struct
 {
-	uint8_t GPIO_PinNumber; 	/*!< possible modes from @GPIO_PIN_NUMBER >*/
-	uint8_t GPIO_PinDir;		/*!< possible modes from @GPIO_PIN_DIR >*/
-	uint8_t GPIO_PinPuPd;		/*!< possible modes from @GPIO_PIN_PUPD >*/
-	uint8_t GPIO_PinState;		/*!< possible modes from @GPIO_PIN_STATE >*/
-	uint8_t GPIO_InpBuf;		/*!< possible modes from @GPIO_INP_BUF >*/
+	uint8_t GPIO_PinNumber;
+	uint8_t GPIO_PinDir;
+	uint8_t GPIO_PinPuPd;
+	uint8_t GPIO_PinState;
+	uint8_t GPIO_InpBuf;
 }GPIO_PinConfig_t;
 
 
-/*
- * This is a Handle structure for a GPIO pin
- */
+/**************************************************************************
+ * @struct          - GPIO_Handle_t
+ *
+ * @brief           - Handle structure for a GPIO pin, containing the base
+ *                    address of the GPIO port and the configuration settings
+ *                    for the associated pin.
+ *
+ * @field           - pGPIOx: Pointer to the base address of the GPIO port 
+ *                    to which the pin belongs (e.g., PORTA, PORTB).
+ *
+ * @field           - GPIO_PinConfig: Holds the configuration settings for 
+ *                    the GPIO pin, encapsulated in the GPIO_PinConfig_t structure.
+ *
+ * @Note            - none
+ *
+ **************************************************************************/
 
 typedef struct
 {
-	GPIOP_RegDef_t *pGPIOx; /* hold the base address of the GPIO port which the pin belongs */
-	GPIO_PinConfig_t GPIO_PinConfig; /* this holds GPIO pin configuration settings */
+	GPIOP_RegDef_t *pGPIOx;
+	GPIO_PinConfig_t GPIO_PinConfig; 
 }GPIO_Handle_t;
 
 /*
@@ -108,7 +160,7 @@ typedef struct
  * Init and De-init
  */
 void GPIO_Init(GPIO_Handle_t *pGPIOHandle);
-void GPIO_DeInit(GPIOP_RegDef_t *pGPIOx);
+void GPIO_DeInit(GPIOP_RegDef_t *pGPIOx); // not implemented yet
 
 
 /*
@@ -118,4 +170,4 @@ uint8_t  GPIO_ReadFromInputPin(GPIOP_RegDef_t *pGPIOx, uint8_t PinNumber);
 void GPIO_WriteToOutputPin(GPIOP_RegDef_t *pGPIOx, uint8_t PinNumber, uint8_t value);
 void GPIO_ToggleOutputPin(GPIOP_RegDef_t *pGPIOx, uint8_t PinNumber);
 
-#endif /* INC_GPIO_H_ */
+#endif /* INC_DRIVER_GPIO_H_ */
