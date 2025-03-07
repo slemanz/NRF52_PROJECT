@@ -9,7 +9,7 @@
  * 		reading, writing, toggling, and configuring pin modes, pull-up/down settings.
  *
  * 		Note:
- * 		For function definitions and detailed API behavior, see the implementation file: 
+ * 		For function definitions and detailed driver behavior, see the implementation file: 
  * 		driver_gpio.c.
  * ==========================================================================================
  */
@@ -152,7 +152,7 @@ typedef struct
 #define GPIO_INP_BUF_DISCONNECT		1
 
 /********************************************************************************************
- * 								APIs supported by this driver
+ *							APIs supported by this driver
  * 					for more information check the function definitions
  ********************************************************************************************/
 
