@@ -2,7 +2,7 @@
  * =====================================================================
  *              File:           main.c
  *              Author:         William Sleman
- *              Description:    main function file
+ *              Description:    main source file
  * =====================================================================
  */
 #include <stdio.h>

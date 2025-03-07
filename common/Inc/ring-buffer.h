@@ -1,3 +1,10 @@
+/*
+ * =====================================================================
+ *              File:           ring-buffer.h
+ *              Author:         William Sleman
+ *              Description:    ring-buffer header file
+ * =====================================================================
+ */
 #ifndef INC_RING_BUFFER_H_
 #define INC_RING_BUFFER_H_
 

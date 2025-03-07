@@ -1,3 +1,10 @@
+/*
+ * =====================================================================
+ *              File:           ring-buffer.c
+ *              Author:         William Sleman
+ *              Description:    ring-buffer source file
+ * =====================================================================
+ */
 #include "ring-buffer.h"
 
 void ring_buffer_setup(ring_buffer_t *rb, uint8_t *buffer, uint32_t size)

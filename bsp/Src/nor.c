@@ -1,3 +1,10 @@
+/*
+ * =====================================================================
+ *              File:           nor.c
+ *              Author:         William Sleman
+ *              Description:    nor source file
+ * =====================================================================
+ */
 #include "nor.h"
 #include "driver_spi.h"
 #include "driver_gpio.h"

@@ -1,3 +1,10 @@
+/*
+ * =====================================================================
+ *              File:           storage.c
+ *              Author:         William Sleman
+ *              Description:    storage source file
+ * =====================================================================
+ */
 #include "storage.h"
 #include "nor.h"
 #include <stdio.h>
