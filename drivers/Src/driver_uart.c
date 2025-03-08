@@ -1,9 +1,42 @@
+/*
+ * ==========================================================================================
+ *      File: driver_uart.c
+ *      Author: William Sleman
+ *
+ *      Description:
+ *      This source file contains the implementation of functions for configuring and 
+ *      managing the Universal Asynchronous Receiver-Transmitter (UART). It includes 
+ *      functions for initializing the UART peripheral, transmitting and receiving data, 
+ *      and managing UART interrupts. The implementation supports various modes of 
+ *      operation, including only transmission, only reception, and both.
+ *
+ *      Note:
+ *      For details on the structures and function prototypes, see the header file: 
+ *      driver_uart.h.
+ * ==========================================================================================
+ */
 #include "driver_uart.h"
 #include "ring-buffer.h"
 
 #define RING_BUFFER_SIZE		(128)
 static ring_buffer_t rb = {0U};
 static uint8_t data_buffer[RING_BUFFER_SIZE] = {0U};
+
+
+/*
+ ********************************************************************************************
+ * @fn              - UART_PeriClockControl
+ *
+ * @brief           - Enables or disables the clock for the UART peripheral.
+ *
+ * @param[in]       - EnorDi: Flag indicating whether to enable (ENABLE) or disable (DISABLE) the clock.
+ *
+ * @return          - none
+ *
+ * @Note            - none
+ *
+ ********************************************************************************************
+ */
 
 void UART_PeriClockControl(uint8_t EnorDi)
 {
@@ -15,6 +48,26 @@ void UART_PeriClockControl(uint8_t EnorDi)
         UART->ENABLER = 0;
     }
 }
+
+
+/*
+ ********************************************************************************************
+ * @fn              - UART_Init
+ *
+ * @brief           - Initializes the UART peripheral based on the provided configuration
+ *                    settings in the UART_Handle_t structure, including pin configuration 
+ *                    and UART mode.
+ *
+ * @param[in]       - pUARTHandle: Pointer to a UART_Handle_t structure containing the 
+ *                    UART configuration settings.
+ *
+ * @return          - none
+ *
+ * @Note            - This function sets up pin multiplexing based on the mode (TX, RX, or TXRX)
+ *                    and initializes the peripheral according to the specified baud rate.
+ *
+ ********************************************************************************************
+ */
 
 void UART_Init(UART_Handle_t* pUARTHandle)
 {
@@ -66,16 +119,63 @@ void UART_Init(UART_Handle_t* pUARTHandle)
     }
 }
 
+
+/*
+ ********************************************************************************************
+ * @fn              - uart_write_byte
+ *
+ * @brief           - Writes a single byte to the UART transmit data register.
+ *
+ * @param[in]       - ch: The byte to be transmitted.
+ *
+ * @return          - none
+ *
+ * @Note            - This function waits for the TXDRDY event to ensure readiness for transmission.
+ *
+ ********************************************************************************************
+ */
+
 void uart_write_byte(uint8_t ch)
 {
     UART->TXD = (ch);
     event_pooling(&UART->EVENTS_TXDRDY);
 }
 
+
+/*
+ ********************************************************************************************
+ * @fn              - uart_read_byte
+ *
+ * @brief           - Reads a single byte from the UART receive data register.
+ *
+ * @return          - uint8_t: The byte received from the UART.
+ *
+ * @Note            - none
+ *
+ ********************************************************************************************
+ */
+
 uint8_t uart_read_byte(void)
 {
     return (uint8_t)UART->RXD;
 }
+
+/*
+ ********************************************************************************************
+ * @fn              - uart_write
+ *
+ * @brief           - Writes a buffer of bytes to the UART transmit data register.
+ *
+ * @param[in]       - buffer: Pointer to the buffer containing the data to be transmitted.
+ *
+ * @param[in]       - Len: The number of bytes to write from the buffer.
+ *
+ * @return          - none
+ *
+ * @Note            - The function sequentially writes each byte from the buffer.
+ *
+ ********************************************************************************************
+ */
 
 void uart_write(uint8_t* buffer, uint32_t Len)
 {
