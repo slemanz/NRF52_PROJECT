@@ -15,6 +15,13 @@
 #define BUTTON1_PORT           GPIOP1
 #define BUTTON1_PIN            GPIO_PIN_NO_2
 
+// UART
+#define UART_TX_PORT           GPIOP1
+#define UART_TX_PIN            GPIO_PIN_NO_10
+
+#define UART_RX_PORT           GPIOP1
+#define UART_RX_PIN            GPIO_PIN_NO_3
+
 // SPI
 #define SPI_PORT            GPIOP1
 #define SPI_PIN_MISO        GPIO_PIN_NO_2
