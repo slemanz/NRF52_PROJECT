@@ -185,26 +185,99 @@ void uart_write(uint8_t* buffer, uint32_t Len)
     }
 }
 
+
+/*
+ ********************************************************************************************
+ * @fn              - uart_tx_start
+ *
+ * @brief           - Starts UART transmission.
+ *
+ * @return          - none
+ *
+ * @Note            - none
+ *
+ ********************************************************************************************
+ */
+
 void uart_tx_start(void)
 {
     UART->TASKS_STARTTX |= 1;
 }
+
+
+/*
+ ********************************************************************************************
+ * @fn              - uart_tx_stop
+ *
+ * @brief           - Stops UART transmission.
+ *
+ * @return          - none
+ *
+ * @Note            - none
+ *
+ ********************************************************************************************
+ */
 
 void uart_tx_stop(void)
 {
     UART->TASKS_STOPTX |= 1;
 }
 
+
+/*
+ ********************************************************************************************
+ * @fn              - uart_rx_start
+ *
+ * @brief           - Starts UART reception.
+ *
+ * @return          - none
+ *
+ * @Note            - none
+ *
+ ********************************************************************************************
+ */
+
 void uart_rx_start(void)
 {
     UART->TASKS_STARTRX |= 1;
 }
+
+
+/*
+ ********************************************************************************************
+ * @fn              - uart_rx_stop
+ *
+ * @brief           - Stops UART reception.
+ *
+ * @return          - none
+ *
+ * @Note            - none
+ *
+ ********************************************************************************************
+ */
 
 void uart_rx_stop(void)
 {
     UART->TASKS_STOPRX |= 1;
 }
 
+
+/*
+ ********************************************************************************************
+ * @fn              - uart_interruptConfig
+ *
+ * @brief           - Configures UART interrupts by enabling or disabling specified interrupts.
+ *
+ * @param[in]       - interrupts: The interrupts to configure.
+ *
+ * @param[in]       - EnorDi: Flag indicating whether to enable (ENABLE) or disable (DISABLE) the interrupts.
+ *
+ * @return          - none
+ *
+ * @Note            - none
+ *
+ ********************************************************************************************
+ */
 
 void uart_interruptConfig(uint32_t interrupts, uint8_t EnorDi)
 {
@@ -218,11 +291,41 @@ void uart_interruptConfig(uint32_t interrupts, uint8_t EnorDi)
 }
 
 
+/*
+ ********************************************************************************************
+ * @fn              - uart_data_available
+ *
+ * @brief           - Checks if data is available in the UART buffer.
+ *
+ * @return          - bool: Returns true if data is available, false otherwise.
+ *
+ * @Note            - none
+ *
+ ********************************************************************************************
+ */
+
 bool uart_data_available(void)
 {
     return !ring_buffer_empty(&rb);
 }
 
+
+/*
+ ********************************************************************************************
+ * @fn              - uart_rcv
+ *
+ * @brief           - Receives a specified number of bytes into a provided buffer.
+ *
+ * @param[in]       - data: Pointer to the buffer where received data will be stored.
+ *
+ * @param[in]       - length: The number of bytes to receive.
+ *
+ * @return          - uint32_t: The number of bytes actually received.
+ *
+ * @Note            - If less data is received than requested, the function returns the actual count.
+ *
+ ********************************************************************************************
+ */
 uint32_t uart_rcv(uint8_t *data, const uint32_t length)
 {
     if(length == 0)
@@ -241,6 +344,20 @@ uint32_t uart_rcv(uint8_t *data, const uint32_t length)
 	return length;
 }
 
+
+/*
+ ********************************************************************************************
+ * @fn              - uart_rcv_byte
+ *
+ * @brief           - Receives a single byte from the UART buffer.
+ *
+ * @return          - uint8_t: The byte received.
+ *
+ * @Note            - none
+ *
+ ********************************************************************************************
+ */
+
 uint8_t uart_rcv_byte(void)
 {
     uint8_t byte = 0;
@@ -251,6 +368,18 @@ uint8_t uart_rcv_byte(void)
 }
 
 
+/*
+ ********************************************************************************************
+ * @fn              - UART_IRQHandler
+ *
+ * @brief           - UART interrupt handler, invoked on UART events.
+ *
+ * @return          - none
+ *
+ * @Note            - This function will handle incoming data and store it in a ring buffer.
+ *
+ ********************************************************************************************
+ */
 
 void UART_IRQHandler(void)
 {
