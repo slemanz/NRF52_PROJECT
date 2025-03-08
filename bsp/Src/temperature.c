@@ -8,7 +8,7 @@
 #include "temperature.h"
 #include "driver_twi.h"
 
-uint8_t temperature_get(void)
+uint16_t temperature_get(void)
 {
     uint8_t temperatureAddress = 0x4F;
     int8_t twi_read[2];

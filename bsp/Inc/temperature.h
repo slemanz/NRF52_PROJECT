@@ -10,7 +10,7 @@
 
 #include <stdint.h>
 
-uint8_t temperature_get(void);
+uint16_t temperature_get(void);
 
 
 #endif /* INC_TEMPERATURE_H_ */

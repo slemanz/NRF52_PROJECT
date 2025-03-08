@@ -30,6 +30,13 @@
 #define CS_PORT             GPIOP0
 #define CS_PIN              GPIO_PIN_NO_27
 
+// TWI 
+#define TWI_SCL_PORT           GPIOP0
+#define TWI_SCL_PIN            GPIO_PIN_NO_2
+
+#define TWI_SDA_PORT           GPIOP0
+#define TWI_SDA_PIN            GPIO_PIN_NO_31
+
 void system_init(void);
 
 uint64_t system_get_ticks(void);
