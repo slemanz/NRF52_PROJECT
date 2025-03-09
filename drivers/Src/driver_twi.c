@@ -48,5 +48,16 @@ void TWI_MasterReceiveData(TWI_RegDef_t *pTWIx, uint8_t addr, uint8_t *pRxBuffer
 
     pTWIx->EVENTS_STOPPED = 0;
     pTWIx->TASKS_STARTTX = 1;
-    while (pTWIx->EVENTS_STOPPED == 0);
+    while (pTWIx->EVENTS_STOPPED == 0)
+    {
+        if(pTWIx->EVENTS_ERROR & (1 << 0))
+        {
+            if(pTWIx->ERRORSRC & (1 << 1))
+            {
+                pTWIx->ERRORSRC |= (1 << 1);
+            }
+            pTWIx->EVENTS_ERROR = 0;
+            break;
+        }
+    }
 }
