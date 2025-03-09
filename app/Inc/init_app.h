@@ -23,19 +23,26 @@
 #define UART_RX_PIN            GPIO_PIN_NO_3
 
 // SPI
-#define SPI_PORT            GPIOP1
-#define SPI_PIN_MISO        GPIO_PIN_NO_2
-#define SPI_PIN_MOSI        GPIO_PIN_NO_8
-#define SPI_PIN_SCK         GPIO_PIN_NO_1
-#define CS_PORT             GPIOP0
-#define CS_PIN              GPIO_PIN_NO_27
+#define CS_PORT             GPIOP1
+#define CS_PIN              GPIO_PIN_NO_8
+
+#define SPI_PORT_MISO       GPIOP1
+#define SPI_PIN_MISO        GPIO_PIN_NO_1
+
+#define SPI_PORT_SCK        GPIOP1
+#define SPI_PIN_SCK         GPIO_PIN_NO_2
+
+#define SPI_PORT_MOSI       GPIOP0
+#define SPI_PIN_MOSI        GPIO_PIN_NO_27
+
+
 
 // TWI 
 #define TWI_SCL_PORT           GPIOP0
-#define TWI_SCL_PIN            GPIO_PIN_NO_2
+#define TWI_SCL_PIN            GPIO_PIN_NO_23
 
-#define TWI_SDA_PORT           GPIOP0
-#define TWI_SDA_PIN            GPIO_PIN_NO_31
+#define TWI_SDA_PORT           GPIOP1
+#define TWI_SDA_PIN            GPIO_PIN_NO_14
 
 void system_init(void);
 

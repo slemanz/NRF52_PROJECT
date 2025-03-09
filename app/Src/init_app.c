@@ -87,25 +87,6 @@ static void system_setupUart(void)
 
 static void system_setupSpi(void)
 {
-    GPIO_Handle_t SpiPins;
-    SpiPins.pGPIOx = SPI_PORT;
-    SpiPins.GPIO_PinConfig.GPIO_PinNumber = SPI_PIN_MISO;
-    SpiPins.GPIO_PinConfig.GPIO_PinDir = GPIO_DIR_IN;
-    SpiPins.GPIO_PinConfig.GPIO_PinPuPd = GPIO_PIN_NO_PUPD;
-    SpiPins.GPIO_PinConfig.GPIO_InpBuf = GPIO_INP_BUF_CONNECT;
-    GPIO_Init(&SpiPins);
-
-    SpiPins.GPIO_PinConfig.GPIO_PinNumber = SPI_PIN_SCK;
-    SpiPins.GPIO_PinConfig.GPIO_PinDir = GPIO_DIR_OUT;
-    SpiPins.GPIO_PinConfig.GPIO_PinPuPd = GPIO_PIN_NO_PUPD;
-    SpiPins.GPIO_PinConfig.GPIO_PinState = GPIO_PIN_RESET;
-    GPIO_Init(&SpiPins);
-
-    SpiPins.GPIO_PinConfig.GPIO_InpBuf = GPIO_INP_BUF_DISCONNECT;
-    SpiPins.GPIO_PinConfig.GPIO_PinNumber = SPI_PIN_MOSI;
-    GPIO_Init(&SpiPins);
-
-
     GPIO_Handle_t CsPin;
     CsPin.pGPIOx = CS_PORT;
     CsPin.GPIO_PinConfig.GPIO_PinDir = GPIO_DIR_OUT;
@@ -119,11 +100,11 @@ static void system_setupSpi(void)
     SPIHandle.pSPIx = SPI0;
     SPIHandle.SPI_Config.CPHA = SPI_CPHA_LOW;
     SPIHandle.SPI_Config.CPOL = SPI_CPOL_LOW;
-    SPIHandle.SPI_Config.Frequency = SPI_FREQUENCY_K250;
+    SPIHandle.SPI_Config.Frequency = SPI_FREQUENCY_K125;
 
-    SPIHandle.MISO.port = SPI_PORT;
-    SPIHandle.MOSI.port = SPI_PORT;
-    SPIHandle.SCK.port  = SPI_PORT;
+    SPIHandle.MISO.port = SPI_PORT_MISO;
+    SPIHandle.MOSI.port = SPI_PORT_MOSI;
+    SPIHandle.SCK.port  = SPI_PORT_SCK;
 
     SPIHandle.MISO.pin = SPI_PIN_MISO;
     SPIHandle.MOSI.pin = SPI_PIN_MOSI;
@@ -147,11 +128,26 @@ static void system_setupSaadc(void)
     SAADCHandle.PSELP   = SAADC_PSEL_AIN2;
     SAADCHandle.PSELN   = SAADC_PSEL_NC;
 
-    saadc_init(&SAADCHandle);
+    (void)SAADCHandle;
+    ///saadc_init(&SAADCHandle);
 }
 
 static void system_setupTwi(void)
 {
+      GPIO_Handle_t TWIPins;
+    // SCL
+    TWIPins.pGPIOx = GPIOP0;
+    TWIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_23;
+    TWIPins.GPIO_PinConfig.GPIO_PinDir = GPIO_DIR_IN;
+    TWIPins.GPIO_PinConfig.GPIO_InpBuf = GPIO_INP_BUF_CONNECT;
+    TWIPins.GPIO_PinConfig.GPIO_PinPuPd = GPIO_PIN_NO_PUPD;
+    GPIO_Init(&TWIPins);
+
+    // SDA
+    TWIPins.pGPIOx = GPIOP1;
+    TWIPins.GPIO_PinConfig.GPIO_PinNumber = GPIO_PIN_NO_14;
+    GPIO_Init(&TWIPins);
+
     TWI_Handle_t TWIHandle;
     TWIHandle.config.FREQUENCY = TWI_FREQUENCY_K100;
     TWIHandle.pTWIx = TWI1;

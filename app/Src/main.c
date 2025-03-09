@@ -25,12 +25,13 @@ int main(void)
     for(uint32_t i = 0; i < 500000; i++) __asm("NOP"); // stable the system
     printf("Init system ok...\n\r");
     
-    printf("Temperature %d\n", 100);
-    printf("Temperature %d\n", temperature_get());
-    while(1);
+    printf("Temperature %d C\n", temperature_get()/10);
+
+    /*
     saadc_selectInp(SAADC_PSEL_AIN2);
     uint16_t adc_value = saadc_read();
     printf("Input: %d\n", (adc_value));
+    */
 
     //storage_clean();
     storage_updateCount();

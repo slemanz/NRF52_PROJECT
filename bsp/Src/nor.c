@@ -8,6 +8,7 @@
 #include "nor.h"
 #include "driver_spi.h"
 #include "driver_gpio.h"
+#include "init_app.h"
 
 
 //#define NOR_DEBUG
@@ -23,8 +24,8 @@
 #endif
 
 #define NOR_SPI                 SPI0
-#define NOR_CS_PORT             GPIOP0
-#define NOR_CS_PIN              GPIO_PIN_NO_27
+#define NOR_CS_PORT             CS_PORT
+#define NOR_CS_PIN              CS_PIN
 
 static void _nor_cs_assert(void)
 {
