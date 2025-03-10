@@ -30,6 +30,6 @@ void TWI_Init(TWI_Handle_t *pTWIHandle);
  */
 
 void TWI_MasterSendData(TWI_RegDef_t *pTWIx, uint8_t *pTxBuffer, uint32_t Len, uint8_t SlaveAddr);
-void TWI_MasterReceiveData(TWI_RegDef_t *pTWIx, uint8_t addr, uint8_t *pRxBuffer, uint8_t Len, uint8_t SlaveAddr);
+void TWI_MasterReceiveData(TWI_RegDef_t *pTWIx, uint8_t *pRxBuffer, uint8_t Len, uint8_t SlaveAddr);
 
 #endif /* DRIVER_I2C_H_ */
