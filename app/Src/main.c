@@ -25,21 +25,10 @@ int main(void)
     for(uint32_t i = 0; i < 500000; i++) __asm("NOP"); // stable the system
     printf("Init system ok...\n\r");
 
-    uint8_t teste[10];
 
-
-    TWI_MasterReceiveData(TWI1, teste, 4, 0x44);
-    uint16_t temperature_value = (((teste[2] << 8) | (teste[3])) >> 2);
-    printf("Temperatura: %d C\n", temperature_value);
-
-    TWI_MasterReceiveData(TWI1, teste, 4, 0x44);
-    printf("%d, %d, %d, %d \n", teste[0], teste[1], teste[2], teste[3]);
-    printf("%d, %d, %X, %X \n", teste[0], teste[1], teste[2], teste[3]);
-    
-    temperature_value = (((teste[2] << 8) | (teste[3]) ) >> 2 );
-    float temperatura = ((temperature_value/16383.0)*165.0 - 40.0)*10;
-    temperature_value = (int16_t)temperatura;
-    printf("Temperatura: %d C\n", temperature_value);
+    uint16_t temperature_value = 0;
+    temperature_value = temperature_get();
+    printf("Temperatura: %d.%d C\n", temperature_value/10, temperature_value%10);
     
 
     /*
@@ -76,9 +65,7 @@ int main(void)
 
         if((system_get_ticks() - start_time2) >= 120000) 
         {
-            TWI_MasterReceiveData(TWI1, teste, 4, 0x44);
-            temperatura = ((temperature_value/16383.0)*165.0 - 40.0)*10;
-            temperature_value = (int16_t)temperatura;
+            temperature_value = temperature_get();
             printf("Temperatura: %d.%d C\n", temperature_value/10, temperature_value%10);
             //storage_temperatureAppend(temperature_get());
             start_time2 = system_get_ticks();
