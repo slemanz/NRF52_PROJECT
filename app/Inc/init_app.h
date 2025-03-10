@@ -39,10 +39,10 @@
 
 // TWI 
 #define TWI_SDA_PORT           GPIOP0
-#define TWI_SDA_PIN            GPIO_PIN_NO_31
+#define TWI_SDA_PIN            GPIO_PIN_NO_14
 
 #define TWI_SCL_PORT           GPIOP0
-#define TWI_SCL_PIN            GPIO_PIN_NO_2
+#define TWI_SCL_PIN            GPIO_PIN_NO_15
 
 
 void system_init(void);
