@@ -38,13 +38,10 @@ int main(void)
     */
 
     //storage_clean();
-    /*
     storage_updateCount();
     uint8_t count_data = storage_getCount();
     printf("Count: %d\n", count_data);
-    while(1);
     storage_temperatureAppend(temperature_get());
-    */
 
 
     while (1)
@@ -63,11 +60,12 @@ int main(void)
         }
         
 
-        if((system_get_ticks() - start_time2) >= 120000) 
+        // append every 10 minutes
+        if((system_get_ticks() - start_time2) >= 600000) 
         {
             temperature_value = temperature_get();
-            printf("Temperatura: %d.%d C\n", temperature_value/10, temperature_value%10);
-            //storage_temperatureAppend(temperature_get());
+            //printf("Temperatura: %d.%d C\n", temperature_value/10, temperature_value%10);
+            storage_temperatureAppend(temperature_value);
             start_time2 = system_get_ticks();
         }
     }
