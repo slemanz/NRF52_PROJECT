@@ -8,10 +8,10 @@
 #include <stdio.h>
 #include "nrf52.h"
 #include "init_app.h"
-#include "nor.h"
-#include "temperature.h"
-#include "cli.h"
-#include "storage.h"
+#include "bsp/nor.h"
+#include "bsp/temperature.h"
+#include "core/cli.h"
+#include "core/storage.h"
 
 int main(void)
  {

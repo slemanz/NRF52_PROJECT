@@ -5,8 +5,8 @@
  *              Description:    storage source file
  * =====================================================================
  */
-#include "storage.h"
-#include "nor.h"
+#include "core/storage.h"
+#include "bsp/nor.h"
 #include <stdio.h>
 
 static uint8_t buffer[STORAGE_BUFFER_SIZE];

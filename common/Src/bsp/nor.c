@@ -5,7 +5,7 @@
  *              Description:    nor source file
  * =====================================================================
  */
-#include "nor.h"
+#include "bsp/nor.h"
 #include "driver_spi.h"
 #include "driver_gpio.h"
 #include "init_app.h"

@@ -5,9 +5,9 @@
  *              Description:    Command Line Interface source file
  * =====================================================================
  */
-#include "cli.h"
-#include "temperature.h"
-#include "storage.h"
+#include "core/cli.h"
+#include "core/storage.h"
+#include "bsp/temperature.h"
 
 static void get_temperature(void);
 static void get_count(void);

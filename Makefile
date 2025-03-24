@@ -11,7 +11,6 @@ OBJCOPY=arm-none-eabi-objcopy
 INCLUDES+= -I app/Inc/
 INCLUDES+= -I drivers/Inc/ 
 INCLUDES+= -I common/Inc/ 
-INCLUDES+= -I bsp/Inc/ 
 INCLUDES+= -I shared/Inc/
 
 
@@ -57,11 +56,11 @@ build/%.o: app/Src/%.c
 build/%.o: drivers/Src/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o build/$(*).o drivers/Src/$(*).c
 
-build/%.o: common/Src/%.c
-	$(CC) $(CFLAGS) $(INCLUDES) -o build/$(*).o common/Src/$(*).c
+build/%.o: common/Src/bsp/%.c
+	$(CC) $(CFLAGS) $(INCLUDES) -o build/$(*).o common/Src/bsp/$(*).c
 
-build/%.o: bsp/Src/%.c
-	$(CC) $(CFLAGS) $(INCLUDES) -o build/$(*).o bsp/Src/$(*).c
+build/%.o: common/Src/core/%.c
+	$(CC) $(CFLAGS) $(INCLUDES) -o build/$(*).o common/Src/core/$(*).c
 
 build/%.o: shared/Src/%.c
 	$(CC) $(CFLAGS) $(INCLUDES) -o build/$(*).o shared/Src/$(*).c

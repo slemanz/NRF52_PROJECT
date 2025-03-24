@@ -5,7 +5,7 @@
  *              Description:    Temperature source file
  * =====================================================================
  */
-#include "temperature.h"
+#include "bsp/temperature.h"
 #include "driver_twi.h"
 #include "init_app.h"
 
