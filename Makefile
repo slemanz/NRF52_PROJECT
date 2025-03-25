@@ -35,8 +35,9 @@ OBJS		+= app/Build/driver_spi.o
 OBJS		+= app/Build/driver_twi.o
 OBJS		+= app/Build/driver_saadc.o
 
-OBJS		+= app/Build/nor.o
-OBJS		+= app/Build/temperature.o
+BSP 		+= app/Build/nor.o
+BSP 		+= app/Build/temperature.o
+BSP 		+= app/Build/led_rgb.o
 
 OBJS		+= app/Build/cli.o
 OBJS		+= app/Build/storage.o
@@ -74,7 +75,7 @@ app/Build/%.o: shared/Src/%.c
 ############################################
 # Finals
 
-app/Build/$(TARGET).elf: $(OBJS) $(COMMON)
+app/Build/$(TARGET).elf: $(OBJS) $(COMMON) $(BSP)
 	$(CC) $(LDFLAGS) -o $@ $^
 	$(OBJCOPY) -O binary app/Build/$(TARGET).elf app/Build/$(TARGET).bin
 
