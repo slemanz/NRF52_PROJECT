@@ -81,7 +81,7 @@ app/Build/$(TARGET).elf: $(OBJS) $(COMMON) $(BSP)
 
 load: 
 	openocd -f interface/jlink.cfg -c "transport select swd" -f target/nrf52.cfg -c init -c "reset init" \
-	-c "flash write_image erase build/$(TARGET).elf" -c "reset run" -c shutdown
+	-c "flash write_image erase app/Build/$(TARGET).elf" -c "reset run" -c shutdown
 
 reset:
 	openocd -f interface/jlink.cfg -c "transport select swd" -f target/nrf52.cfg -c init -c "reset run" -c shutdown

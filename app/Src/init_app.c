@@ -134,26 +134,6 @@ static void system_setupSaadc(void)
 
 static void system_setupTwi(void)
 {
-    /*
-    GPIO_Handle_t TWIPins;
-    // SCL
-    TWIPins.pGPIOx = TWI_SCL_PORT;
-    TWIPins.GPIO_PinConfig.GPIO_PinNumber = TWI_SCL_PIN;
-    TWIPins.GPIO_PinConfig.GPIO_PinDir = GPIO_DIR_IN;
-    TWIPins.GPIO_PinConfig.GPIO_InpBuf = GPIO_INP_BUF_CONNECT;
-    TWIPins.GPIO_PinConfig.GPIO_PinPuPd = GPIO_PIN_NO_PUPD;
-    GPIO_Init(&TWIPins);
-    TWI_SCL_PORT->PIN_CNF[TWI_SCL_PIN] &= ~(0x7 << 8);
-    TWI_SCL_PORT->PIN_CNF[TWI_SCL_PIN] |=  (0x6 << 8);
-
-    // SDA
-    TWIPins.pGPIOx = TWI_SDA_PORT;
-    TWIPins.GPIO_PinConfig.GPIO_PinNumber = TWI_SDA_PIN;
-    GPIO_Init(&TWIPins);
-    TWI_SDA_PORT->PIN_CNF[TWI_SDA_PIN] &= ~(0x7 << 8);
-    TWI_SDA_PORT->PIN_CNF[TWI_SDA_PIN] |=  (0x6 << 8);
-    */
-
     TWI_Handle_t TWIHandle;
     TWIHandle.config.FREQUENCY = TWI_FREQUENCY_K100;
     TWIHandle.pTWIx = TWI1;
