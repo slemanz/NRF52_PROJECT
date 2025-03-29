@@ -1,6 +1,7 @@
 #include "core/status.h"
 #include "core/ticks.h"
 #include "bsp/led_rgb.h"
+#include "driver_saadc.h"
 
 static status_e status = STATUS_OK;
 static status_e last_status = STATUS_OK;
@@ -36,6 +37,15 @@ static void status_ledUpdate()
 
 void status_update(void)
 {
+    saadc_selectInp(SAADC_PSEL_AIN1);
+    uint16_t adc_value = saadc_read();
+    if(adc_value >= 500)
+    {
+        status = STATUS_OK;
+    }else
+    {
+        status = STATUS_FAULT;
+    }
     status_ledUpdate();
 }
 

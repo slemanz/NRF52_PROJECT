@@ -28,7 +28,7 @@ uint8_t storage_getCount(void);
 void    storage_updateCount(void);
 
 void storage_clean(void);
-void storage_temperatureAppend(uint16_t temperature_value);
+void storage_temperatureAppend(void);
 void storage_temperatureExtract(void);
 
 #endif /* STORAGE_H_ */
