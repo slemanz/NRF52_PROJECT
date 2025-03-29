@@ -10,7 +10,7 @@
 #include "init_app.h"
 #include "core/cli.h"
 #include "core/storage.h"
-#include "bsp/nor.h"
+#include "core/status.h"
 #include "bsp/temperature.h"
 #include "bsp/led_rgb.h"
 
@@ -33,7 +33,10 @@ int main(void)
     
 
     led_rgb_setColor(LED_RED);
-    while(1);
+    while(1)
+    {
+        while(status_read() != STATUS_OK);
+    }
     /*
     saadc_selectInp(SAADC_PSEL_AIN2);
     uint16_t adc_value = saadc_read();
