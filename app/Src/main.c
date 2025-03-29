@@ -8,10 +8,11 @@
 #include <stdio.h>
 #include "nrf52.h"
 #include "init_app.h"
-#include "bsp/nor.h"
-#include "bsp/temperature.h"
 #include "core/cli.h"
 #include "core/storage.h"
+#include "bsp/nor.h"
+#include "bsp/temperature.h"
+#include "bsp/led_rgb.h"
 
 int main(void)
  {
@@ -31,6 +32,8 @@ int main(void)
     printf("Temperatura: %d.%d C\n", temperature_value/10, temperature_value%10);
     
 
+    led_rgb_setColor(LED_RED);
+    while(1);
     /*
     saadc_selectInp(SAADC_PSEL_AIN2);
     uint16_t adc_value = saadc_read();
