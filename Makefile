@@ -41,6 +41,8 @@ BSP 		+= app/Build/led_rgb.o
 
 OBJS		+= app/Build/cli.o
 OBJS		+= app/Build/storage.o
+OBJS		+= app/Build/ticks.o
+OBJS		+= app/Build/status.o
 
 COMMON 		+= app/Build/ring-buffer.o
 

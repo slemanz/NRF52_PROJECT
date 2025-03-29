@@ -1,5 +1,6 @@
 #include "init_app.h"
 #include "nrf52.h"
+#include "core/ticks.h"
 
 static volatile uint64_t ticks = 0;
 
@@ -29,6 +30,7 @@ uint64_t system_get_ticks(void)
 
 void SysTick_Handler(void)
 {
+    ticks_increment();
     ticks++;
 }
 
