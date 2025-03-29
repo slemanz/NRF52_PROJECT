@@ -61,6 +61,7 @@ static void system_setupGpio(void)
 
     ledPins.GPIO_PinConfig.GPIO_PinNumber = LED_BUILT_IN;
     GPIO_Init(&ledPins);
+    GPIO_WriteToOutputPin(GPIOP0, LED_BUILT_IN, GPIO_PIN_SET);
 
     GPIO_Handle_t inputPin;
     inputPin.pGPIOx = BUTTON1_PORT;
@@ -130,8 +131,7 @@ static void system_setupSaadc(void)
     SAADCHandle.PSELP   = SAADC_PSEL_AIN2;
     SAADCHandle.PSELN   = SAADC_PSEL_NC;
 
-    (void)SAADCHandle;
-    ///saadc_init(&SAADCHandle);
+    saadc_init(&SAADCHandle);
 }
 
 static void system_setupTwi(void)
