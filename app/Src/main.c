@@ -12,32 +12,26 @@
 #include "core/ticks.h"
 #include "core/status.h"
 
-#include "driver_uart.h"
 
 int main(void)
  {
-    for(uint32_t i = 0; i < 1000000; i++) __asm("NOP"); // stable the system
+    system_waitStable();
     system_init();
 
-    uint64_t start_time = ticks_get();
 
-    for(uint32_t i = 0; i < 500000; i++) __asm("NOP"); // stable the system
+    system_waitStable();
     printf("Init system ok...\n\r");
 
     //storage_clean();
     storage_updateCount();
     storage_temperatureAppend();
 
+    uint64_t start_time = ticks_get();
     while(1)
     {
         while(status_read() != STATUS_OK);
+        command_update();
 
-        if(uart_data_available())
-        {
-                uint8_t ch = uart_rcv_byte();
-                uart_write_byte(ch);
-                ProcessCommands(ch);
-        }
 
         // append every 10 minutes
         if((system_get_ticks() - start_time) >= 600000) 

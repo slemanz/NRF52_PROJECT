@@ -24,5 +24,6 @@ typedef struct
 }commandStruct_t;
 
 void ProcessCommands(uint8_t c);
+void command_update(void);
 
 #endif /* CLI_H_ */

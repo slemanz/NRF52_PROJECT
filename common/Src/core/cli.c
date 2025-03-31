@@ -9,6 +9,8 @@
 #include "core/storage.h"
 #include "bsp/temperature.h"
 
+#include "driver_uart.h"
+
 static void get_temperature(void);
 static void get_count(void);
 static void clear(void);
@@ -53,6 +55,16 @@ void ProcessCommands(uint8_t c)
     } else if (idx < CLI_BUFFER_SIZE)
     {
         inputBuffer[idx++] = (char)c; // Store character
+    }
+}
+
+void command_update(void)
+{
+    if(uart_data_available())
+    {
+            uint8_t ch = uart_rcv_byte();
+            uart_write_byte(ch);
+            ProcessCommands(ch);
     }
 }
 

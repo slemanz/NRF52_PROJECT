@@ -12,6 +12,10 @@ static void system_setupSpi(void);
 static void system_setupSaadc(void);
 static void system_setupTwi(void);
 
+void system_waitStable(void)
+{
+    for(uint32_t i = 0; i < 1000000; i++) __asm("NOP");
+}
 
 void system_init(void)
 {

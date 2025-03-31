@@ -45,6 +45,7 @@
 #define TWI_SCL_PIN            GPIO_PIN_NO_15
 
 
+void system_waitStable(void);
 void system_init(void);
 
 uint64_t system_get_ticks(void);
