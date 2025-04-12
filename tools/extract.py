@@ -1,5 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
+from serial_app import serialApp
+
+ser = serialApp()
 
 matriz_dados = [
         [1, 2, 3, 4],        
@@ -36,6 +39,11 @@ def plot_conjunto(matriz, indice):
     plt.show()
 
 def main():
+    #ser.update_port()
+    ser.serial_port.port = '/dev/ttyUSB0'
+    ser.serial_port.baudrate = 115200
+    ser.connect_serial()
+    exit()
     show_conjuntos(matriz_dados)
     
     # User choice
