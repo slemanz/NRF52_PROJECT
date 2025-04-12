@@ -17,7 +17,7 @@ class serialApp ():
         self.serial_port = serial.Serial()
         self.baudrate = [9600,115200]
         self.portlist = []
-        self.serial_port.timeout = 10
+        self.serial_port.timeout = 1
 
     def update_port(self): #updates de portas seriais
         self.portlist =[port.device for port in serial.tools.list_ports.comports()]
@@ -48,3 +48,34 @@ class serialApp ():
     def clear_serial(self):
         self.serial_port.reset_input_buffer()
         self.serial_port.reset_output_buffer()
+
+    def get_count(self):
+        self.clear_serial()
+        self.send_serial("count")
+        message = self.read_serial()
+        message = self.read_serial()
+
+        count = int(((message.decode()).replace("Count: ", "")).replace("\n", ""))
+        return count
+
+    def get_coletas(self):
+        self.send_serial("storage extract")
+
+        values = [[]]
+
+        message = self.read_serial()
+        message = self.read_serial()
+        message = self.read_serial()
+        message = self.read_serial()
+        idx = 0
+        while(message != b''):
+            if(b'=' in message):
+                idx += 1
+                values.append([])
+            else:
+                value = float((message.decode()).replace(" C\n", ""))
+                values[idx].append(value)
+
+            message = self.read_serial()
+
+        return values
