@@ -1,8 +1,3 @@
-# NRF52 Project
+# NINA Project
 
-This repository contains ## Drivers
-
-**[Drivers](drivers/)**
-
-
----
+- [FIRWMWARE](FW/)
